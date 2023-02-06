@@ -5,10 +5,27 @@ const { User } = require("../models/user.model");
 
 const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await User.create({
-      name,
+    const {
+      fullname,
+      username,
       email,
+      password,
+      biography,
+      phone,
+      idFollows,
+      idUserSubcategory,
+      idLocation,
+    } = req.body;
+    const newUser = await User.create({
+      fullname,
+      username,
+      email,
+      password,
+      biography,
+      phone,
+      idFollows,
+      idUserSubcategory,
+      idLocation,
     });
     res.status(201).json({
       status: "success",
