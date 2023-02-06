@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
 import { useForm, Controller } from 'react-hook-form';
 
 function Login() {
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             userName: '',
             email: '',
@@ -11,7 +11,7 @@ function Login() {
     });
 
     const onSubmit = async data => {
-        console.log(data)
+        console.log(data);
         try {
             const req = await fetch('http://localhost:4000/user/login', {
                 method: 'POST',
@@ -26,26 +26,23 @@ function Login() {
     };
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Iniciar sesión</Text>
-            <Controller
-                control={control}
+            <Controller control={control} rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput placeholder='Nombre' style={styles.input} onChangeText={onChange} onBlur={onBlur} value={value} />
+                    <TextInput placeholder='Nombre' style={[styles.input, errors.userName && styles.errorInput]} onChangeText={onChange} onBlur={onBlur} value={value} />
                 )}
                 name='userName'
             />
-            <Controller
-                control={control}
+            <Controller control={control} rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput placeholder='Email' style={styles.input} onChangeText={onChange} onBlur={onBlur} value={value} />
+                    <TextInput placeholder='Email' style={[styles.input, errors.email && styles.errorInput]} onChangeText={onChange} onBlur={onBlur} value={value} />
                 )}
                 name='email'
             />
-            <Controller
-                control={control}
+            <Controller control={control} rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput placeholder='Contraseña' secureTextEntry={true} style={styles.input} onChangeText={onChange} onBlur={onBlur} value={value} />
+                    <TextInput placeholder='Contraseña' secureTextEntry={true} style={[styles.input, errors.password && styles.errorInput]} onChangeText={onChange} onBlur={onBlur} value={value} />
                 )}
                 name='password'
             />
@@ -56,17 +53,18 @@ function Login() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: '100%', 
+        alignItems: 'center'
     },
     input: {
+        width: '90%',
         backgroundColor: '#ededed',
         paddingLeft: 20,
-        paddingRight: 150,
         paddingVertical: 10,
         marginBottom: 10
+    },
+    errorInput: {
+        backgroundColor: '#f2dcdc'
     }
 });
 
