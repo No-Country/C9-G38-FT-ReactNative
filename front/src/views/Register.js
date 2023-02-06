@@ -1,10 +1,8 @@
 import { View } from 'react-native'
-import { Form } from '../features/register/components'
+import Form from '../features/register/components/Form'
 
-export function Register() {
-    return (
-        <View>
-            <Form />
-        </View>
-    )
+const Register = () => {
+    return <Form />
 }
+
+export default Register

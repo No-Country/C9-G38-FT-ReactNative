@@ -2,9 +2,9 @@ import { InputForm } from './InputForm'
 import { useForm } from 'react-hook-form'
 import { Button, ScrollView, Text, View } from 'react-native'
 import { styles } from '../../../styles/register/register.style'
-import { inputs } from '../../../constants/register-form'
+import { inputs } from '../helpers/register-form'
 
-export default () => {
+const Form = () => {
     const {
         control,
         handleSubmit,
@@ -64,3 +64,5 @@ export default () => {
         </ScrollView>
     )
 }
+
+export default Form

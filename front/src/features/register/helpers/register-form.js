@@ -1,6 +1,4 @@
-const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-const PASSWORD_REGEX =
-    /^(?=(?:[^a-z]*[a-z]){2})(?=(?:[^0-9]*[0-9]){2})(?=.*[!-\/:-@\[-`{-~]).{8,}$/i
+import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../helpers/validations'
 
 export const inputs = [
     {
