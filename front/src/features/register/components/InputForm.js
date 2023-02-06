@@ -1,11 +1,20 @@
 import { useController } from 'react-hook-form'
 import { TextInput } from 'react-native'
 
-export function InputForm({ name, control, styles, placeholder }) {
+export function InputForm({
+    name,
+    control,
+    styles,
+    placeholder,
+    rules,
+    secure = false,
+    pwdValidate = false,
+}) {
     const { field } = useController({
         name,
         control,
         defaultValue: '',
+        rules,
     })
 
     return (
@@ -14,6 +23,8 @@ export function InputForm({ name, control, styles, placeholder }) {
             onChangeText={field.onChange}
             style={styles}
             placeholder={placeholder}
+            secureTextEntry={secure}
+            pwdValidate={pwdValidate}
         />
     )
 }
