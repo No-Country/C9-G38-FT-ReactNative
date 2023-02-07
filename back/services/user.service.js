@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 
 class UserService {
   static async create(payload) {
+    //implement encrypt
     const data = await User.create({
       fullname: payload.fullname,
       username: payload.username,

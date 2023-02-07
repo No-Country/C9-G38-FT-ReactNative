@@ -1,51 +1,43 @@
-const User = require ("../models/user.model")
+const User = require('../models/user.model');
+const UserService = require('../services/user.service');
+class AuthController {
+  static async login(req, res) {
+    const { email, password } = req.body;
 
+    const user = await User.findOne({ where: { email } });
 
-// login
-const login = (req, res) => {
-  const { email, password } = req.body;
+    if (!user) {
+      return res.status(400).send({ message: 'user not found' });
+    }
 
-  User.findOne({ where: { email } })
-  .then((user) => {
-    if (!user) return res.sendStatus(401);
+    if (password !== user.password) {
+      //TODO! encrypt password
+      return res.status(401).send({ message: 'password inc' });
+    }
+    res.send({ data: user, token: 'token' });
+  }
 
-    user.validatePassword(password).then((isValid) => {
-      if (!isValid) return res.sendStatus(401);
+  static async register(req, res) {
+    try {
+      //fullname, username, email, password
+      await UserService.create(req.body);
+      res.status(201).json({
+        message: 'register successful',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-      const payload = {
-        id: user.id,
-        name: user.username,
-        lastname: user.fullname,
-        email: user.email,
-      };
+  static async validation() {
+    console.log(req.user);
+    res.send(req.user);
+  }
 
-      // const token = generateToken(payload); //
-      // console.log(token);
-      // res.cookie("token", token);
-
-      res.send(payload); //
-    });
-  });
-};
-
-
-//valida si hay un usuario logueado, pedido de validar token
-const validation = (req, res) => {
-  console.log(req.user);
-  res.send(req.user);
-};
-
-// perfil de usuario una vez que entro
-const perfilUsuario = (req, res) => {  
-  res.send(req.user);
+  static async logout(req, res) {
+    res.clearCookie('token');
+    res.sendStatus(204);
+  }
 }
 
-
-// logout
-const logout = (req, res) => {
-  res.clearCookie("token");
-  res.sendStatus(204);
-};
-
-
-module.exports = { login, validation, logout, perfilUsuario}
+module.exports = AuthController;
