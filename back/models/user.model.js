@@ -60,14 +60,6 @@ const User = db.define("user", {
     allowNull: true,
     defaultValue: "ACTIVE",
   },
-  createdAt: {
-    allowNull: false,
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    allowNull: false,
-    type: DataTypes.DATE,
-  },
 });
 
 module.exports = { User };
