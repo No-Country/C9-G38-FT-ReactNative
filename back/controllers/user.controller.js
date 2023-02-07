@@ -1,5 +1,5 @@
 //Importing models...
-const { User } = require("../models/user.model");
+const { User } = require('../models/user.model');
 
 //Generating middlewares...
 
@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
       idLocation,
     });
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: { newUser },
     });
   } catch (error) {
@@ -39,12 +39,21 @@ const createUser = async (req, res) => {
 const getUserById = (req, res) => {
   const { user } = req;
   return res.status(200).json({
-    status: "success",
+    status: 'success',
     data: { user },
   });
+};
+
+const getAllUsers = async (req, res) => {
   try {
+    const users = await User.findAll({ where: { status: 'ACTIVE' } });
+    res.status(200).json({
+      status: 'success',
+      data: { users },
+    });
   } catch (error) {
     console.log(error);
   }
 };
-module.exports = { createUser, getUserById };
+
+module.exports = { createUser, getAllUsers, getUserById };

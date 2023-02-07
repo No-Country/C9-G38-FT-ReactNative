@@ -5,18 +5,6 @@ dotenv.config();
 
 //CONNECTING TO DATABASE...
 
-//using PostrgreSQL...
-// const db = new Sequelize({
-//   dialect: "postgres",
-//   host: "localhost",
-//   username: "postgres",
-//   password: "cezan27",
-//   port: 5432,
-//   database: "sports",
-//   logging: false,
-// });
-
-//Using MySQL...
 const db = new Sequelize({
   dialect: "mysql",
   host: process.env.DB_HOST,
