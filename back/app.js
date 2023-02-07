@@ -1,5 +1,6 @@
 const express = require("express");
 const { userRouter } = require("./routes/user.routes");
+const { categoryRouter } = require("./routes/categories.routes");
 
 //Inicializing express...
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 
 //Generating enpoints...
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/categories", categoryRouter);
 
 //Handling request errors...
 app.all("*", (req, res) => {
