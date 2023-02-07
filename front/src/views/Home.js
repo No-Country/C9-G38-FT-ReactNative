@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useAuthStore } from '../store/authStore';
 
 const Home = ({ navigation, route }) => {
+
+  const logout = useAuthStore(state => state.logout);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -12,13 +16,12 @@ const Home = ({ navigation, route }) => {
       >
         <Text>PERFIL</Text>
       </TouchableOpacity>
-      <Text
-        onPress={() =>
-          navigation.navigate('Login', { someText: 'PROFILE (DESDE HOME)' })
-        }
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => logout()}
       >
-        Login
-      </Text>
+        <Text>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
