@@ -36,4 +36,16 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({ where: { status: "ACTIVE" } });
+    res.status(200).json({
+      status: "success",
+      data: { users },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { createUser, getAllUsers };
