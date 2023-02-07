@@ -1,7 +1,8 @@
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 
-function Login() {
+function Login({ navigation }) {
   const {
     control,
     handleSubmit,
@@ -9,7 +10,6 @@ function Login() {
   } = useForm({
     defaultValues: {
       userName: '',
-      email: '',
       password: '',
     },
   });
@@ -24,48 +24,36 @@ function Login() {
       });
       const res = await req.json();
       console.log(res);
+      return navigation.navigate('Home');
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Iniciar sesión</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={{ fontSize: 24 }}>Bienvenido</Text>
+      <Text style={{ fontSize: 80, marginBottom: 66 }}>App</Text>
       <Controller
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="Nombre"
+            placeholder='Nombre'
             style={[styles.input, errors.userName && styles.errorInput]}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
           />
         )}
-        name="userName"
+        name='userName'
       />
       <Controller
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="Email"
-            style={[styles.input, errors.email && styles.errorInput]}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-          />
-        )}
-        name="email"
-      />
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Contraseña"
+            placeholder='Contraseña'
             secureTextEntry={true}
             style={[styles.input, errors.password && styles.errorInput]}
             onChangeText={onChange}
@@ -73,10 +61,20 @@ function Login() {
             value={value}
           />
         )}
-        name="password"
+        name='password'
       />
-      <Button title="Enviar" onPress={handleSubmit(onSubmit)} />
-    </View>
+      <View style={styles.login}>
+        <Button title='Iniciar sesión' onPress={handleSubmit(onSubmit)} />
+      </View>
+      <View style={styles.loginGoogle}>
+        <Button title='Iniciar sesión con Google' />
+      </View>
+      <View style={styles.signUp}>
+        <Text>¿No tenés cuenta?</Text>
+        <Text onPress={() => navigation.navigate('Register')}>¡Creemos usa!</Text>
+      </View>
+      <Text>Olvidé mi contraseña.</Text>
+    </SafeAreaView>
   );
 }
 
@@ -84,17 +82,32 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
+    paddingHorizontal: 32,
+    paddingVertical: 72
   },
   input: {
-    width: '90%',
-    backgroundColor: '#ededed',
+    width: '100%',
+    height: 40,
+    backgroundColor: '#C4C4C4',
     paddingLeft: 20,
     paddingVertical: 10,
-    marginBottom: 10,
+    marginBottom: 32,
+    borderRadius: 10
   },
   errorInput: {
     backgroundColor: '#f2dcdc',
   },
+  login: {
+    width: '100%'
+  },
+  loginGoogle: {
+    width: '100%',
+    marginTop: 60
+  },
+  signUp: {
+    flexDirection: 'row',
+    marginTop: 20
+  }
 });
 
 export default Login;
