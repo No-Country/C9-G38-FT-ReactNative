@@ -4,12 +4,18 @@ import Home from '../views/Home'
 import Login from '../views/Login'
 import Profile from '../views/Profile'
 import Register from '../views/Register'
+import Onboarding from '../views/Onboarding'
 
 const Stack = createStackNavigator()
 
 export function Navigation() {
     return (
-        <Stack.Navigator initialRouteName='Register'>
+        <Stack.Navigator initialRouteName='Onboarding'>
+            <Stack.Screen 
+                options={{ headerShown: false }}
+                name='Onboarding' 
+                component={Onboarding}
+            />
             <Stack.Screen
                 options={{ headerShown: false }}
                 name='Login'
