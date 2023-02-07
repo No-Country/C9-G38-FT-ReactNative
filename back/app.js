@@ -9,7 +9,7 @@ express.json();
 app.use(express.json());
 
 //Generating enpoints...
-app.use("/api/v1", userRouter);
+app.use("/api/v1/users", userRouter);
 
 //Handling request errors...
 app.all("*", (req, res) => {

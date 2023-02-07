@@ -36,4 +36,15 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser };
+const getUserById = (req, res) => {
+  const { user } = req;
+  return res.status(200).json({
+    status: "success",
+    data: { user },
+  });
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = { createUser, getUserById };
