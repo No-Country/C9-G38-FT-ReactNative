@@ -1,59 +1,37 @@
-//Importing models...
-const { User } = require('../models/user.model');
+const UserService = require('../services/user.service');
 
-//Generating middlewares...
-
-const createUser = async (req, res) => {
-  try {
-    const {
-      fullname,
-      username,
-      email,
-      password,
-      biography,
-      phone,
-      idFollows,
-      idUserSubcategory,
-      idLocation,
-    } = req.body;
-    const newUser = await User.create({
-      fullname,
-      username,
-      email,
-      password,
-      biography,
-      phone,
-      idFollows,
-      idUserSubcategory,
-      idLocation,
-    });
-    res.status(201).json({
-      status: 'success',
-      data: { newUser },
-    });
-  } catch (error) {
-    console.log(error);
+class UserController {
+  static async create(req, res) {
+    try {
+      const user = await UserService.create(req.body);
+      res.status(201).json({
+        data: user,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
-};
 
-const getUserById = (req, res) => {
-  const { user } = req;
-  return res.status(200).json({
-    status: 'success',
-    data: { user },
-  });
-};
+  static async getById(req, res) {
+    const { id } = req.params;
 
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.findAll({ where: { status: 'ACTIVE' } });
-    res.status(200).json({
-      status: 'success',
-      data: { users },
+    const user = await UserService.getById(id);
+
+    return res.status(200).json({
+      data: user,
     });
-  } catch (error) {
-    console.log(error);
   }
-};
 
-module.exports = { createUser, getAllUsers, getUserById };
+  static async getAll(req, res) {
+    try {
+      const users = await UserService.getById(id);
+      res.status(200).json({
+        data: users,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+module.exports = UserController;

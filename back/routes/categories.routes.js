@@ -1,12 +1,9 @@
-const express = require("express");
+const express = require('express');
 
-//Importing controllers...
-const { createCategory } = require("../controllers/category.controller");
+const { create } = require('../controllers/category.controller');
 
-//Importing middlewares
-const categoryRouter = express.Router();
+const router = express.Router();
 
-//Creating routes...
-categoryRouter.post("/", createCategory);
+router.post('/', create);
 
-module.exports = { categoryRouter };
+module.exports = router;

@@ -1,14 +1,11 @@
-//Importing models...
-const { Category } = require("../models/categories.model");
+const Category = require('../models/categories.model');
 
-//Generating middlewares...
-
-const createCategory = async (req, res) => {
+const create = async (req, res) => {
   try {
     const { name } = req.body;
     const newCategory = await Category.create({ name });
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: { newCategory },
     });
   } catch (error) {
@@ -16,4 +13,4 @@ const createCategory = async (req, res) => {
   }
 };
 
-module.exports = { createCategory };
+module.exports = { create };

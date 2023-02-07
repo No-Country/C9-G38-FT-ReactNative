@@ -1,14 +1,11 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const { db } = require("../config/database.util");
+const { Sequelize, DataTypes } = require('sequelize');
+const { db } = require('../config/database.util');
 
-//Creating a model...
-
-const User = db.define("user", {
+const User = db.define('users', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    allowNull: false,
   },
   fullname: {
     type: DataTypes.STRING,
@@ -41,25 +38,25 @@ const User = db.define("user", {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   idFollows: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   idUserSubcategory: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   idLocation: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
     allowNull: true,
-    defaultValue: "ACTIVE",
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: true,
   },
 });
 
-module.exports = { User };
+module.exports = User;

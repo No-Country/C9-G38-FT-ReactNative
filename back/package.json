@@ -4,7 +4,8 @@
   "description": "search players",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start:prod": "node dist/server.js"
   },
   "author": "team38",
   "license": "ISC",

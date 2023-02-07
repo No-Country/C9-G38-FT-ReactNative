@@ -1,9 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const { db } = require("../config/database.util");
+const { Sequelize, DataTypes } = require('sequelize');
+const { db } = require('../config/database.util');
 
-//Creating a model...
-
-const Category = db.define("category", {
+const Category = db.define('categories', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -14,6 +12,11 @@ const Category = db.define("category", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: true,
+  },
 });
 
-module.exports = { Category };
+module.exports = Category;

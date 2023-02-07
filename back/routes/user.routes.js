@@ -1,21 +1,11 @@
 const express = require('express');
-const { userExist } = require('../middlewares/user.middlewares');
 
-//Importing controllers...
+const UserController = require('../controllers/user.controller');
 
-const {
-  createUser,
-  getUserById,
-  getAllUsers,
-} = require('../controllers/user.controller');
+const router = express.Router();
 
-//Importing middlewares
+router.post('/', UserController.create);
+router.get('/', UserController.getAll);
+router.get('/:id', UserController.getById);
 
-const userRouter = express.Router();
-
-//Creating routes...
-userRouter.post('/', createUser);
-userRouter.get('/', getAllUsers);
-userRouter.get('/:id', userExist, getUserById);
-
-module.exports = { userRouter };
+module.exports = router;
