@@ -11,6 +11,8 @@ const db = new Sequelize({
   port: process.env.DB_PORT,
   database: process.env.DB,
   logging: false,
+
+  SECRET: process.env.TOKEN_SECRET,
 });
 
 module.exports = { db };
