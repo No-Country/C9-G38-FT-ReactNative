@@ -1,38 +1,38 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { tabsArr } from '../utils/tabsHomeNavigator'
+import Icon from '../utils/icons'
+import Colors from '../constants/colors'
 
-const Home = ({ navigation, route }) => {
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() =>
-          navigation.navigate('Profile', { someText: 'PROFILE (DESDE HOME)' })
-        }
-      >
-        <Text>PERFIL</Text>
-      </TouchableOpacity>
-      <Text
-        onPress={() =>
-          navigation.navigate('Login', { someText: 'PROFILE (DESDE HOME)' })
-        }
-      >
-        Login
-      </Text>
-    </View>
-  );
-};
+const Tab = createMaterialBottomTabNavigator()
 
-export default Home;
+function Home() {
+    return (
+        <Tab.Navigator
+            initialRouteName={tabsArr[0].label}
+            activeColor={Colors.darkOverlayColor2}
+            barStyle={{ backgroundColor: Colors.purpleAlpha }}
+        >
+            {tabsArr.map((screen, index) => (
+                <Tab.Screen
+                    key={index}
+                    name={screen.label}
+                    component={screen.component}
+                    options={{
+                        tabBarIcon: ({ color, size }) => {
+                            return (
+                                <Icon
+                                    name={screen.icon}
+                                    type={screen.type}
+                                    size={size}
+                                    color={color}
+                                />
+                            )
+                        },
+                    }}
+                />
+            ))}
+        </Tab.Navigator>
+    )
+}
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  button: {
-    backgroundColor: 'orange',
-    height: 30,
-    width: 100,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default Home
