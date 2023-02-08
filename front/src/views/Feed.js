@@ -1,11 +1,14 @@
 import { View, Text } from 'react-native'
+import HomeHeader from '../features/home/components/HomeHeader'
+import ActivitiesList from '../features/home/components/ActivitiesList'
+import UserActivitiesList from '../features/home/components/UserActivitiesList'
 
 const Feed = () => {
     return (
         <View>
-            <Text>Feed:</Text>
-            <Text>User 1:</Text>
-            <Text>Events:</Text>
+            <HomeHeader />
+            <ActivitiesList />
+            <UserActivitiesList />
         </View>
     )
 }
