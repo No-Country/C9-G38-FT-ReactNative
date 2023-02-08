@@ -1,8 +1,9 @@
 import { View, Text, TextInput, StyleSheet, Button, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
+import { useAuthStore } from '../store/authStore';
 
-function Login({ navigation }) {
+const Login = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -13,18 +14,20 @@ function Login({ navigation }) {
       password: '',
     },
   });
+  
+  const setAuth = useAuthStore(state => state.setAuth);
 
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const req = await fetch('http://localhost:4000/user/login', {
+      /*const req = await fetch('http://localhost:4000/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       const res = await req.json();
-      console.log(res);
-      return navigation.navigate('Home');
+      console.log(res);*/
+      setAuth('token12345');
     } catch (error) {
       console.log(error);
     }
