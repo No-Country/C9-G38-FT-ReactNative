@@ -1,3 +1,4 @@
+const Subcategory = require("../models/subcategories.model");
 const User = require("../models/user.model");
 
 class UserService {
@@ -22,9 +23,12 @@ class UserService {
   }
 
   static async getAll(payload) {
-    const data = await User.findAll({ where: { isActive: true } });
+    const data = await User.findAll({
+      where: { isActive: true },
+      include: { model: Subcategory },
+    });
     return data;
-}
+  }
 }
 
 module.exports = UserService;
