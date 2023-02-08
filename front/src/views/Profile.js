@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {Map} from "../features/profile/components";
 
 
 const Profile = ({navigation, route}) => {
@@ -10,18 +11,27 @@ const Profile = ({navigation, route}) => {
     <View>
       <Text>{JSON.stringify(someText)}</Text>
      
+      <Map/>
+
       <TouchableOpacity onPress={
         ()=> navigation.goBack()}>
         <Text>VOLVER</Text>
       </TouchableOpacity>
 
 
+      
+
+
+      <TouchableOpacity onPress={
+        ()=> navigation.navigate("Map",{...route.params})}>
+        <Text>VER UBICACIÓN</Text>
+      </TouchableOpacity>
+
+      
       <TouchableOpacity onPress={
         ()=> navigation.navigate("Profile",{...route.params})}>
         <Text>PROFILE(con .navigate)</Text>
       </TouchableOpacity>
-
-
 
 
 

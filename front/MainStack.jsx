@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import { Map } from './src/features/profile/components';
 
 import Home from './src/views/Home';
 import Login from './src/views/Login';
@@ -14,6 +15,7 @@ export function Navigation() {
       <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Profile" component={Profile} />
      
     </Stack.Navigator>
