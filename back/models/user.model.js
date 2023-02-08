@@ -1,20 +1,17 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const { db } = require('../config/database.util');
-const bcrypt = require ('bcrypt');
 
+// class User extends Model { //genera un hash apartir del password y el salt
 
-class User extends Model { //genera un hash apartir del password y el salt
-  
-  hash(password, salt) {
-  return bcrypt.hash(password, salt)
-  }
-  
-  validatePassword(password) {
-  return this.hash(password, this.salt)
-  .then(newHash => newHash === this.password)
-  }
-}
+//   hash(password, salt) {
+//   return bcrypt.hash(password, salt)
+//   }
 
+//   validatePassword(password) {
+//   return this.hash(password, this.salt)
+//   .then(newHash => newHash === this.password)
+//   }
+// }
 
 const User = db.define('users', {
   id: {
@@ -74,14 +71,13 @@ const User = db.define('users', {
   },
 });
 
-User.beforeCreate((user)=> {
-  const salt = bcrypt.genSaltSync() //genero el salt
-  user.salt = salt; // asigno el salt a la instancia de User
+// User.beforeCreate((user)=> {
+//   const salt = bcrypt.genSaltSync() //genero el salt
+//   user.salt = salt; // asigno el salt a la instancia de User
 
-  return user.hash(user.password, salt).then(hash => { //espero que se genere el password hasheado para despues crear el usuario
-    user.password =  hash
-  });
-});
-
+//   return user.hash(user.password, salt).then(hash => { //espero que se genere el password hasheado para despues crear el usuario
+//     user.password =  hash
+//   });
+// });
 
 module.exports = User;

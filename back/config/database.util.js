@@ -12,7 +12,7 @@ const db = new Sequelize({
   database: process.env.DB,
   logging: false,
 
-  SECRET: process.env.TOKEN_SECRET,
+  // SECRET: process.env.TOKEN_SECRET,
 });
 
 module.exports = { db };

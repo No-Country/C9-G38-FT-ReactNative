@@ -1,5 +1,8 @@
 const User = require('../models/user.model');
 const UserService = require('../services/user.service');
+const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
@@ -10,16 +13,22 @@ class AuthController {
       return res.status(400).send({ message: 'user not found' });
     }
 
-    if (password !== user.password) {
-      //TODO! encrypt password
-      return res.status(401).send({ message: 'password inc' });
+    const isEquals = bcrypt.compare(password, user.password);
+
+    if (!isEquals) {
+      return res.status(401).send({ message: 'credentials error' });
     }
-    res.send({ data: user, token: 'token' });
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, password: user.password },
+      process.env.TOKEN_SECRET
+    );
+
+    res.send({ data: user, token: token });
   }
 
   static async register(req, res) {
     try {
-      //fullname, username, email, password
       await UserService.create(req.body);
       res.status(201).json({
         message: 'register successful',
