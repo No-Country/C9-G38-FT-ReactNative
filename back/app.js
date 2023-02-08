@@ -1,22 +1,24 @@
-const express = require("express");
-const { userRouter } = require("./routes/user.routes");
+const express = require('express');
 
-//Inicializing express...
+const userRouter = require('./routes/user.routes');
+const categoryRouter = require('./routes/categories.routes');
+const subcategoryRouter = require('./routes/subcategories.routes');
+const AuthRouter = require('./routes/auth.routes');
+
 const app = express();
 
-//Setting to receive JSON...
-express.json();
 app.use(express.json());
 
-//Generating enpoints...
-app.use("/api/v1", userRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
+app.use('/api/v1/subcategories', subcategoryRouter);
+app.use('/api/v1/auth', AuthRouter);
 
-//Handling request errors...
-app.all("*", (req, res) => {
+app.all('*', (req, res) => {
   res.status(404).json({
-    status: "error",
+    status: 'error',
     message: `${req.method} ${req.url} does not exist in our server`,
   });
 });
 
-module.exports = { app };
+module.exports = app;
