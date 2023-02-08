@@ -83,7 +83,7 @@ function Login({ navigation }) {
         <Text style={styles.questionText}>¿No tenés una cuenta?</Text>
         <Text
           style={styles.redirectText}
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate('Home')}
         >
           ¡Registrate!
         </Text>

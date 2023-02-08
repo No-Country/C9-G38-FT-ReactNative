@@ -22,7 +22,11 @@ export function Navigation() {
         component={Login}
       />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
