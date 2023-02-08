@@ -13,7 +13,7 @@ const Login = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      userName: '',
+      email: '',
       password: '',
     },
   });
@@ -22,6 +22,7 @@ const Login = ({ navigation }) => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    setLoginError(false);
     try {
       const req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/login', {
         method: 'POST',
@@ -30,8 +31,8 @@ const Login = ({ navigation }) => {
       });
       if (req.status === 400 || req.status === 401) throw new Error('not found');
       const res = await req.json();
+      console.log(res);
       setAuth(res.token);
-      setAuth('token12345');
     } catch (error) {
       console.log('1', error.message);
       setLoginError(true);
@@ -47,14 +48,15 @@ const Login = ({ navigation }) => {
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder='Nombre'
-            style={[styles.input, errors.userName && styles.errorInput]}
+            placeholder='Email'
+            autoCapitalize='none'
+            style={[styles.input, errors.email && styles.errorInput]}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
           />
         )}
-        name='userName'
+        name='email'
       />
       <Controller
         control={control}
