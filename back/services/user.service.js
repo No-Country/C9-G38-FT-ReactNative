@@ -1,13 +1,15 @@
-const Subcategory = require("../models/subcategories.model");
-const User = require("../models/user.model");
-
+const Subcategory = require('../models/subcategories.model');
+const User = require('../models/user.model');
+const { encrypt } = require('../utils/encrypt');
 class UserService {
   static async create(payload) {
+    const passwordEncrypt = await encrypt(payload.password);
+
     const data = await User.create({
       fullname: payload.fullname,
       username: payload.username,
       email: payload.email,
-      password: payload.password,
+      password: passwordEncrypt,
       biography: payload.biography,
       phone: payload.phone,
       idFollows: payload.idFollows,
