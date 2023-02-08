@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const User = require("../models/user.model");
 
 class UserService {
   static async create(payload) {
@@ -17,14 +17,14 @@ class UserService {
   }
 
   static async getById(payload) {
-    const data = await User.findOne({ where: { payload } });
+    const data = await User.findOne({ where: { id: payload } });
     return data;
   }
 
   static async getAll(payload) {
-    const users = await User.findAll({ where: { status: true } });
-    return users;
-  }
+    const data = await User.findAll({ where: { isActive: true } });
+    return data;
+}
 }
 
 module.exports = UserService;

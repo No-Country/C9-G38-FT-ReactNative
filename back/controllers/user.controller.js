@@ -1,4 +1,4 @@
-const UserService = require('../services/user.service');
+const UserService = require("../services/user.service");
 
 class UserController {
   static async create(req, res) {
@@ -13,18 +13,20 @@ class UserController {
   }
 
   static async getById(req, res) {
-    const { id } = req.params;
-
-    const user = await UserService.getById(id);
-
-    return res.status(200).json({
-      data: user,
-    });
+    try {
+      const { id } = req.params;
+      const user = await UserService.getById(id);
+      return res.status(200).json({
+        data: user,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async getAll(req, res) {
     try {
-      const users = await UserService.getById(id);
+      const users = await UserService.getAll();
       res.status(200).json({
         data: users,
       });

@@ -1,16 +1,16 @@
-const Category = require('../models/categories.model');
+const CategoryService = require("../services/category.service");
 
-const create = async (req, res) => {
-  try {
-    const { name } = req.body;
-    const newCategory = await Category.create({ name });
-    res.status(201).json({
-      status: 'success',
-      data: { newCategory },
-    });
-  } catch (error) {
-    console.log(error);
+class CategoryController {
+  static async create(req, res) {
+    try {
+      const category = await CategoryService.create(req.body);
+      res.status(201).json({
+        data: category,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
-};
+}
 
-module.exports = { create };
+module.exports = CategoryController;
