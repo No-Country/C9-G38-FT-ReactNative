@@ -1,6 +1,8 @@
 const express = require('express');
-// const UserRouter = require('./routes/user.routes');
-const CategoryRouter = require('./routes/categories.routes');
+
+const userRouter = require('./routes/user.routes');
+const categoryRouter = require('./routes/categories.routes');
+const subcategoryRouter = require('./routes/subcategories.routes');
 const AuthRouter = require('./routes/auth.routes');
 
 const app = express();
@@ -8,8 +10,9 @@ const app = express();
 express.json();
 app.use(express.json());
 
-// app.use('/api/v1/users', UserRouter);
-app.use('/api/v1/categories', CategoryRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
+app.use('/api/v1/subcategories', subcategoryRouter);
 app.use('/api/v1/auth', AuthRouter);
 
 app.all('*', (req, res) => {

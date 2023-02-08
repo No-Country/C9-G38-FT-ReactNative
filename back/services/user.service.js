@@ -1,3 +1,4 @@
+const Subcategory = require('../models/subcategories.model');
 const User = require('../models/user.model');
 const { encrypt } = require('../utils/encrypt');
 class UserService {
@@ -19,13 +20,16 @@ class UserService {
   }
 
   static async getById(payload) {
-    const data = await User.findOne({ where: { payload } });
+    const data = await User.findOne({ where: { id: payload } });
     return data;
   }
 
   static async getAll(payload) {
-    const users = await User.findAll({ where: { status: true } });
-    return users;
+    const data = await User.findAll({
+      where: { isActive: true },
+      include: { model: Subcategory },
+    });
+    return data;
   }
 }
 
