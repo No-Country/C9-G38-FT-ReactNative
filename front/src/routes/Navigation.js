@@ -25,7 +25,11 @@ export function Navigation() {
             {authToken ? (
                 <>
                     <Stack.Screen name='Home' component={Home} />
-                    <Stack.Screen name='Profile' component={Profile} />
+                    <Stack.Screen
+                        options={{ headerShown: false }}
+                        name='Profile'
+                        component={Profile}
+                    />
                 </>
             ) : (
                 <>
