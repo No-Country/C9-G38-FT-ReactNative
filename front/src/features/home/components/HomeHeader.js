@@ -1,6 +1,9 @@
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { useAuthStore } from '../../../store/authStore'
 
 const HomeHeader = () => {
+    const logout = useAuthStore(state => state.logout)
+
     return (
         <View
             style={{
@@ -25,9 +28,27 @@ const HomeHeader = () => {
             </View>
             <View>
                 <Text>Notifications ICON</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => logout()}
+                >
+                    <Text>Logout</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: { flex: 1 },
+    button: {
+        backgroundColor: 'orange',
+        height: 30,
+        width: 100,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+})
 
 export default HomeHeader
