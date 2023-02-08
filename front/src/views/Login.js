@@ -2,8 +2,11 @@ import { View, Text, TextInput, StyleSheet, Button, Pressable } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 import { useAuthStore } from '../store/authStore';
+import { useState } from 'react';
 
 const Login = ({ navigation }) => {
+  const [loginError, setLoginError] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -20,16 +23,18 @@ const Login = ({ navigation }) => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      /*const req = await fetch('http://localhost:4000/user/login', {
+      const req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
+      if (req.status === 400 || req.status === 401) throw new Error('not found');
       const res = await req.json();
-      console.log(res);*/
+      setAuth(res.token);
       setAuth('token12345');
     } catch (error) {
-      console.log(error);
+      console.log('1', error.message);
+      setLoginError(true);
     }
   };
 
@@ -69,12 +74,15 @@ const Login = ({ navigation }) => {
       <View style={styles.login}>
         <Button title='Iniciar sesión' onPress={handleSubmit(onSubmit)} />
       </View>
+      {loginError &&
+        <Text style={styles.loginError}>El email o la contraseña son incorrectos.</Text>
+      }
       <View style={styles.loginGoogle}>
         <Button title='Iniciar sesión con Google' />
       </View>
       <View style={styles.signUp}>
         <Text>¿No tenés cuenta?</Text>
-        <Text onPress={() => navigation.navigate('Register')}>¡Creemos usa!</Text>
+        <Text style={styles.signUpLink} onPress={() => navigation.navigate('Register')}>¡Creemos usa!</Text>
       </View>
       <Text>Olvidé mi contraseña.</Text>
     </SafeAreaView>
@@ -110,6 +118,15 @@ const styles = StyleSheet.create({
   signUp: {
     flexDirection: 'row',
     marginTop: 20
+  },
+  signUpLink: {
+    color: '#618ec3',
+    marginLeft: 10
+  },
+  loginError: {
+    color: '#b48484',
+    marginTop: 20,
+    fontWeight: 'bold'
   }
 });
 
