@@ -38,7 +38,9 @@ export const styles = StyleSheet.create({
     width: 280,
   },
   headerWrapper: {
-    marginVertical: 30,
+    marginTop: 80,
+    marginBottom: 50,
+    // marginVertical: 30,
   },
   button: {},
 });

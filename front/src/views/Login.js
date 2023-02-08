@@ -10,32 +10,45 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
+import { useAuthStore } from '../store/authStore';
+import { useState } from 'react';
 
-function Login({ navigation }) {
+const Login = ({ navigation }) => {
+  const [loginError, setLoginError] = useState(false);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      userName: '',
+      email: '',
       password: '',
     },
   });
 
+  const setAuth = useAuthStore((state) => state.setAuth);
+
   const onSubmit = async (data) => {
     console.log(data);
+    setLoginError(false);
     try {
-      const req = await fetch('http://localhost:4000/user/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      const req = await fetch(
+        'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        }
+      );
+      if (req.status === 400 || req.status === 401)
+        throw new Error('not found');
       const res = await req.json();
       console.log(res);
-      return navigation.navigate('Home');
+      setAuth(res.token);
     } catch (error) {
-      console.log(error);
+      console.log('1', error.message);
+      setLoginError(true);
     }
   };
 
@@ -48,14 +61,15 @@ function Login({ navigation }) {
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="Nombre"
-            style={[styles.input, errors.userName && styles.errorInput]}
+            placeholder="Email"
+            autoCapitalize="none"
+            style={[styles.input, errors.email && styles.errorInput]}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
           />
         )}
-        name="userName"
+        name="email"
       />
       <Controller
         control={control}
@@ -76,14 +90,19 @@ function Login({ navigation }) {
         <CSButton onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
         {/* <Button title="Iniciar sesión" onPress={handleSubmit(onSubmit)} /> */}
       </View>
+      {loginError && (
+        <Text style={styles.loginError}>
+          El email o la contraseña son incorrectos.
+        </Text>
+      )}
       <View style={styles.loginGoogle}>
         {/* <Button title="Iniciar sesión con Google" /> */}
       </View>
       <View style={styles.signUp}>
-        <Text style={styles.questionText}>¿No tenés una cuenta?</Text>
+        <Text style={styles.questionText}>¿No tenés cuenta?</Text>
         <Text
           style={styles.redirectText}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Register')}
         >
           ¡Registrate!
         </Text>
@@ -91,7 +110,7 @@ function Login({ navigation }) {
       {/* <Text>Olvidé mi contraseña.</Text> */}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -139,6 +158,15 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.regular,
+  },
+  signUpLink: {
+    color: '#618ec3',
+    marginLeft: 10,
+  },
+  loginError: {
+    color: '#b48484',
+    marginTop: 20,
+    fontWeight: 'bold',
   },
 });
 

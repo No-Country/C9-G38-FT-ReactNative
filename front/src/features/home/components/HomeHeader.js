@@ -16,7 +16,7 @@ const HomeHeader = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 0,
-    marginVertical: 28,
+    marginTop: 80,
   },
   title: {
     fontFamily: Fonts.type.bold,
