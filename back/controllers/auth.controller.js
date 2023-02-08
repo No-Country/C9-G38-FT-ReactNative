@@ -6,7 +6,7 @@ var jwt = require('jsonwebtoken');
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
-
+    console.log('debug ', email);
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
