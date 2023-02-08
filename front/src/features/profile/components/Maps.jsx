@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, Button, Text } from "react-native";
-import * as Location from "expo-location";
+import React, { useState, useEffect } from 'react';
+import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import * as Location from 'expo-location';
 
-export const Map = ({ navigation, route }) => {
+const Map = ({ navigation, route }) => {
   const [mapRegion, setMapRegion] = useState({
     latitude: 37.1833,
     longitude: 67.3667,
@@ -28,8 +28,8 @@ export const Map = ({ navigation, route }) => {
   const userLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
 
-    if (status !== "granted") {
-      setErrorMsg("Permisos a la localización denegados");
+    if (status !== 'granted') {
+      setErrorMsg('Permisos a la localización denegados');
     }
     let location = await Location.getCurrentPositionAsync({
       enableHighAccuracy: true,
@@ -59,17 +59,17 @@ export const Map = ({ navigation, route }) => {
 
         <Marker coordinate={markerOne} title="Cancha tenis">
           <View
-            style={{ backgroundColor: "white", padding: 5, borderRadius: 10 }}
+            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
           >
-            <Text style={{ color: "white" }}>🎾</Text>
+            <Text style={{ color: 'white' }}>🎾</Text>
           </View>
         </Marker>
 
         <Marker coordinate={markerTwo} title="Cancha fútbol 5">
           <View
-            style={{ backgroundColor: "white", padding: 5, borderRadius: 10 }}
+            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
           >
-            <Text style={{ color: "white" }}>⚽</Text>
+            <Text style={{ color: 'white' }}>⚽</Text>
           </View>
         </Marker>
       </MapView>
@@ -78,7 +78,7 @@ export const Map = ({ navigation, route }) => {
 
       <Button
         title="VOLVER A PERFIL"
-        onPress={() => navigation.navigate("Profile", { ...route.params })}
+        onPress={() => navigation.navigate('Profile', { ...route.params })}
       />
     </View>
   );
@@ -89,9 +89,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    minHeight: "90%",
+    minHeight: '90%',
 
-    width: "100%",
-    height: "90%",
+    width: '100%',
+    height: '90%',
   },
 });
+
+export default Map;

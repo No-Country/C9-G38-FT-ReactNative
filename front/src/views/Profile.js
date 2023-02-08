@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Map } from '../features/profile/components';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Map } from '../features/profile/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Profile = ({ navigation, route }) => {
@@ -44,8 +43,11 @@ const Profile = ({ navigation, route }) => {
         <TouchableOpacity style={styles.button1}>
           <Text>Button 1</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2}>
-          <Text>Button 2</Text>
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => navigation.navigate('Map')}
+        >
+          <Text>Map</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
