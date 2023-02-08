@@ -1,33 +1,30 @@
-import { Text, View } from 'react-native'
-
+import { Text, View, StyleSheet } from 'react-native';
+import Fonts from '../../../styles/theme/Fonts';
 const HomeHeader = () => {
-    return (
-        <View
-            style={{
-                flex: 0,
-                flexDirection: 'row',
-                margin: 5,
-                border: 1,
-                borderRadius: 4,
-                padding: 15,
-                backgroundColor: '#5192',
-            }}
-        >
-            <View>
-                <Text
-                    style={{
-                        color: 'black',
-                        fontWeight: '700',
-                    }}
-                >
-                    LOGO APP
-                </Text>
-            </View>
-            <View>
-                <Text>Notifications ICON</Text>
-            </View>
-        </View>
-    )
-}
-
-export default HomeHeader
+  return (
+    <View style={styles.wrapper}>
+      <View>
+        <Text style={styles.title}>Bienvenido</Text>
+        {/* <Text style={styles.titleUsername}>Carl</Text> */}
+      </View>
+      {/* <View>
+        <Text>Notifications ICON</Text>
+      </View> */}
+    </View>
+  );
+};
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 0,
+    marginVertical: 28,
+  },
+  title: {
+    fontFamily: Fonts.type.bold,
+    fontSize: Fonts.size.xxxxxxLarge,
+  },
+  titleUsername: {
+    margin: 0,
+    padding: 0,
+  },
+});
+export default HomeHeader;

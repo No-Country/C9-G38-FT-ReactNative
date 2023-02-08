@@ -1,37 +1,44 @@
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet } from 'react-native';
+import Fonts from '../theme/Fonts';
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#202020',
-    },
-    logo: {
-        justifyContent: 'center',
-        alignSelf: 'center',
-    },
-    logos: {
-        flexDirection: 'row',
-        margin: 10,
-    },
-    h2: {
-        fontSize: 14,
-        color: '#5b5463',
-        fontWeight: '500',
-        marginBottom: 4,
-    },
-    input: {
-        borderBottomWidth: 1,
-        borderRadius: 8,
-        margin: 5,
-        padding: 3,
-        paddingLeft: 10,
-        borderColor: '#202020',
-    },
-    button: {},
-})
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  title: {
+    color: '#202020',
+    fontSize: Fonts.size.xxxxLarge,
+    fontFamily: Fonts.type.bold,
+  },
+  logo: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  logos: {
+    flexDirection: 'row',
+    margin: 10,
+  },
+  h2: {
+    fontSize: 14,
+    color: '#5b5463',
+    fontWeight: '500',
+    marginBottom: 4,
+  },
+  input: {
+    height: 48,
+    backgroundColor: 'white',
+    paddingLeft: 20,
+    paddingVertical: 10,
+    borderRadius: 12,
+    fontSize: 15,
+    fontFamily: Fonts.type.regular,
+  },
+  formWrapper: {
+    width: 280,
+  },
+  headerWrapper: {
+    marginVertical: 30,
+  },
+  button: {},
+});
