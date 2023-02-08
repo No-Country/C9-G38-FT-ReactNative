@@ -1,12 +1,15 @@
+const Subcategory = require('../models/subcategories.model');
 const User = require('../models/user.model');
-
+const { encrypt } = require('../utils/encrypt');
 class UserService {
   static async create(payload) {
+    const passwordEncrypt = await encrypt(payload.password);
+
     const data = await User.create({
       fullname: payload.fullname,
       username: payload.username,
       email: payload.email,
-      password: payload.password,
+      password: passwordEncrypt,
       biography: payload.biography,
       phone: payload.phone,
       idFollows: payload.idFollows,
@@ -17,13 +20,16 @@ class UserService {
   }
 
   static async getById(payload) {
-    const data = await User.findOne({ where: { payload } });
+    const data = await User.findOne({ where: { id: payload } });
     return data;
   }
 
   static async getAll(payload) {
-    const users = await User.findAll({ where: { status: true } });
-    return users;
+    const data = await User.findAll({
+      where: { isActive: true },
+      include: { model: Subcategory },
+    });
+    return data;
   }
 }
 

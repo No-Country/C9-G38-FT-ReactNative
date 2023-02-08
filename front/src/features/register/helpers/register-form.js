@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../helpers/validations'
+import { EMAIL_REGEX, PASSWORD_REGEX } from '../../../utils/validations'
 
 export const inputs = [
     {

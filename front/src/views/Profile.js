@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Profile = ({ navigation, route }) => {
-  const { someText } = route.params;
+    // const { someText } = route.params
 
   return (
     <SafeAreaView style={styles.container}>
