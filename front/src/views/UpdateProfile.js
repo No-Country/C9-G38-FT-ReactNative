@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#fff",
     paddingHorizontal: 32,
-    paddingVertical: 72,
   },
   profileImage: {
     height: 140,
