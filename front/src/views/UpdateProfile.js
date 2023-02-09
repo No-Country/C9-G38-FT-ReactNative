@@ -1,6 +1,7 @@
 import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import Fonts from "../styles/theme/Fonts";
+import CSButton from "../common/ui/Button";
 
 import React from "react";
 
@@ -103,8 +104,7 @@ const UpdateProfile = () => {
         )}
         name="password"
       />
-
-      <Button title="Guardar" onPress={handleSubmit(onSubmit)} />
+      <CSButton onPress={handleSubmit(onSubmit)} label="Guardar" />
     </View>
   );
 };
