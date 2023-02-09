@@ -1,5 +1,6 @@
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import Fonts from "../styles/theme/Fonts";
 
 import React from "react";
 
@@ -21,11 +22,15 @@ const UpdateProfile = () => {
   };
 
   return (
-    <View>
-      <Text>Mí perfil</Text>
-      <Text>*Avatar*</Text>
+    <View style={styles.container}>
+      <Image
+        style={styles.profileImage}
+        source={{
+          uri: "https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg",
+        }}
+      />
+      <Text style={styles.userName}>Username</Text>
 
-      <Text>"Nombre de usuario"</Text>
       <Controller
         control={control}
         rules={{ required: true }}
@@ -105,14 +110,36 @@ const UpdateProfile = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    paddingHorizontal: 32,
+    paddingVertical: 72,
+  },
+  profileImage: {
+    height: 140,
+    aspectRatio: 1,
+    borderRadius: 140 / 2,
+  },
   input: {
     width: "100%",
-    height: 40,
-    backgroundColor: "#C4C4C4",
+    height: 48,
+    backgroundColor: "#f8f8f8",
     paddingLeft: 20,
     paddingVertical: 10,
-    marginBottom: 32,
-    borderRadius: 10,
+    marginBottom: 10,
+    borderRadius: 12,
+    fontSize: 15,
+    fontFamily: Fonts.type.regular,
+  },
+  userName: {
+    textAlign: "center",
+    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.bold,
+    letterSpacing: 0.8,
   },
 });
 

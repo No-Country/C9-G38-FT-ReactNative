@@ -8,6 +8,7 @@ import Login from "../views/Login";
 import Profile from "../views/Profile";
 import Register from "../views/Register";
 import Onboarding from "../views/Onboarding";
+import Map from "../features/profile/components/Maps.jsx";
 import UpdateProfile from "../views/UpdateProfile";
 
 const Stack = createStackNavigator();
@@ -24,8 +25,18 @@ export function Navigation() {
     <Stack.Navigator initialRouteName="Onboarding">
       {authToken ? (
         <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Profile"
+            component={Profile}
+          />
+          <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+          <Stack.Screen name="Map" component={Map} />
         </>
       ) : (
         <>
@@ -39,8 +50,11 @@ export function Navigation() {
             name="Login"
             component={Login}
           />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+          <Stack.Screen
+            name="Register"
+            options={{ headerShown: false }}
+            component={Register}
+          />
         </>
       )}
     </Stack.Navigator>
