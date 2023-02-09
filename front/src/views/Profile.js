@@ -1,19 +1,21 @@
 import React from 'react';
+import Fonts from '../styles/theme/Fonts';
+import CSButton from '../common/ui/Button';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { Map } from '../features/profile/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuthStore } from '../store/authStore';
 
 const Profile = ({ navigation, route }) => {
-  // const { someText } = route.params
+  const logout = () => useAuthStore((state) => state.logout);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>backIcon</Text>
+          {/* <Text>backIcon</Text> */}
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text>editIcon</Text>
+          <Text>edit</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.profile}>
@@ -50,6 +52,13 @@ const Profile = ({ navigation, route }) => {
           <Text>Map</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.logout}>
+        <CSButton onPress={logout()} label="Cerrar sesion" />
+
+        {/* <TouchableOpacity style={styles.button1}>
+          <Text>Cerrar sesion</Text>
+        </TouchableOpacity> */}
+      </View>
     </SafeAreaView>
   );
 };
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   profile: {
-    height: '25%',
+    height: '22%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -80,10 +89,14 @@ const styles = StyleSheet.create({
   },
   userName: {
     textAlign: 'center',
-    fontSize: 32,
-    fontWeight: 'bold',
+    // fontSize: 32,
+    // fontWeight: 'bold',
+    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.bold,
+    letterSpacing: 0.8,
   },
   details: {
+    marginTop: 10,
     height: '10%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -100,6 +113,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     marginTop: 24,
     justifyContent: 'space-between',
+  },
+  logout: {
+    flexDirection: 'row',
+    paddingHorizontal: 32,
+    marginTop: 24,
+    justifyContent: 'center',
   },
   button1: {
     backgroundColor: '#dedede',
