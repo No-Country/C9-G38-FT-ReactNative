@@ -8,6 +8,7 @@ import Login from '../views/Login';
 import Profile from '../views/Profile';
 import Register from '../views/Register';
 import Onboarding from '../views/Onboarding';
+// import Map from '../features/profile/components/Maps.jsx';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export function Navigation() {
             name="Profile"
             component={Profile}
           />
+          {/* <Stack.Screen name="Map" component={Map} /> */}
         </>
       ) : (
         <>

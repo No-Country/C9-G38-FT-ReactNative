@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Map } from '../features/profile/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
@@ -46,8 +47,11 @@ const Profile = ({ navigation, route }) => {
         <TouchableOpacity style={styles.button1}>
           <Text>Button 1</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2}>
-          <Text>Button 2</Text>
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => navigation.navigate('Map')}
+        >
+          <Text>Map</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.logout}>
@@ -134,3 +138,35 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 });
+
+/*
+<View>
+      <Text>{JSON.stringify(someText)}</Text>
+     
+      <Map/>
+
+      <TouchableOpacity onPress={
+        ()=> navigation.goBack()}>
+        <Text>VOLVER</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={
+        ()=> navigation.navigate("Map",{...route.params})}>
+        <Text>VER UBICACIÓN</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={
+        ()=> navigation.navigate("Profile",{...route.params})}>
+        <Text>PROFILE(con .navigate)</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={()=> navigation.push("Profile",{...route.params})}>
+        <Text>PROFILE(con .push)</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={()=> navigation.navigate("Home")}>
+        <Text>IR HOME</Text>
+      </TouchableOpacity>
+    
+    </View>
+*/
