@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-import { Text, View, ScrollView, StyleSheet, Image } from 'react-native'
-import { useUsers } from '../features/search/hooks/useUsers'
-import { useNavigation } from '@react-navigation/native'
+import { View, Text } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Search = () => {
     const { users } = useUsers()
@@ -57,6 +55,7 @@ const Search = () => {
     }
 
     return (
+        ,SafeAreaView/>
         <ScrollView>
             <Text style={styles.textFriends}>Friends:</Text>
             {users.map((user, index) => {
@@ -117,4 +116,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Search
+export default Search;

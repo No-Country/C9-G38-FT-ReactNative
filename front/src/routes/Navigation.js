@@ -22,9 +22,13 @@ export function Navigation() {
 
     return (
         <Stack.Navigator initialRouteName='Onboarding'>
-            {!authToken ? (
+            {authToken ? (
                 <>
-                    <Stack.Screen name='Home' component={Home} />
+                    <Stack.Screen
+                        name='Home'
+                        options={{ headerShown: false }}
+                        component={Home}
+                    />
                     <Stack.Screen
                         options={{ headerShown: false }}
                         name='Profile'
@@ -44,7 +48,11 @@ export function Navigation() {
                         name='Login'
                         component={Login}
                     />
-                    <Stack.Screen name='Register' component={Register} />
+                    <Stack.Screen
+                        name='Register'
+                        options={{ headerShown: false }}
+                        component={Register}
+                    />
                 </>
             )}
         </Stack.Navigator>
