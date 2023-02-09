@@ -4,29 +4,54 @@ import CSButton from '../common/ui/Button';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
+import { useEffect, useState } from 'react';
+import Icon from '../utils/icons';
+import { Icons } from '../utils/icons';
 
 const Profile = ({ navigation, route }) => {
   const logout = () => useAuthStore((state) => state.logout);
+  const authToken = useAuthStore((state) => state.authToken);
+
+  const [myProfile, setMyProfile] = useState();
+
+  const getMyProfile = async () => {
+    let req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me', {
+      method: 'GET',
+      headers: { 'Authorization': authToken }
+    });
+    let res = await req.json();
+    console.log(res.data);
+    setMyProfile(res.data);
+  };
+
+  useEffect(() => {
+    getMyProfile();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          {/* <Text>backIcon</Text> */}
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>edit</Text>
+        <TouchableOpacity style={styles.options}>
+          <Icon name='more-horiz' type={Icons.MaterialIcons} size={36} />
         </TouchableOpacity>
       </View>
       <View style={styles.profile}>
-        <Image
-          style={styles.profileImage}
-          source={{
-            uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-          }}
-        />
+        {myProfile ?
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: myProfile.avatar ?? 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg'
+            }}
+          /> :
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg'
+            }}
+          />
+        }
       </View>
-      <Text style={styles.userName}>Username</Text>
+      <Text style={styles.userName}>{myProfile ? myProfile.fullname : '...'}</Text>
       <View style={styles.details}>
         <View>
           <Text style={styles.number}>56</Text>
@@ -76,6 +101,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 32,
     flexDirection: 'row',
+  },
+  options: {
+    marginLeft: 'auto'
   },
   profile: {
     height: '22%',
