@@ -10,6 +10,7 @@ import Register from "../views/Register";
 import Onboarding from "../views/Onboarding";
 import Map from "../features/profile/components/Maps.jsx";
 import UpdateProfile from "../views/UpdateProfile";
+import UserPreferences from "../views/UserPreferences";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ export function Navigation() {
           />
           <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
           <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen name="UserPreferences" component={UserPreferences} options={{title: 'Preferencias'}} />
         </>
       ) : (
         <>
