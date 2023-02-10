@@ -7,7 +7,9 @@ class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
     console.log('debug ', email);
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+    });
 
     if (!user) {
       return res.status(400).send({ message: 'user not found' });
@@ -23,6 +25,7 @@ class AuthController {
       { id: user.id, email: user.email, password: user.password },
       process.env.TOKEN_SECRET
     );
+    delete user.password;
 
     res.send({ data: user, token: token });
   }
@@ -32,6 +35,20 @@ class AuthController {
       await UserService.create(req.body);
       res.status(201).json({
         message: 'register successful',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getCurrent(req, res) {
+    try {
+      const user = await User.findOne({
+        where: { id: req.userId },
+        attributes: { exclude: ['password'] },
+      });
+      res.status(201).json({
+        data: user,
       });
     } catch (error) {
       console.log(error);

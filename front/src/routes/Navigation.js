@@ -9,6 +9,7 @@ import Profile from '../views/Profile'
 import Register from '../views/Register'
 import Onboarding from '../views/Onboarding'
 import Map from '../features/profile/components/Maps.jsx'
+import UpdateProfile from '../views/UpdateProfile'
 
 const Stack = createStackNavigator()
 
@@ -33,6 +34,10 @@ export function Navigation() {
                         options={{ headerShown: false }}
                         name='Profile'
                         component={Profile}
+                    />
+                    <Stack.Screen
+                        name='UpdateProfile'
+                        component={UpdateProfile}
                     />
                     <Stack.Screen name='Map' component={Map} />
                 </>
