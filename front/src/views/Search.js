@@ -17,7 +17,7 @@ const Search = () => {
             <Searchbar />
             {users === filteredUsers ? (
                 <ScrollView>
-                    <Text style={styles.textFriends}>Amigos sugeridos:</Text>
+                    <Text style={styles.textFriends}>Personas sugeridas:</Text>
                     <FilteredSearch users={users} />
                 </ScrollView>
             ) : (
