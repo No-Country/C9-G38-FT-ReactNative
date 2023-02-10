@@ -19,7 +19,7 @@ export const useAuthStore = create((set) => ({
         }))
     },
     logout: async () => {
-        await SecureStore.removeItemAsync('token');
+        await SecureStore.deleteItemAsync('token');
         set(() => ({
             authToken: ''
         }))

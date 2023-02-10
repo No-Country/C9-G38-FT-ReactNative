@@ -1,7 +1,7 @@
-import { useEffect, Fragment } from "react";
-import { useAuthStore } from "../store/authStore";
+import { useEffect, Fragment } from 'react'
+import { useAuthStore } from '../store/authStore'
 
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from '@react-navigation/stack'
 
 import Home from "../views/Home";
 import Login from "../views/Login";
@@ -12,15 +12,15 @@ import Map from "../features/profile/components/Maps.jsx";
 import UpdateProfile from "../views/UpdateProfile";
 import UserPreferences from "../views/UserPreferences";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 export function Navigation() {
-  const authToken = useAuthStore((state) => state.authToken);
-  const getAuth = useAuthStore((state) => state.getAuth);
+    const authToken = useAuthStore(state => state.authToken)
+    const getAuth = useAuthStore(state => state.getAuth)
 
-  useEffect(() => {
-    getAuth();
-  }, []);
+    useEffect(() => {
+        getAuth()
+    }, [])
 
   return (
     <Stack.Navigator initialRouteName="Onboarding">
