@@ -1,14 +1,15 @@
-import { useEffect, Fragment } from 'react';
-import { useAuthStore } from '../store/authStore';
+import { useEffect, Fragment } from "react";
+import { useAuthStore } from "../store/authStore";
 
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from '../views/Home';
-import Login from '../views/Login';
-import Profile from '../views/Profile';
-import Register from '../views/Register';
-import Onboarding from '../views/Onboarding';
-import Map from '../features/profile/components/Maps.jsx';
+import Home from "../views/Home";
+import Login from "../views/Login";
+import Profile from "../views/Profile";
+import Register from "../views/Register";
+import Onboarding from "../views/Onboarding";
+import Map from "../features/profile/components/Maps.jsx";
+import UpdateProfile from "../views/UpdateProfile";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export function Navigation() {
             name="Profile"
             component={Profile}
           />
+          <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
           <Stack.Screen name="Map" component={Map} />
         </>
       ) : (

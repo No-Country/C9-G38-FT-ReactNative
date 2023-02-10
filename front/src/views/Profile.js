@@ -31,7 +31,7 @@ const Profile = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.options}>
+        <TouchableOpacity style={styles.options} onPress={() => navigation.navigate("UpdateProfile")}>
           <Icon name='more-horiz' type={Icons.MaterialIcons} size={36} />
         </TouchableOpacity>
       </View>
@@ -72,7 +72,7 @@ const Profile = ({ navigation, route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate('Map')}
+          onPress={() => navigation.navigate("Map")}
         >
           <Text>Map</Text>
         </TouchableOpacity>
@@ -92,23 +92,23 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    height: '100%',
+    backgroundColor: "#fff",
+    height: "100%",
   },
   header: {
-    height: '6%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    height: "6%",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 32,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   options: {
     marginLeft: 'auto'
   },
   profile: {
-    height: '22%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "22%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   profileImage: {
     height: 140,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: 140 / 2,
   },
   userName: {
-    textAlign: 'center',
+    textAlign: "center",
     // fontSize: 32,
     // fontWeight: 'bold',
     fontSize: Fonts.size.xxxLarge,
@@ -125,42 +125,42 @@ const styles = StyleSheet.create({
   },
   details: {
     marginTop: 10,
-    height: '10%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    height: "10%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
     paddingHorizontal: 32,
   },
   number: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buttons: {
-    height: '6%',
-    flexDirection: 'row',
+    height: "6%",
+    flexDirection: "row",
     paddingHorizontal: 32,
     marginTop: 24,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   logout: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 32,
     marginTop: 24,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   button1: {
-    backgroundColor: '#dedede',
-    width: '49%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#dedede",
+    width: "49%",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 12,
   },
   button2: {
-    width: '49%',
-    borderColor: '#ededed',
+    width: "49%",
+    borderColor: "#ededed",
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 12,
   },
 });
