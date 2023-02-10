@@ -1,6 +1,9 @@
-const Subcategory = require('../models/subcategories.model');
-const User = require('../models/user.model');
-const { encrypt } = require('../utils/encrypt');
+const User = require("../models/user.model");
+const UserSubcategory = require("../models/userSubcategories.model");
+const Subcategory = require("../models/subcategories.model");
+const Category = require("../models/categories.model");
+const { encrypt } = require("../utils/encrypt");
+
 class UserService {
   static async create(payload) {
     const passwordEncrypt = await encrypt(payload.password);
@@ -27,7 +30,14 @@ class UserService {
   static async getAll(payload) {
     const data = await User.findAll({
       where: { isActive: true },
-      include: { model: Subcategory },
+      include: { model: Subcategory, include: Category },
+    });
+    return data;
+  }
+  static async assignSubcategoryInUser(payload) {
+    const data = await UserSubcategory.create({
+      userId: payload.userId,
+      subcategoryId: payload.subcategoryId,
     });
     return data;
   }

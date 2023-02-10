@@ -1,7 +1,10 @@
-const User = require('../models/user.model');
-const UserService = require('../services/user.service');
-const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+const User = require("../models/user.model");
+const UserService = require("../services/user.service");
+const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 class AuthController {
   static async login(req, res) {
@@ -10,13 +13,13 @@ class AuthController {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(400).send({ message: 'user not found' });
+      return res.status(400).send({ message: "user not found" });
     }
 
     const isEquals = bcrypt.compare(password, user.password);
 
     if (!isEquals) {
-      return res.status(401).send({ message: 'credentials error' });
+      return res.status(401).send({ message: "credentials error" });
     }
 
     const token = jwt.sign(
@@ -31,7 +34,7 @@ class AuthController {
     try {
       await UserService.create(req.body);
       res.status(201).json({
-        message: 'register successful',
+        message: "register successful",
       });
     } catch (error) {
       console.log(error);
@@ -44,7 +47,7 @@ class AuthController {
   }
 
   static async logout(req, res) {
-    res.clearCookie('token');
+    res.clearCookie("token");
     res.sendStatus(204);
   }
 }
