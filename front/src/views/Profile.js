@@ -1,6 +1,7 @@
 import React from 'react';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
+import OptionsList from '../features/profile/components/OptionsList';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
@@ -8,11 +9,12 @@ import { useEffect, useState } from 'react';
 import Icon from '../utils/icons';
 import { Icons } from '../utils/icons';
 
-const Profile = ({ navigation, route }) => {
+const Profile = ({ navigation, screenName, route }) => {
   const logout = () => useAuthStore((state) => state.logout);
   const authToken = useAuthStore((state) => state.authToken);
 
   const [myProfile, setMyProfile] = useState();
+  const [optionsList, setOptionsList] = useState(false);
 
   const getMyProfile = async () => {
     let req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me', {
@@ -31,10 +33,11 @@ const Profile = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.options} onPress={() => navigation.navigate("UpdateProfile")}>
-          <Icon name='more-horiz' type={Icons.MaterialIcons} size={36} />
+        <TouchableOpacity style={styles.options} onPress={() => setOptionsList(true)}>
+          <Icon name='more-vert' type={Icons.MaterialIcons} size={32} />
         </TouchableOpacity>
       </View>
+      { optionsList && <OptionsList setOptionsList={() => setOptionsList(false)} /> }
       <View style={styles.profile}>
         {myProfile ?
           <Image
@@ -79,10 +82,6 @@ const Profile = ({ navigation, route }) => {
       </View>
       <View style={styles.logout}>
         <CSButton onPress={logout()} label="Cerrar sesion" />
-
-        {/* <TouchableOpacity style={styles.button1}>
-          <Text>Cerrar sesion</Text>
-        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     height: "6%",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 32,
+    paddingHorizontal: 16,
     flexDirection: "row",
   },
   options: {
