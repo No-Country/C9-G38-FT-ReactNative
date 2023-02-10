@@ -1,15 +1,29 @@
-const { db, DataTypes } = require("../config/database.util");
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const { db } = require('../config/database.util');
 
-//Creating a model...
+// class User extends Model { //genera un hash apartir del password y el salt
 
-const User = db.define("user", {
+//   hash(password, salt) {
+//   return bcrypt.hash(password, salt)
+//   }
+
+//   validatePassword(password) {
+//   return this.hash(password, this.salt)
+//   .then(newHash => newHash === this.password)
+//   }
+// }
+
+const User = db.define('users', {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
+  },
+  fullname: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  name: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -17,11 +31,53 @@ const User = db.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  status: {
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  google: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
+  },
+  biography: {
     type: DataTypes.STRING,
     allowNull: true,
-    defaultValue: "ACTIVE",
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  idFollows: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  idUserSubcategory: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  idLocation: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: true,
   },
 });
 
-module.exports = { User };
+// User.beforeCreate((user)=> {
+//   const salt = bcrypt.genSaltSync() //genero el salt
+//   user.salt = salt; // asigno el salt a la instancia de User
+
+//   return user.hash(user.password, salt).then(hash => { //espero que se genere el password hasheado para despues crear el usuario
+//     user.password =  hash
+//   });
+// });
+
+module.exports = User;

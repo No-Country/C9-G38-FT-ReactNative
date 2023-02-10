@@ -1,21 +1,23 @@
-const { app } = require("./app");
+const app = require("./app");
 const { db } = require("./config/database.util");
 const dotenv = require("dotenv");
 
+const relationshipModels = require("./models/relationshipModels");
+
 dotenv.config();
 
-//Creating an express server...
-const startSever = async () => {
+const init = async () => {
   try {
-    await db.authenticate().then((res) => console.log("Authenticated"));
-    await db.sync().then((res) => console.log("Synced"));
-    const PORT = 4000;
+    await db.authenticate().then((res) => console.log("DB Authenticated"));
+    relationshipModels();
+    await db.sync().then((res) => console.log("DB Synced"));
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-      console.log("running");
+      console.log("Running");
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-startSever();
+init();
