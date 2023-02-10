@@ -6,6 +6,7 @@ import Login from './src/views/Login';
 import Profile from './src/views/Profile';
 import Register from './src/views/Register';
 
+
 const Stack = createStackNavigator();
 
 export function Navigation() {
@@ -17,6 +18,7 @@ export function Navigation() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Profile" component={Profile} />
+     
      
     </Stack.Navigator>
   );
