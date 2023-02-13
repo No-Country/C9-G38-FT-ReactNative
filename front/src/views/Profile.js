@@ -1,6 +1,5 @@
 import React from 'react';
 import Fonts from '../styles/theme/Fonts';
-import CSButton from '../common/ui/Button';
 import OptionsList from '../features/profile/components/OptionsList';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,7 +9,6 @@ import Icon from '../utils/icons';
 import { Icons } from '../utils/icons';
 
 const Profile = ({ navigation, screenName, route }) => {
-  const logout = () => useAuthStore((state) => state.logout);
   const authToken = useAuthStore((state) => state.authToken);
 
   const [myProfile, setMyProfile] = useState();
@@ -80,9 +78,6 @@ const Profile = ({ navigation, screenName, route }) => {
           <Text>Map</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.logout}>
-        <CSButton onPress={logout()} label="Cerrar sesion" />
-      </View>
     </SafeAreaView>
   );
 };
@@ -91,7 +86,6 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     height: "100%",
   },
   header: {
@@ -105,12 +99,12 @@ const styles = StyleSheet.create({
     marginLeft: 'auto'
   },
   profile: {
-    height: "22%",
+    height: "20%",
     alignItems: "center",
     justifyContent: "center",
   },
   profileImage: {
-    height: 140,
+    height: 120,
     aspectRatio: 1,
     borderRadius: 140 / 2,
   },
