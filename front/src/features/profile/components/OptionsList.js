@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from '../../../store/authStore';
 
 const OptionsList = ({ setOptionsList }) => {
     const navigation = useNavigation();
+    const logout = () => useAuthStore((state) => state.logout);
 
     return (
         <TouchableOpacity onPress={() => setOptionsList()} style={styles.container}>
@@ -12,6 +14,9 @@ const OptionsList = ({ setOptionsList }) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('UserPreferences')}>
                     <Text>Preferencias</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={logout()} style={styles.option}>
+                    <Text>Cerrar sesión</Text>
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>
@@ -31,15 +36,15 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     optionsContainer: {
-        backgroundColor: '#ededed',
+        backgroundColor: '#fff',
         width: '50%',
         marginLeft: 'auto',
         borderRadius: 12,
-        paddingVertical: 8
+        paddingVertical: 8,
+        paddingHorizontal: 16
     },
     option: {
         width: '100%',
         paddingVertical: 10,
-        paddingHorizontal: 16
     }
 });
