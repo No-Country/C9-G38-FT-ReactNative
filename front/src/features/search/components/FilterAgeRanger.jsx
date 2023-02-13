@@ -21,8 +21,8 @@ const RangeSlider = () => {
           values={[ageRange[0], ageRange[1]]}
           sliderLength={300}
           onValuesChange={handleSliderChange}
-          min={0}
-          max={100}
+          min={18}
+          max={90}
           step={1}
           allowOverlap={false}
           snapped

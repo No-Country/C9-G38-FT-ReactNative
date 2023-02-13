@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import RangeSlider from "../features/search/components/FilterAgeRanger";
-
-import { FilterCategories } from "../features/search/components/FilterCategories";
-import FilterGender from "../features/search/components/FilterGender";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useFilterStore } from "../store/filterStore";
 import Filters from "./Filters";
 

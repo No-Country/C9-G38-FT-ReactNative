@@ -1,9 +1,6 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
-import FilterAge from "../features/search/components/FilterAge";
+import { View, Button } from "react-native";
 import RangeSlider from "../features/search/components/FilterAgeRanger";
-import AgeRangeSlider from "../features/search/components/FilterAgeRanger";
-
 
 import { FilterCategories } from "../features/search/components/FilterCategories";
 import FilterGender from "../features/search/components/FilterGender";
@@ -15,15 +12,14 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
   const saveHandler = () => {
     setCategorie(selected);
-    setSelectInterest(!selectInterest)
+    setSelectInterest(!selectInterest);
   };
 
   return (
     <View>
       <FilterGender />
 
-
-      <RangeSlider/>
+      <RangeSlider />
 
       <FilterCategories selected={selected} setSelected={setSelected} />
 

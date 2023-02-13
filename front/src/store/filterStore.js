@@ -3,7 +3,6 @@ import { AsyncStorage } from "react-native";
 
 export const useFilterStore = create((set) => ({
   gender: null,
-  ages: null,
   agesrange: null,
   categories: [],
   categoriesList: [],
@@ -17,12 +16,6 @@ export const useFilterStore = create((set) => ({
     set((state) => ({
       ...state,
       gender: value,
-    })),
-
-  setAges: (value) =>
-    set((state) => ({
-      ...state,
-      ages: value,
     })),
   setAgesRanges: (value) =>
     set((state) => ({
@@ -43,11 +36,4 @@ export const useFilterStore = create((set) => ({
       categoriesList: newData,
     }));
   },
-  // getAuth: async () => {
-  //     let value = await AsyncStorage.getItem('token');
-  //     console.log(value);
-  //     set(() => ({
-  //         authToken: value
-  //     }))
-  // }
 }));
