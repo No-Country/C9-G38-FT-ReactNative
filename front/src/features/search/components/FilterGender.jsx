@@ -11,7 +11,7 @@ const Checkbox = ({ label, selected, onPress }) => (
   </TouchableOpacity>
 );
 
-const GenderSelection = () => {
+const FilterGender = () => {
   const [hombreSelected, setHombreSelected] = useState(false);
   const [mujerSelected, setMujerSelected] = useState(false);
   const [otroSelected, setOtroSelected] = useState(false);
@@ -99,4 +99,4 @@ const styles = {
   },
 };
 
-export default GenderSelection;
+export default FilterGender;

@@ -1,32 +1,59 @@
-import React, { useEffect } from "react";
-import { View, Text, Button } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import RangeSlider from "../features/search/components/FilterAgeRanger";
 
 import { FilterCategories } from "../features/search/components/FilterCategories";
+import FilterGender from "../features/search/components/FilterGender";
 import { useFilterStore } from "../store/filterStore";
+import Filters from "./Filters";
 
 const Search = ({ navigation }) => {
-  const categories = useFilterStore((state) => state.categories);
-  const gender = useFilterStore((state) => state.gender);
-  const ages = useFilterStore((state) => state.ages);
-  const agesrange = useFilterStore((state) => state.agesrange);
+  const [selectInterest, setSelectInterest] = useState(false);
+
+  const { categories, gender, agesrange } = useFilterStore((state) => ({
+    categories: state.categories,
+    gender: state.gender,
+    agesrange: state.agesrange,
+  }));
+
+  const filtersHandler = () => {
+    setSelectInterest(!selectInterest);
+  };
 
   return (
     <View>
       <Text>Search View</Text>
 
+      <TouchableOpacity onPress={filtersHandler}>
+        <View
+          style={{
+            alignItems: "center",
+            backgroundColor: selectInterest ? "#a6a6a6" : "#DDDDDD",
+            padding: 10,
+          }}
+        >
+          <Text>Intereses</Text>
+        </View>
+      </TouchableOpacity>
+
       <Text>Buscar Jugadores:</Text>
 
-      <Button
-        onPress={() => navigation.navigate("Filters")}
-        title="GO FILTERS"
-      />
+      {selectInterest === false ? (
+        <View>
+          <Text>{categories}</Text>
+          <Text>{gender}</Text>
+          <Text>
+            {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
+          </Text>
+        </View>
+      ) : null}
 
-      <Text>CATEGORIAS: {categories}</Text>
-      <Text>GENERO: {gender}</Text>
-      <Text>EDAD: {ages}</Text>
-      <Text>
-        RANGOS: {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
-      </Text>
+      {selectInterest ? (
+        <Filters
+          selectInterest={selectInterest}
+          setSelectInterest={setSelectInterest}
+        />
+      ) : null}
     </View>
   );
 };

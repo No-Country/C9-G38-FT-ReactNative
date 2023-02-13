@@ -9,20 +9,19 @@ import { FilterCategories } from "../features/search/components/FilterCategories
 import FilterGender from "../features/search/components/FilterGender";
 import { useFilterStore } from "../store/filterStore";
 
-const Filters = ({ navigation, route }) => {
+const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
   const { setCategorie } = useFilterStore();
 
   const saveHandler = () => {
     setCategorie(selected);
-    navigation.goBack();
+    setSelectInterest(!selectInterest)
   };
 
   return (
     <View>
       <FilterGender />
 
-      <FilterAge />
 
       <RangeSlider/>
 
