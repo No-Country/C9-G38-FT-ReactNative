@@ -7,13 +7,13 @@ const Op = Sequelize.Op;
 
 class UserService {
   static async create(payload) {
-    const passwordEncrypt = await encrypt(payload.password);
+    const passEncrypt = await encrypt(payload.password);
     console.log(payload);
     const data = await User.create({
       fullname: payload.fullname,
       username: payload.username,
       email: payload.email,
-      password: passwordEncrypt,
+      password: passEncrypt,
       biography: payload.biography,
       phone: payload.phone,
       age: payload.age,
