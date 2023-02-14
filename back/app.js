@@ -1,9 +1,9 @@
 const express = require('express');
 
 const userRouter = require('./routes/user.routes');
-const categoryRouter = require('./routes/categories.routes');
-const subcategoryRouter = require('./routes/subcategories.routes');
 const AuthRouter = require('./routes/auth.routes');
+const sportRouter = require('./routes/sport.routes');
+const followRouter = require('./routes/follow.routes');
 
 const app = express();
 
@@ -11,9 +11,9 @@ express.json();
 app.use(express.json());
 
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/categories', categoryRouter);
-app.use('/api/v1/subcategories', subcategoryRouter);
+app.use('/api/v1/sports', sportRouter);
 app.use('/api/v1/auth', AuthRouter);
+app.use('/api/v1/follows', followRouter);
 
 app.all('*', (req, res) => {
   res.status(404).json({
