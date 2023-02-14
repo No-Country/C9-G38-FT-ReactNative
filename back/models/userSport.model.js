@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const { db } = require("../config/database.util");
+const { Sequelize, DataTypes } = require('sequelize');
+const { db } = require('../config/database.util');
 
-const UserSubcategory = db.define("userSubcategories", {
+const UserSport = db.define('userSports', {
   id: {
     primaryKey: true,
     autoIncrement: true,
@@ -10,12 +10,14 @@ const UserSubcategory = db.define("userSubcategories", {
   },
   userId: {
     type: DataTypes.INTEGER,
+    unique: false,
     allowNull: false,
   },
-  subcategoryId: {
+  sportId: {
     type: DataTypes.INTEGER,
+    unique: false,
     allowNull: false,
   },
 });
 
-module.exports = UserSubcategory;
+module.exports = UserSport;

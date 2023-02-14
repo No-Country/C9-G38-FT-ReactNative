@@ -1,10 +1,11 @@
-import React from "react";
-import { View, Button } from "react-native";
-import RangeSlider from "../features/search/components/FilterAgeRanger";
+import React from 'react';
+import { View, Button } from 'react-native';
+import RangeSlider from '../features/search/components/FilterAgeRanger';
 
-import { FilterCategories } from "../features/search/components/FilterCategories";
-import FilterGender from "../features/search/components/FilterGender";
-import { useFilterStore } from "../store/filterStore";
+import { FilterCategories } from '../features/search/components/FilterCategories';
+import FilterGender from '../features/search/components/FilterGender';
+import { useFilterStore } from '../store/filterStore';
+import CSButton from '../common/ui/Button';
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
@@ -14,7 +15,6 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
     setCategorie(selected);
     setSelectInterest(!selectInterest);
   };
-
   return (
     <View>
       <FilterGender />
@@ -23,7 +23,8 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
       <FilterCategories selected={selected} setSelected={setSelected} />
 
-      <Button onPress={saveHandler} title="Guardar preferencias" />
+      {/* <CSButton onPress={saveHandler()} label="Guardar" /> */}
+      <Button onPress={saveHandler} title="Guardar " />
     </View>
   );
 };

@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const { db } = require("../config/database.util");
+const { Sequelize, DataTypes } = require('sequelize');
+const { db } = require('../config/database.util');
 
-const Subcategory = db.define("subcategories", {
+const Sport = db.define('sports', {
   id: {
     primaryKey: true,
     autoIncrement: true,
@@ -12,10 +12,6 @@ const Subcategory = db.define("subcategories", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  categoryId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
   isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
@@ -23,4 +19,4 @@ const Subcategory = db.define("subcategories", {
   },
 });
 
-module.exports = Subcategory;
+module.exports = Sport;

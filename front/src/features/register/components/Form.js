@@ -1,8 +1,11 @@
 import { InputForm } from './InputForm'
 import { useForm } from 'react-hook-form'
-import { Button, ScrollView, Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { styles } from '../../../styles/register/register.style'
 import { inputs } from '../helpers/register-form'
+import { REGISTER_USER } from '../../../constants/endpoints'
+import { useNavigation } from '@react-navigation/native'
+import CSButton from '../../../common/ui/Button'
 
 const Form = () => {
     const {
@@ -11,9 +14,21 @@ const Form = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = d => {
+    const navigation = useNavigation()
+
+    const onSubmit = async newUser => {
         try {
-            console.log(d)
+            const { fullname, password, username, email } = newUser
+
+            await fetch(REGISTER_USER, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fullname, password, username, email }),
+            })
+
+            navigation.navigate('Login')
         } catch (error) {
             console.log(error)
         }
@@ -21,19 +36,17 @@ const Form = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View>
-                <Text style={styles.logo}>
-                    Logo Aplicacion o Imagen ilustrativa
-                </Text>
-                <Text style={styles.title}>Registrate a Netsports!</Text>
+            <View style={styles.headerWrapper}>
+                {/* <Text style={styles.logo}>Logo Aplicacion o Imagen ilustrativa</Text> */}
+                <Text style={styles.title}>Registrate!</Text>
             </View>
-            <View style={styles.logos}>
+            {/* <View style={styles.logos}>
                 <Text>LOGO Google</Text>
                 <Text>LOGO Facebook</Text>
                 <Text>LOGO Twitter</Text>
-            </View>
-            <Text style={styles.h2}>O, puede registrarse con email...</Text>
-            <View>
+            </View> */}
+            {/* <Text style={styles.h2}>O, puede registrarse con email...</Text> */}
+            <View style={styles.formWrapper}>
                 {inputs.map(input => (
                     <View key={input.name}>
                         <InputForm
@@ -52,12 +65,12 @@ const Form = () => {
                 ))}
                 <View
                     style={{
-                        marginTop: 20,
+                        marginTop: 40,
                     }}
                 >
-                    <Button
-                        title='Registrarse'
+                    <CSButton
                         onPress={handleSubmit(onSubmit)}
+                        label='Registrarse'
                     />
                 </View>
             </View>

@@ -1,57 +1,78 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { useFilterStore } from "../store/filterStore";
-import Filters from "./Filters";
-
+import React, { useEffect } from 'react';
+import {
+  Text,
+  StyleSheet,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useUserStore } from '../store/userStore';
+import Searchbar from '../features/search/components/Searchbar';
+import FilteredSearch from '../features/search/components/FilteredSearch';
+import { FontAwesome } from '@expo/vector-icons';
+import { data } from '../constants/data';
 const Search = ({ navigation }) => {
-  const [selectInterest, setSelectInterest] = useState(false);
+  const { users, filteredUsers, getAllUsers } = useUserStore((state) => state);
 
-  const { categories, gender, agesrange } = useFilterStore((state) => ({
-    categories: state.categories,
-    gender: state.gender,
-    agesrange: state.agesrange,
-  }));
-
-  const filtersHandler = () => {
-    setSelectInterest(!selectInterest);
-  };
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   return (
-    <View>
-      <Text>Search View</Text>
-
-      <TouchableOpacity onPress={filtersHandler}>
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: selectInterest ? "#a6a6a6" : "#DDDDDD",
-            padding: 10,
-          }}
+    <SafeAreaView style={{ margin: 10 }}>
+      <View style={styles.headWrapper}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Preferences', {
+              fromProfile: false,
+            })
+          }
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+          })}
         >
-          <Text>Intereses</Text>
-        </View>
-      </TouchableOpacity>
+          <FontAwesome name="sliders" size={28} color={'black'} />
+        </Pressable>
+      </View>
+      <Searchbar />
+      {/* {users === filteredUsers ? (
+        <ScrollView>
+          <Text style={styles.textFriends}>Personas sugeridas:</Text>
+          <FilteredSearch users={users} />
+        </ScrollView>
+      ) : (
+        <ScrollView>
+          <Text style={styles.textFriends}>Usuarios encontrados:</Text>
+          <FilteredSearch users={filteredUsers} />
+        </ScrollView>
+      )} */}
 
-      <Text>Buscar Jugadores:</Text>
-
-      {selectInterest === false ? (
-        <View>
-          <Text>{categories}</Text>
-          <Text>{gender}</Text>
-          <Text>
-            {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
-          </Text>
-        </View>
-      ) : null}
-
-      {selectInterest ? (
-        <Filters
-          selectInterest={selectInterest}
-          setSelectInterest={setSelectInterest}
-        />
-      ) : null}
-    </View>
+      <View>
+        {data.map((element) => (
+          <Text style={{ color: 'red' }}>{element.username}</Text>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  headWrapper: {
+    marginHorizontal: 16,
+    marginVertical: 20,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  textFriends: {
+    fontSize: 20,
+    textAlign: 'left',
+    marginLeft: 10,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+});
 
 export default Search;

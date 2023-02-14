@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { View } from "react-native";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
-import { useFilterStore } from "../../../store/filterStore";
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import { useFilterStore } from '../../../store/filterStore';
 
 export const FilterCategories = ({ navigation, selected, setSelected }) => {
   const categoriesList = useFilterStore((state) => state.categoriesList);
@@ -26,8 +26,7 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
         placeholder="CATEGORIAS"
         searchPlaceholder="Contanos tus preferencias"
         dropdownStyles={{
-          backgroundColor: "white",
-          
+          backgroundColor: 'white',
           zIndex: 8,
         }}
         dropdownItemStyles={{ marginHorizontal: 12 }}

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { useFilterStore } from '../store/filterStore';
+import { styles } from '../styles/register/register.style';
 import Filters from './Filters';
+import { useAuthStore } from '../store/authStore';
 
-const Preference = ({ navigation }) => {
+const Preference = ({ navigation, route }) => {
+  const { fromProfile } = route.params;
   const [selectInterest, setSelectInterest] = useState(false);
+
+  const logout = () => useAuthStore((state) => state.logout);
 
   const { categories, gender, agesrange } = useFilterStore((state) => ({
     categories: state.categories,
@@ -17,39 +22,23 @@ const Preference = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Search View</Text>
+    <View style={styles.container}>
+      <View>
+        <Text>{categories}</Text>
+        <Text>{gender}</Text>
+        <Text>
+          {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
+        </Text>
+      </View>
 
-      <TouchableOpacity onPress={filtersHandler}>
-        <View
-          style={{
-            alignItems: 'center',
-            backgroundColor: selectInterest ? '#a6a6a6' : '#DDDDDD',
-            padding: 10,
-          }}
-        >
-          <Text>Intereses</Text>
-        </View>
-      </TouchableOpacity>
+      <Filters
+        selectInterest={selectInterest}
+        setSelectInterest={setSelectInterest}
+      />
 
-      <Text>Buscar Jugadores:</Text>
-
-      {selectInterest === false ? (
-        <View>
-          <Text>{categories}</Text>
-          <Text>{gender}</Text>
-          <Text>
-            {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
-          </Text>
-        </View>
-      ) : null}
-
-      {selectInterest ? (
-        <Filters
-          selectInterest={selectInterest}
-          setSelectInterest={setSelectInterest}
-        />
-      ) : null}
+      <View style={{ marginTop: 20 }}>
+        {fromProfile && <Button onPress={logout()} title="Cerrar sesion" />}
+      </View>
     </View>
   );
 };
