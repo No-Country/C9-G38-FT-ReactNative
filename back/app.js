@@ -7,7 +7,6 @@ const followRouter = require('./routes/follow.routes');
 
 const app = express();
 
-express.json();
 app.use(express.json());
 
 app.use('/api/v1/users', userRouter);

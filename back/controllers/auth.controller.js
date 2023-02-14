@@ -9,6 +9,7 @@ dotenv.config();
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
+<<<<<<< HEAD
 
     const user = await User.findOne({
       where: { email },
@@ -23,6 +24,11 @@ class AuthController {
         'age',
         'gender',
       ],
+=======
+    console.log('debug ', email);
+    const user = await User.findOne({
+      where: { email },
+>>>>>>> 9de97625aa2537f441118aebd73f0b2fdfb7d82d
     });
 
     if (!user) {
@@ -39,6 +45,7 @@ class AuthController {
       { id: user.id, email: user.email, password: user.password },
       process.env.TOKEN_SECRET
     );
+    delete user.password;
 
     user.password = undefined;
     res.send({ data: user, token: token });
@@ -49,6 +56,20 @@ class AuthController {
       await UserService.create(req.body);
       res.status(201).json({
         message: 'register successful',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async getCurrent(req, res) {
+    try {
+      const user = await User.findOne({
+        where: { id: req.userId },
+        attributes: { exclude: ['password'] },
+      });
+      res.status(201).json({
+        data: user,
       });
     } catch (error) {
       console.log(error);
