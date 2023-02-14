@@ -48,6 +48,14 @@ const User = db.define('users', {
     type: DataTypes.BOOLEAN,
     allowNull: true,
   },
+  coordinates: {
+    type: DataTypes.GEOMETRY,
+    allowNull: true,
+  },
+  gender: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: true,

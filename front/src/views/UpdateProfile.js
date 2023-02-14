@@ -98,6 +98,22 @@ const UpdateProfile = () => {
           />
         )}
       />
+      <Text style={styles.subtitle}>Sexo:</Text>
+      <Controller
+        control={control}
+        rules={{ required: true }}
+        name="edad"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Edad"
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value}
+            disableFullscreenUI={true}
+          />
+        )}
+      />
       <Text style={styles.subtitle}>Intereses:</Text>
       <Controller
         control={control}
