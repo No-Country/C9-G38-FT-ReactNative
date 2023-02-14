@@ -9,7 +9,6 @@ dotenv.config();
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
-<<<<<<< HEAD
 
     const user = await User.findOne({
       where: { email },
@@ -24,11 +23,6 @@ class AuthController {
         'age',
         'gender',
       ],
-=======
-    console.log('debug ', email);
-    const user = await User.findOne({
-      where: { email },
->>>>>>> 9de97625aa2537f441118aebd73f0b2fdfb7d82d
     });
 
     if (!user) {
