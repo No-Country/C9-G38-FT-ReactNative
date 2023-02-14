@@ -1,6 +1,7 @@
 const Subcategory = require('../models/subcategories.model');
 const User = require('../models/user.model');
 const { encrypt } = require('../utils/encrypt');
+
 class UserService {
   static async create(payload) {
     const passwordEncrypt = await encrypt(payload.password);
@@ -31,6 +32,38 @@ class UserService {
     });
     return data;
   }
+  
+  static async deleteUser(payload) {
+    const data = await User.destroy({ 
+      where: { id: req.params.id } 
+    })
+    return data
+  }
+
+  
+  static async editUser(payload) {
+    
+    const data = await UserService.update(req.body, {
+      where: { id: req.params.id },
+      returning: true,
+    })
+    return data
+    const user= update[0]
+
+    const payload = {
+      fullname: user.fullname,
+      username: user.username,
+      email: user.email,
+      biography: user.biography,
+      phone: user.phone,
+      idFollows: user.idFollows,
+      idUserSubcategory: user.idUserSubcategory,
+      idLocation: user.idLocation,
+    };
+    return payload;
+  }
+
+
 }
 
 module.exports = UserService;
