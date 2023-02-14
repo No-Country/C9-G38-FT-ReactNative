@@ -38,7 +38,7 @@ class FollowController {
         userId: req.userId,
         followId: req.params.id,
       };
-      await FollowService.delete(data);
+      await FollowService.remove(data);
       res.status(200).json({});
     } catch (error) {
       console.log(error);
