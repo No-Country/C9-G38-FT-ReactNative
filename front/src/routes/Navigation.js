@@ -13,6 +13,7 @@ import UserPreferences from '../views/UserPreferences';
 import Filters from '../views/Filters';
 import Search from '../views/Search';
 import Preferences from '../views/Preferences';
+import UserDetail from '../views/UserDetail';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,11 @@ export function Navigation() {
             component={UserPreferences}
             options={{ title: 'Preferencias' }}
           />
+          <Stack.Screen 
+            name="UserDetail" 
+            component={UserDetail} 
+            options={{ title: '' }}
+            />
         </>
       ) : (
         <>
