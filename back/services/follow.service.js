@@ -25,6 +25,31 @@ class FollowService {
     return data;
   }
 
+  static async isFollow(payload) {
+    const { userId, followId } = payload;
+    const data = await User.findByPk(userId, {
+      include: {
+        model: User,
+        as: 'follows',
+      },
+    });
+
+    return data.follows.map((item) => item.id === followId).length !== 0;
+  }
+
+  static async getCount(payload) {
+    const { followId } = payload;
+
+    const countFollow = await User.findByPk(followId, {
+      include: {
+        model: User,
+        as: 'follows',
+      },
+    });
+
+    return countFollow.follows.length;
+  }
+
   static async remove(payload) {
     const { userId, followId } = payload;
     const follow = await Follow.destroy({

@@ -4,6 +4,8 @@ const Sport = require('../models/sport.model');
 const { encrypt } = require('../utils/encrypt');
 const { where, Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
+const { cloudinary } = require('../config/cloudinary');
+const FollowService = require('./follow.service');
 
 class UserService {
   static async create(payload) {
@@ -22,12 +24,28 @@ class UserService {
   }
 
   static async getById(payload) {
+    const { userId, followId } = payload;
+    const isFollower = await FollowService.isFollow(payload);
+    const countFollowers = await FollowService.getCount(payload);
     const data = await User.findOne({
-      where: { id: payload },
+      where: { id: followId },
       include: { model: Sport },
+      attributes: [
+        'id',
+        'username',
+        'biography',
+        'avatar',
+        'phone',
+        'age',
+        'gender',
+      ],
     });
 
-    return data;
+    return {
+      ...data.toJSON(),
+      isFollower,
+      countFollowers,
+    };
   }
 
   static async getAll(payload) {
@@ -87,6 +105,32 @@ class UserService {
 
     await this.assignSportsInUser({ sports, userId });
     return res;
+  }
+
+  static async updateAvatar(payload) {
+    const { userId, file } = payload;
+
+    const fileObj = await cloudinary.uploader.upload(file.path);
+
+    const secure_url = fileObj.secure_url;
+
+    const response = await User.update(
+      {
+        avatar: secure_url,
+      },
+      {
+        where: { id: userId },
+      }
+    );
+
+    return secure_url;
+  }
+
+  static async delete(payload) {
+    const data = await User.destroy({
+      where: { id: req.params.id },
+    });
+    return data;
   }
 }
 

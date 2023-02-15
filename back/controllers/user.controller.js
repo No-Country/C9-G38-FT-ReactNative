@@ -12,10 +12,28 @@ class UserController {
     }
   }
 
+  static async updateAvatar(req, res) {
+    try {
+      const data = {
+        file: req.file,
+        userId: req.userId,
+      };
+      const url = await UserService.updateAvatar(data);
+
+      return res.status(200).json({
+        url,
+      });
+    } catch (e) {}
+  }
+
   static async getById(req, res) {
     try {
-      const { id } = req.params;
-      const user = await UserService.getById(id);
+      const data = {
+        userId: req.userId,
+        followId: req.params.id,
+      };
+
+      const user = await UserService.getById(data);
       return res.status(200).json({
         data: user,
       });
@@ -71,6 +89,15 @@ class UserController {
       res.status(200).json({
         data: user,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      await UserService.delete(id);
+      res.status(200).send('User Deleted');
     } catch (error) {
       console.log(error);
     }
