@@ -49,7 +49,6 @@ class UserService {
     })
     return data
     const user= update[0]
-
     const payload = {
       fullname: user.fullname,
       username: user.username,
@@ -62,6 +61,19 @@ class UserService {
     };
     return payload;
   }
+
+  static async editAvatar(payload) {
+    try {
+      const data = await User.update({
+        where: { id: payload },
+        returning: true,
+      });
+      return data
+    } catch (error) {
+        console.log(error);      
+    }
+  }
+
 
 
 }

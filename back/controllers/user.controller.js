@@ -35,7 +35,6 @@ class UserController {
     }
   }
 
-
   static async deleteUser(req, res) {
     try {
       await UserService.deleteUser(id)
@@ -54,6 +53,18 @@ class UserController {
       console.log(error)
     }
   }
+
+  static async editAvatar(req, res) {
+    try {
+      const { id } = req.paramas
+      const user = await UserService.update(id);
+      res.status(200).json(user);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
 
 }
 
