@@ -11,11 +11,6 @@ const UserDetail = ({ route }) => {
     const [user, setUser] = useState();
 
     const getUser = async () => {
-        setUser({
-            id: '1',
-            username: 'Ossas',
-            following: false
-        });
         try {
             let req = await fetch(`${BASE_ENDPOINT}/users/${route.params.id}`, {
                 method: 'GET',
@@ -38,7 +33,7 @@ const UserDetail = ({ route }) => {
             });
             let res = await req.json();
             console.log(res);
-            setUser({...user, following: true})
+            setUser({...user, isFollower: true})
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +47,7 @@ const UserDetail = ({ route }) => {
             });
             let res = await req.json();
             console.log(res);
-            setUser({...user, following: false})
+            setUser({...user, isFollower: false})
         } catch (error) {
             console.log(error);
         }
@@ -93,7 +88,7 @@ const UserDetail = ({ route }) => {
                 </Text>
             </View>
             <View style={styles.actionButtons}>
-                {user?.following ?
+                {user?.isFollower ?
                     (
                         <>
                             <CSButton label={'Dejar de seguir'} style={styles.followButton} onPress={unfollow} />
