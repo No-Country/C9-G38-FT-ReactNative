@@ -18,7 +18,7 @@ const UserDetail = ({ route }) => {
             });
             let res = await req.json();
             console.log(res);
-            setUser(res);
+            setUser(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -28,7 +28,7 @@ const UserDetail = ({ route }) => {
         try {
             let req = await fetch(`${BASE_ENDPOINT}/follows`, {
                 method: 'POST',
-                headers: { Authorization: authToken },
+                headers: { Authorization: authToken, 'Content-Type': 'application/json' },
                 body: JSON.stringify({ follow: route.params.id })
             });
             let res = await req.json();
@@ -43,7 +43,7 @@ const UserDetail = ({ route }) => {
         try {
             let req = await fetch(`${BASE_ENDPOINT}/follows/${route.params.id}`, {
                 method: 'DELETE',
-                headers: { Authorization: authToken }
+                headers: { Authorization: authToken, 'Content-Type': 'application/json' }
             });
             let res = await req.json();
             console.log(res);
