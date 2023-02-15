@@ -13,6 +13,8 @@ import Searchbar from '../features/search/components/Searchbar';
 import FilteredSearch from '../features/search/components/FilteredSearch';
 import { FontAwesome } from '@expo/vector-icons';
 import { data } from '../constants/data';
+import CardItem from '../features/search/components/CardItem';
+import CardList from '../features/search/components/CardList';
 const Search = ({ navigation }) => {
   const { users, filteredUsers, getAllUsers } = useUserStore((state) => state);
 
@@ -49,11 +51,12 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-      <View>
-        {data.map((element) => (
-          <Text style={{ color: 'red' }}>{element.username}</Text>
-        ))}
-      </View>
+     
+      
+        <CardList users={data} navigation={navigation}/>
+      
+
+      
     </SafeAreaView>
   );
 };
