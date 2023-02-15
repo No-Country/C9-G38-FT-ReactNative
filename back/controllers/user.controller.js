@@ -1,4 +1,4 @@
-const UserService = require("../services/user.service");
+const UserService = require('../services/user.service');
 
 class UserController {
   static async create(req, res) {
@@ -10,6 +10,20 @@ class UserController {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  static async updateAvatar(req, res) {
+    try {
+      const data = {
+        file: req.file,
+        userId: req.userId,
+      };
+      const url = await UserService.updateAvatar(data);
+
+      return res.status(200).json({
+        url,
+      });
+    } catch (e) {}
   }
 
   static async getById(req, res) {
@@ -35,26 +49,55 @@ class UserController {
     }
   }
 
-
-  static async deleteUser(req, res) {
+  static async search(req, res) {
     try {
-      await UserService.deleteUser(id)
-      res.status(200).send("User Deleted")
+      const { filters } = req.body;
+      const users = await UserService.search(filters);
+      res.status(200).json({
+        data: users,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
-  static async editUser(req, res) {
+  static async searchById(req, res) {
     try {
-      await UserService.update(id)    
-      res.send(payload);
-
+      const { id } = req.params;
+      const users = await UserService.searchById(id);
+      res.status(200).json({
+        data: users,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
+  static async update(req, res) {
+    try {
+      const data = {
+        data: req.body,
+        userId: req.userId,
+        sports: req.body.sports,
+      };
+
+      const user = await UserService.update(data);
+      res.status(200).json({
+        data: user,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      await UserService.delete(id);
+      res.status(200).send('User Deleted');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = UserController;

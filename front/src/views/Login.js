@@ -5,13 +5,13 @@ import {
   StyleSheet,
   Button,
   Pressable,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useForm, Controller } from 'react-hook-form';
-import { useAuthStore } from '../store/authStore';
-import { useState } from 'react';
-import Fonts from '../styles/theme/Fonts';
-import CSButton from '../common/ui/Button';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useForm, Controller } from "react-hook-form";
+import { useAuthStore } from "../store/authStore";
+import { useState } from "react";
+import Fonts from "../styles/theme/Fonts";
+import CSButton from "../common/ui/Button";
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = useState(false);
@@ -22,8 +22,8 @@ const Login = ({ navigation }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -34,20 +34,20 @@ const Login = ({ navigation }) => {
     setLoginError(false);
     try {
       const req = await fetch(
-        'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/login',
+        "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/login",
         {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         }
       );
       if (req.status === 400 || req.status === 401)
-        throw new Error('not found');
+        throw new Error("not found");
       const res = await req.json();
       console.log(res);
       setAuth(res.token);
     } catch (error) {
-      console.log('1', error.message);
+      console.log("1", error.message);
       setLoginError(true);
     }
   };
@@ -102,7 +102,7 @@ const Login = ({ navigation }) => {
         <Text style={styles.questionText}>¿No tenés cuenta?</Text>
         <Text
           style={styles.redirectText}
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate("Register")}
         >
           ¡Registrate!
         </Text>
@@ -113,15 +113,15 @@ const Login = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
     paddingHorizontal: 32,
     paddingVertical: 72,
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 48,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 32,
@@ -130,18 +130,18 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.regular,
   },
   errorInput: {
-    backgroundColor: '#f2dcdc',
+    backgroundColor: "#f2dcdc",
   },
   login: {
-    width: '100%',
+    width: "100%",
     marginTop: 30,
   },
   loginGoogle: {
-    width: '100%',
+    width: "100%",
     marginTop: 60,
   },
   signUp: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 20,
   },
   title: {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   redirectText: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.bold,
-    color: '#2192FF',
+    color: "#2192FF",
     marginLeft: 5,
   },
   questionText: {
@@ -159,13 +159,13 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.regular,
   },
   signUpLink: {
-    color: '#618ec3',
+    color: "#618ec3",
     marginLeft: 10,
   },
   loginError: {
-    color: '#b48484',
+    color: "#b48484",
     marginTop: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 export default Login;

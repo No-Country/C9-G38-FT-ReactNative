@@ -2,13 +2,27 @@ const User = require('../models/user.model');
 const UserService = require('../services/user.service');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
-    console.log('debug ', email);
+
     const user = await User.findOne({
       where: { email },
+      attributes: [
+        'id',
+        'fullname',
+        'username',
+        'email',
+        'password',
+        'avatar',
+        'phone',
+        'age',
+        'gender',
+      ],
     });
 
     if (!user) {
@@ -27,6 +41,7 @@ class AuthController {
     );
     delete user.password;
 
+    user.password = undefined;
     res.send({ data: user, token: token });
   }
 

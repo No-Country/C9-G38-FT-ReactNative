@@ -1,24 +1,35 @@
 import React from 'react';
 import Fonts from '../styles/theme/Fonts';
-import CSButton from '../common/ui/Button';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import OptionsList from '../features/profile/components/OptionsList';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Pressable,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
 import { useEffect, useState } from 'react';
 import Icon from '../utils/icons';
 import { Icons } from '../utils/icons';
+import { FontAwesome } from '@expo/vector-icons';
 
-const Profile = ({ navigation, route }) => {
-  const logout = () => useAuthStore((state) => state.logout);
+const Profile = ({ navigation, screenName, route }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [myProfile, setMyProfile] = useState();
+  const [optionsList, setOptionsList] = useState(false);
 
   const getMyProfile = async () => {
-    let req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me', {
-      method: 'GET',
-      headers: { 'Authorization': authToken }
-    });
+    let req = await fetch(
+      'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me',
+      {
+        method: 'GET',
+        headers: { Authorization: authToken },
+      }
+    );
     let res = await req.json();
     console.log(res.data);
     setMyProfile(res.data);
@@ -30,41 +41,75 @@ const Profile = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.options}>
-          <Icon name='more-horiz' type={Icons.MaterialIcons} size={36} />
-        </TouchableOpacity>
+      <View style={styles.headWrapper}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Preferences', {
+              fromProfile: true,
+            })
+          }
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+          })}
+        >
+          <FontAwesome name="gear" size={30} color={'black'} />
+        </Pressable>
       </View>
+      {/* 
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.options}
+          onPress={() => setOptionsList(true)}
+        >
+          <Icon name="more-vert" type={Icons.MaterialIcons} size={32} />
+        </TouchableOpacity>
+      </View> */}
+      {/* {optionsList && (
+        <OptionsList setOptionsList={() => setOptionsList(false)} />
+      )} */}
       <View style={styles.profile}>
-        {myProfile ?
+        {myProfile ? (
           <Image
             style={styles.profileImage}
             source={{
-              uri: myProfile.avatar ?? 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg'
-            }}
-          /> :
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg'
+              uri:
+                myProfile.avatar ??
+                'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
             }}
           />
-        }
+        ) : (
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
+            }}
+          />
+        )}
+        <View style={styles.editWrapper}>
+          <Pressable
+            onPress={() => navigation.navigate('UpdateProfile')}
+            style={styles.editButton}
+          >
+            <FontAwesome name="pencil" size={18} color={'white'} />
+          </Pressable>
+        </View>
       </View>
-      <Text style={styles.userName}>{myProfile ? myProfile.fullname : '...'}</Text>
+      <Text style={styles.userName}>
+        {myProfile ? myProfile.fullname : '...'}
+      </Text>
       <View style={styles.details}>
         <View>
           <Text style={styles.number}>56</Text>
-          <Text>Detail 1</Text>
+          <Text style={styles.text}>Seguidores</Text>
         </View>
         <View>
           <Text style={styles.number}>215</Text>
-          <Text>Detail 2</Text>
+          <Text style={styles.text}>Siguiendo</Text>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.number}>200</Text>
           <Text>Detail 3</Text>
-        </View>
+        </View> */}
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button1}>
@@ -77,13 +122,6 @@ const Profile = ({ navigation, route }) => {
           <Text>Map</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.logout}>
-        <CSButton onPress={logout()} label="Cerrar sesion" />
-
-        {/* <TouchableOpacity style={styles.button1}>
-          <Text>Cerrar sesion</Text>
-        </TouchableOpacity> */}
-      </View>
     </SafeAreaView>
   );
 };
@@ -92,26 +130,32 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
     height: '100%',
+  },
+  headWrapper: {
+    marginVertical: 20,
+    marginHorizontal: 16,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   header: {
     height: '6%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 32,
+    paddingHorizontal: 16,
     flexDirection: 'row',
   },
   options: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
   },
   profile: {
-    height: '22%',
+    height: '20%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   profileImage: {
-    height: 140,
+    height: 148,
     aspectRatio: 1,
     borderRadius: 140 / 2,
   },
@@ -122,6 +166,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.xxxLarge,
     fontFamily: Fonts.type.bold,
     letterSpacing: 0.8,
+    marginTop: 10,
   },
   details: {
     marginTop: 10,
@@ -132,8 +177,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
   number: {
-    fontSize: 26,
-    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 24,
+    fontFamily: Fonts.type.semiBold,
+    marginBottom: 0,
+    paddingBottom: 0,
+  },
+  text: {
+    textAlign: 'center',
+    fontSize: 14,
+    fontFamily: Fonts.type.semiBold,
   },
   buttons: {
     height: '6%',
@@ -162,6 +215,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+  },
+  editWrapper: {
+    position: 'absolute',
+    bottom: -10,
+  },
+  editButton: {
+    backgroundColor: '#637aff',
+    borderRadius: 100,
+    padding: 8,
+    paddingHorizontal: 10,
   },
 });
 
