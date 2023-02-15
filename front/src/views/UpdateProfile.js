@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Image,
+  Pressable,
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import { useAuthStore } from '../store/authStore';
+import { data } from '../constants/data';
 
 const UpdateProfile = () => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -117,20 +126,13 @@ const UpdateProfile = () => {
         )}
       />
       <Text style={styles.subtitle}>Intereses:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        name="interest"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Intereses"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-          />
-        )}
-      />
+      <View style={styles.interest}>
+        {data[0].tags.map((item) => (
+          <Pressable style={styles.item}>
+            <Text style={styles.textItem}>{item}</Text>
+          </Pressable>
+        ))}
+      </View>
       <CSButton onPress={handleSubmit(onSubmit)} label="Guardar" />
     </View>
   );
@@ -172,6 +174,25 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
     color: 'gray',
+  },
+  interest: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 20,
+  },
+  item: {
+    backgroundColor: '#2192FF',
+    marginLeft: 6,
+    marginTop: 6,
+    paddingVertical: 2,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+  },
+  textItem: {
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.medium,
+    color: 'white',
   },
 });
 
