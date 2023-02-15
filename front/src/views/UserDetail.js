@@ -3,16 +3,56 @@ import { useState, useEffect } from 'react';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import { BASE_ENDPOINT } from '../constants/endpoints';
+import { useAuthStore } from '../store/authStore';
 
 const UserDetail = ({ route }) => {
+    const authToken = useAuthStore((state) => state.authToken);
+
     const [user, setUser] = useState();
 
     const getUser = async () => {
+        setUser({
+            id: '1',
+            username: 'Ossas',
+            following: false
+        });
         try {
-            let req = await fetch(`${BASE_ENDPOINT}/users/${route.params.id}`);
+            let req = await fetch(`${BASE_ENDPOINT}/users/${route.params.id}`, {
+                method: 'GET',
+                headers: { Authorization: authToken }
+            });
             let res = await req.json();
             console.log(res);
             setUser(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const follow = async () => {
+        try {
+            let req = await fetch(`${BASE_ENDPOINT}/follows`, {
+                method: 'POST',
+                headers: { Authorization: authToken },
+                body: JSON.stringify({ follow: route.params.id })
+            });
+            let res = await req.json();
+            console.log(res);
+            setUser({...user, following: true})
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const unfollow = async () => {
+        try {
+            let req = await fetch(`${BASE_ENDPOINT}/follows/${route.params.id}`, {
+                method: 'DELETE',
+                headers: { Authorization: authToken }
+            });
+            let res = await req.json();
+            console.log(res);
+            setUser({...user, following: false})
         } catch (error) {
             console.log(error);
         }
@@ -53,9 +93,17 @@ const UserDetail = ({ route }) => {
                 </Text>
             </View>
             <View style={styles.actionButtons}>
-                <CSButton label={'Seguir'} style={styles.followButton} />
-                <CSButton label={'Contactar'} onPress={() => Linking.openURL('https://wa.me/')} style={styles.contactButton} />
-            </View>
+                {user?.following ?
+                    (
+                        <>
+                            <CSButton label={'Dejar de seguir'} style={styles.followButton} onPress={unfollow} />
+                            <CSButton label={'Contactar'} onPress={() => Linking.openURL('https://wa.me/')} style={styles.contactButton} />
+                        </>
+                    ) : (
+                        <CSButton label={'Seguir'} style={styles.followButton} onPress={follow} />
+                    )
+                }
+                </View>
         </View>
     )
 };
@@ -105,11 +153,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         height: '10%'
     },
-    actionButtons: { 
-        flexDirection: 'row', 
-        height: '10%', 
-        paddingHorizontal: 24, 
-        justifyContent: 'space-between' 
+    actionButtons: {
+        flexDirection: 'row',
+        height: '10%',
+        paddingHorizontal: 24,
+        justifyContent: 'space-between'
     },
     followButton: {
         width: '49%'
