@@ -140,11 +140,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  profileImage: {
-    height: 148,
-    aspectRatio: 1,
-    borderRadius: 140 / 2,
-  },
   userName: {
     textAlign: "center",
     // fontSize: 32,
