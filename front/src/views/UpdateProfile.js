@@ -17,6 +17,8 @@ const UpdateProfile = () => {
     defaultValues: {
       interest: '',
       password: '',
+      age: '',
+      gender: '',
       phone: '',
     },
   });
