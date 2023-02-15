@@ -28,8 +28,12 @@ class UserController {
 
   static async getById(req, res) {
     try {
-      const { id } = req.params;
-      const user = await UserService.getById(id);
+      const data = {
+        userId: req.userId,
+        followId: req.params.id,
+      };
+
+      const user = await UserService.getById(data);
       return res.status(200).json({
         data: user,
       });

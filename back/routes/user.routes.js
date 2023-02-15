@@ -8,7 +8,7 @@ const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
 router.get('/', UserController.getAll);
-router.get('/:id', UserController.getById);
+router.get('/:id', AuthMiddleware, UserController.getById);
 router.put('/', AuthMiddleware, UserController.update);
 router.post('/search', UserController.search);
 router.get('/search/:id', UserController.searchById);
