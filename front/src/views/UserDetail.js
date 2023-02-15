@@ -1,9 +1,26 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
+import { useState, useEffect } from 'react';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
+import { BASE_ENDPOINT } from '../constants/endpoints';
 
 const UserDetail = ({ route }) => {
+    const [user, setUser] = useState();
+
+    const getUser = async () => {
+        try {
+            let req = await fetch(`${BASE_ENDPOINT}/users/${route.params.id}`);
+            let res = await req.json();
+            console.log(res);
+            setUser(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getUser();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -16,7 +33,7 @@ const UserDetail = ({ route }) => {
                     />
                 </View>
                 <View style={styles.userContacts}>
-                    <Text style={styles.userName}>{route.params.username}</Text>
+                    <Text style={styles.userName}>{user?.username}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={styles.follows}>
                             <Text style={styles.quantity}>20</Text>
@@ -35,9 +52,9 @@ const UserDetail = ({ route }) => {
                     industry. Lorem Ipsum has been the industry
                 </Text>
             </View>
-            <View style={{ flexDirection: 'row', height: '10%', paddingHorizontal: 24, justifyContent: 'space-between' }}>
+            <View style={styles.actionButtons}>
                 <CSButton label={'Seguir'} style={styles.followButton} />
-                <CSButton label={'Contactar'} style={styles.contactButton} />
+                <CSButton label={'Contactar'} onPress={() => Linking.openURL('https://wa.me/')} style={styles.contactButton} />
             </View>
         </View>
     )
@@ -87,6 +104,12 @@ const styles = StyleSheet.create({
     biographyContainer: {
         paddingHorizontal: 24,
         height: '10%'
+    },
+    actionButtons: { 
+        flexDirection: 'row', 
+        height: '10%', 
+        paddingHorizontal: 24, 
+        justifyContent: 'space-between' 
     },
     followButton: {
         width: '49%'
