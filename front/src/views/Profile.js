@@ -1,6 +1,6 @@
-import React from 'react';
-import Fonts from '../styles/theme/Fonts';
-import OptionsList from '../features/profile/components/OptionsList';
+import React from "react";
+import Fonts from "../styles/theme/Fonts";
+import OptionsList from "../features/profile/components/OptionsList";
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,14 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuthStore } from '../store/authStore';
-import { useEffect, useState } from 'react';
-import Icon from '../utils/icons';
-import { Icons } from '../utils/icons';
-import { FontAwesome } from '@expo/vector-icons';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuthStore } from "../store/authStore";
+import { useEffect, useState } from "react";
+import Icon from "../utils/icons";
+import { Icons } from "../utils/icons";
+import { FontAwesome } from "@expo/vector-icons";
+import UpdateProfilePicture from "../features/profile/components/UpdateProfilePicture";
 
 const Profile = ({ navigation, screenName, route }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -24,9 +25,9 @@ const Profile = ({ navigation, screenName, route }) => {
 
   const getMyProfile = async () => {
     let req = await fetch(
-      'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me',
+      "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me",
       {
-        method: 'GET',
+        method: "GET",
         headers: { Authorization: authToken },
       }
     );
@@ -44,7 +45,7 @@ const Profile = ({ navigation, screenName, route }) => {
       <View style={styles.headWrapper}>
         <Pressable
           onPress={() =>
-            navigation.navigate('Preferences', {
+            navigation.navigate("Preferences", {
               fromProfile: true,
             })
           }
@@ -52,7 +53,7 @@ const Profile = ({ navigation, screenName, route }) => {
             opacity: pressed ? 0.5 : 1,
           })}
         >
-          <FontAwesome name="gear" size={30} color={'black'} />
+          <FontAwesome name="gear" size={30} color={"black"} />
         </Pressable>
       </View>
       {/* 
@@ -68,34 +69,19 @@ const Profile = ({ navigation, screenName, route }) => {
         <OptionsList setOptionsList={() => setOptionsList(false)} />
       )} */}
       <View style={styles.profile}>
-        {myProfile ? (
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri:
-                myProfile.avatar ??
-                'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-            }}
-          />
-        ) : (
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-            }}
-          />
-        )}
+        <UpdateProfilePicture />
+        {myProfile && <UpdateProfilePicture />}
         <View style={styles.editWrapper}>
           <Pressable
-            onPress={() => navigation.navigate('UpdateProfile')}
+            onPress={() => navigation.navigate("UpdateProfile")}
             style={styles.editButton}
           >
-            <FontAwesome name="pencil" size={18} color={'white'} />
+            <FontAwesome name="pencil" size={18} color={"white"} />
           </Pressable>
         </View>
       </View>
       <Text style={styles.userName}>
-        {myProfile ? myProfile.fullname : '...'}
+        {myProfile ? myProfile.fullname : "..."}
       </Text>
       <View style={styles.details}>
         <View>
@@ -117,7 +103,7 @@ const Profile = ({ navigation, screenName, route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate('Map')}
+          onPress={() => navigation.navigate("Map")}
         >
           <Text>Map</Text>
         </TouchableOpacity>
@@ -130,29 +116,29 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    height: "100%",
   },
   headWrapper: {
     marginVertical: 20,
     marginHorizontal: 16,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
   header: {
-    height: '6%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    height: "6%",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   options: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   profile: {
-    height: '20%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "20%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   profileImage: {
     height: 148,
@@ -160,7 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 140 / 2,
   },
   userName: {
-    textAlign: 'center',
+    textAlign: "center",
     // fontSize: 32,
     // fontWeight: 'bold',
     fontSize: Fonts.size.xxxLarge,
@@ -170,58 +156,58 @@ const styles = StyleSheet.create({
   },
   details: {
     marginTop: 10,
-    height: '10%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    height: "10%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
     paddingHorizontal: 32,
   },
   number: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 24,
     fontFamily: Fonts.type.semiBold,
     marginBottom: 0,
     paddingBottom: 0,
   },
   text: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 14,
     fontFamily: Fonts.type.semiBold,
   },
   buttons: {
-    height: '6%',
-    flexDirection: 'row',
+    height: "6%",
+    flexDirection: "row",
     paddingHorizontal: 32,
     marginTop: 24,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   logout: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 32,
     marginTop: 24,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   button1: {
-    backgroundColor: '#dedede',
-    width: '49%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#dedede",
+    width: "49%",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 12,
   },
   button2: {
-    width: '49%',
-    borderColor: '#ededed',
+    width: "49%",
+    borderColor: "#ededed",
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 12,
   },
   editWrapper: {
-    position: 'absolute',
+    position: "absolute",
     bottom: -10,
   },
   editButton: {
-    backgroundColor: '#637aff',
+    backgroundColor: "#637aff",
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,

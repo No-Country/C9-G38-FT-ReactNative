@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import Fonts from '../styles/theme/Fonts';
-import CSButton from '../common/ui/Button';
-import { useAuthStore } from '../store/authStore';
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import Fonts from "../styles/theme/Fonts";
+import CSButton from "../common/ui/Button";
+import { useAuthStore } from "../store/authStore";
 
 const UpdateProfile = () => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -15,17 +15,17 @@ const UpdateProfile = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      interest: '',
-      password: '',
-      phone: '',
+      interest: "",
+      password: "",
+      phone: "",
     },
   });
 
   const getMyProfile = async () => {
     let req = await fetch(
-      'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me',
+      "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me",
       {
-        method: 'GET',
+        method: "GET",
         headers: { Authorization: authToken },
       }
     );
@@ -39,7 +39,7 @@ const UpdateProfile = () => {
   }, []);
 
   const onSubmit = () => {
-    console.log('hello world');
+    console.log("hello world");
   };
 
   return (
@@ -102,11 +102,11 @@ const UpdateProfile = () => {
       <Controller
         control={control}
         rules={{ required: true }}
-        name="edad"
+        name="Sexo"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
-            placeholder="Edad"
+            placeholder="Sexo"
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
@@ -136,11 +136,11 @@ const UpdateProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    width: '100%',
-    alignItems: 'flex-start',
+    height: "100%",
+    width: "100%",
+    alignItems: "flex-start",
     // justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 32,
     paddingTop: 20,
   },
@@ -150,9 +150,9 @@ const styles = StyleSheet.create({
     borderRadius: 140 / 2,
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 48,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: "#f8f8f8",
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 14,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.regular,
   },
   userName: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Fonts.size.xxxLarge,
     fontFamily: Fonts.type.bold,
     letterSpacing: 0.8,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
-    color: 'gray',
+    color: "gray",
   },
 });
 
