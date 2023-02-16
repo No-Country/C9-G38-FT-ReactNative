@@ -1,6 +1,5 @@
 import React from 'react';
 import Fonts from '../styles/theme/Fonts';
-import OptionsList from '../features/profile/components/OptionsList';
 import {
   StyleSheet,
   Text,
@@ -12,15 +11,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
 import { useEffect, useState } from 'react';
-import Icon from '../utils/icons';
-import { Icons } from '../utils/icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Profile = ({ navigation, screenName, route }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [myProfile, setMyProfile] = useState();
-  const [optionsList, setOptionsList] = useState(false);
 
   const getMyProfile = async () => {
     let req = await fetch(
@@ -55,18 +51,6 @@ const Profile = ({ navigation, screenName, route }) => {
           <FontAwesome name="gear" size={30} color={'black'} />
         </Pressable>
       </View>
-      {/* 
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.options}
-          onPress={() => setOptionsList(true)}
-        >
-          <Icon name="more-vert" type={Icons.MaterialIcons} size={32} />
-        </TouchableOpacity>
-      </View> */}
-      {/* {optionsList && (
-        <OptionsList setOptionsList={() => setOptionsList(false)} />
-      )} */}
       <View style={styles.profile}>
         {myProfile ? (
           <Image
@@ -98,18 +82,29 @@ const Profile = ({ navigation, screenName, route }) => {
         {myProfile ? myProfile.fullname : '...'}
       </Text>
       <View style={styles.details}>
-        <View>
+        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}>
           <Text style={styles.number}>56</Text>
           <Text style={styles.text}>Seguidores</Text>
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Siguiendo' })}>
           <Text style={styles.number}>215</Text>
           <Text style={styles.text}>Siguiendo</Text>
-        </View>
-        {/* <View>
-          <Text style={styles.number}>200</Text>
-          <Text>Detail 3</Text>
-        </View> */}
+        </TouchableOpacity>
+      </View>
+      <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
+      <View style={{ flexDirection: 'row', paddingHorizontal: 16, marginVertical: 10 }}>
+        {['user1', 'user2', 'user3', 'user4', 'user5'].map((follower) =>
+          <TouchableOpacity key={follower} style={{ width: '16%', alignItems: 'center' }}>
+            <Image 
+              style={{ width: 50, borderRadius: 100, aspectRatio: 1 }} 
+              source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg' }} />
+            <Text>{follower}</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}
+          style={{ justifyContent: 'flex-end' }}>
+          <Text>ver más...</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button1}>

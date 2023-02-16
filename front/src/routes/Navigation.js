@@ -14,6 +14,7 @@ import Filters from '../views/Filters';
 import Search from '../views/Search';
 import Preferences from '../views/Preferences';
 import UserDetail from '../views/UserDetail';
+import FollowList from '../views/FollowList';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,11 @@ export function Navigation() {
             name="UserDetail" 
             component={UserDetail} 
             options={{ title: '' }}
+            />
+          <Stack.Screen 
+            name="FollowList" 
+            component={FollowList} 
+            options={({ route }) => ({ title: route.params?.title ?? '' })}
             />
         </>
       ) : (
