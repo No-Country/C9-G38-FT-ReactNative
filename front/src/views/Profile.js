@@ -39,7 +39,7 @@ const Profile = ({ navigation, screenName, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
-        <Text style={{ fontFamily: Fonts.type.bold }}>{myProfile.username}</Text>
+        <Text style={{ fontFamily: Fonts.type.bold }}>{myProfile?.username}</Text>
         <Pressable
           onPress={() =>
             navigation.navigate('Preferences', {
@@ -97,6 +97,7 @@ const Profile = ({ navigation, screenName, route }) => {
           </View>
         </View>
       </View>
+      <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</Text>
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
       <View style={{ flexDirection: 'row', paddingHorizontal: 16, marginVertical: 10 }}>
         {['user1', 'user2', 'user3', 'user4', 'user5'].map((follower) =>
