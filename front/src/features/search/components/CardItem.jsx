@@ -1,22 +1,33 @@
-import React from "react";
-import { Text, StyleSheet, View, TouchableWithoutFeedback, Image } from "react-native";
-
+import React from 'react';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  Image,
+} from 'react-native';
+import Fonts from '../../../styles/theme/Fonts';
 const CardItem = (props) => {
-  const { username, avatar, intereses, id, navigation} = props;
+  const { username, avatar, intereses, id, navigation, user } = props;
 
-  const interesesArray = intereses.join(" - ");
+  const interesesArray = intereses.join(' - ');
 
   const clickHandler = () => {
-    navigation.navigate("UserDetail", { id: id });
+    console.log(user);
+    navigation.navigate('UserDetail', { id: id, user });
   };
 
   return (
     <TouchableWithoutFeedback onPress={clickHandler}>
-      <View  style={styles.container}>
+      <View style={styles.container}>
         <Image style={styles.image} source={{ uri: avatar }} />
         <View style={styles.info}>
           <Text style={styles.user}>{username}</Text>
-          <Text>{interesesArray}</Text>
+          <View style={styles.interestsWrapper}>
+            {intereses.slice(0, 3).map((item) => (
+              <Text style={styles.interestText}>{item}</Text>
+            ))}
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -25,31 +36,47 @@ const CardItem = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    padding:4,
-    marginBottom:6,
-    marginTop: 4,
-    alignItems: "center",
-    borderWidth: 2, 
-       borderRadius: 10,
-       borderColor: "#878791",
-       
+    flexDirection: 'row',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    marginBottom: 6,
+    marginTop: 12,
+    alignItems: 'center',
+    // borderWidth: 2,
+    borderRadius: 18,
+    backgroundColor: 'white',
+    // borderColor: '#white',
   },
   info: {
-    marginLeft: 4,
-    flexDirection: "column",
+    marginLeft: 10,
+    flexDirection: 'column',
     flex: 1,
   },
   image: {
     width: 52,
     height: 52,
     borderRadius: 52 / 2,
-    overflow: "hidden",
+    overflow: 'hidden',
     borderWidth: 3,
-    borderColor: "#7691ca"
+    // borderColor: "
   },
   user: {
-    fontWeight: "bold",
+    fontFamily: Fonts.type.bold,
+  },
+  interestsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  interestText: {
+    fontFamily: Fonts.type.medium,
+    fontSize: 12,
+    marginRight: 2,
+    backgroundColor: 'gray',
+    color: 'white',
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginBottom: 2,
   },
 });
 

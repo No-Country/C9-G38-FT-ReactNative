@@ -51,12 +51,7 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-     
-      
-        <CardList users={data} navigation={navigation}/>
-      
-
-      
+      <CardList users={data} navigation={navigation} />
     </SafeAreaView>
   );
 };

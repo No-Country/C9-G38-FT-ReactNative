@@ -1,11 +1,11 @@
-import React from "react";
-import { FlatList } from "react-native";
-import CardItem from "./CardItem";
+import React from 'react';
+import { FlatList } from 'react-native';
+import CardItem from './CardItem';
 
 const CardList = ({ users, navigation }) => {
   return (
     <FlatList
-      style={{ marginTop: 10 }}
+      style={{ marginTop: 20, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (
         <CardItem
@@ -13,6 +13,7 @@ const CardList = ({ users, navigation }) => {
           avatar={element.picture}
           username={element.username}
           intereses={element.tags}
+          user={element}
           id={element.id}
         />
       )}
