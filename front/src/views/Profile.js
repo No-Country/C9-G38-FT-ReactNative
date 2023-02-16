@@ -28,6 +28,7 @@ const Profile = ({ navigation, screenName, route }) => {
     );
     let res = await req.json();
     console.log(res.data);
+    res.data.avatar = 'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg'
     setMyProfile(res.data);
   };
 
@@ -38,6 +39,7 @@ const Profile = ({ navigation, screenName, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
+        <Text style={{ fontFamily: Fonts.type.bold }}>{myProfile.username}</Text>
         <Pressable
           onPress={() =>
             navigation.navigate('Preferences', {
@@ -51,53 +53,57 @@ const Profile = ({ navigation, screenName, route }) => {
           <FontAwesome name="gear" size={30} color={'black'} />
         </Pressable>
       </View>
-      <View style={styles.profile}>
-        {myProfile ? (
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri:
-                myProfile.avatar ??
-                'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-            }}
-          />
-        ) : (
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-            }}
-          />
-        )}
-        <View style={styles.editWrapper}>
-          <Pressable
-            onPress={() => navigation.navigate('UpdateProfile')}
-            style={styles.editButton}
-          >
-            <FontAwesome name="pencil" size={18} color={'white'} />
-          </Pressable>
+      <View style={{ height: '16%', flexDirection: 'row', paddingHorizontal: 16, marginBottom: 20 }}>
+        <View style={styles.profile}>
+          {myProfile ? (
+            <Image
+              style={styles.profileImage}
+              source={{
+                uri:
+                  myProfile.avatar ??
+                  'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
+              }}
+            />
+          ) : (
+            <Image
+              style={styles.profileImage}
+              source={{
+                uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
+              }}
+            />
+          )}
+          <View style={styles.editWrapper}>
+            <Pressable
+              onPress={() => navigation.navigate('UpdateProfile')}
+              style={styles.editButton}
+            >
+              <FontAwesome name="pencil" size={18} color={'white'} />
+            </Pressable>
+          </View>
         </View>
-      </View>
-      <Text style={styles.userName}>
-        {myProfile ? myProfile.fullname : '...'}
-      </Text>
-      <View style={styles.details}>
-        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}>
-          <Text style={styles.number}>56</Text>
-          <Text style={styles.text}>Seguidores</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Siguiendo' })}>
-          <Text style={styles.number}>215</Text>
-          <Text style={styles.text}>Siguiendo</Text>
-        </TouchableOpacity>
+        <View style={{ paddingHorizontal: 20, width: '65%' }}>
+          <Text style={styles.userName}>
+            {myProfile ? myProfile.fullname : '...'}
+          </Text>
+          <View style={styles.details}>
+            <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}>
+              <Text style={styles.number}>56</Text>
+              <Text style={styles.text}>Seguidores</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Siguiendo' })}>
+              <Text style={styles.number}>215</Text>
+              <Text style={styles.text}>Siguiendo</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
       <View style={{ flexDirection: 'row', paddingHorizontal: 16, marginVertical: 10 }}>
         {['user1', 'user2', 'user3', 'user4', 'user5'].map((follower) =>
           <TouchableOpacity key={follower} style={{ width: '16%', alignItems: 'center' }}>
-            <Image 
-              style={{ width: 50, borderRadius: 100, aspectRatio: 1 }} 
-              source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg' }} />
+            <Image
+              style={{ width: 50, borderRadius: 100, aspectRatio: 1 }}
+              source={{ uri: 'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg' }} />
             <Text>{follower}</Text>
           </TouchableOpacity>
         )}
@@ -128,11 +134,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   headWrapper: {
-    marginVertical: 20,
-    marginHorizontal: 16,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   header: {
     height: '6%',
@@ -141,23 +147,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
   },
-  options: {
-    marginLeft: 'auto',
-  },
   profile: {
-    height: '20%',
+    width: '35%',
+    height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   profileImage: {
-    height: 148,
+    height: 128,
     aspectRatio: 1,
     borderRadius: 140 / 2,
   },
   userName: {
-    textAlign: 'center',
-    // fontSize: 32,
-    // fontWeight: 'bold',
     fontSize: Fonts.size.xxxLarge,
     fontFamily: Fonts.type.bold,
     letterSpacing: 0.8,
@@ -165,11 +166,8 @@ const styles = StyleSheet.create({
   },
   details: {
     marginTop: 10,
-    height: '10%',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingHorizontal: 32,
+    justifyContent: 'space-between'
   },
   number: {
     textAlign: 'center',
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
   buttons: {
     height: '6%',
     flexDirection: 'row',
-    paddingHorizontal: 32,
+    paddingHorizontal: 16,
     marginTop: 24,
     justifyContent: 'space-between',
   },
