@@ -1,8 +1,8 @@
-const User = require('../models/user.model');
-const UserService = require('../services/user.service');
-const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const User = require("../models/user.model");
+const UserService = require("../services/user.service");
+const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -13,26 +13,26 @@ class AuthController {
     const user = await User.findOne({
       where: { email },
       attributes: [
-        'id',
-        'fullname',
-        'username',
-        'email',
-        'password',
-        'avatar',
-        'phone',
-        'age',
-        'gender',
+        "id",
+        "fullname",
+        "username",
+        "email",
+        "password",
+        "avatar",
+        "phone",
+        "age",
+        "gender",
       ],
     });
 
     if (!user) {
-      return res.status(400).send({ message: 'user not found' });
+      return res.status(400).send({ message: "user not found" });
     }
 
     const isEquals = bcrypt.compare(password, user.password);
 
     if (!isEquals) {
-      return res.status(401).send({ message: 'credentials error' });
+      return res.status(401).send({ message: "credentials error" });
     }
 
     const token = jwt.sign(
@@ -47,9 +47,10 @@ class AuthController {
 
   static async register(req, res) {
     try {
-      await UserService.create(req.body);
+      const user = await UserService.create(req.body);
       res.status(201).json({
-        message: 'register successful',
+        message: "register successful",
+        data: user,
       });
     } catch (error) {
       console.log(error);
@@ -60,7 +61,7 @@ class AuthController {
     try {
       const user = await User.findOne({
         where: { id: req.userId },
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ["password"] },
       });
       res.status(201).json({
         data: user,
@@ -76,7 +77,7 @@ class AuthController {
   }
 
   static async logout(req, res) {
-    res.clearCookie('token');
+    res.clearCookie("token");
     res.sendStatus(204);
   }
 }
