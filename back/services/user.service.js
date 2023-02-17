@@ -57,11 +57,23 @@ class UserService {
   }
 
   static async search(payload) {
-    const data = await User.findAll({
+
+    const { page = 0, size = 4 } = req.query;
+
+    let options = {
+      limit: number(size),
+      offset: (+page) * (+size)
+    }
+
+    const { count, rows } = await User.findAndCountAll({
       where: { id: payload, isActive: true },
       include: { model: Sport },
     });
-    return data;
+    //return data;
+    res.json({
+      total: count,
+      data: rows
+    })
   }
 
   static async searchById(payload) {
