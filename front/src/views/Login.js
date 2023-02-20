@@ -13,11 +13,11 @@ import { useState } from 'react'
 import Fonts from '../styles/theme/Fonts'
 import CSButton from '../common/ui/Button'
 import useLoginGoogle from '../hooks/useLoginGoogle'
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import IconGoogle from 'react-native-vector-icons/FontAwesome5'
 
 const Login = ({ navigation }) => {
     const [loginError, setLoginError] = useState(false)
-    const { user, accessToken, promptAsync } = useLoginGoogle
+    const { user, accessToken, promptAsync } = useLoginGoogle()
 
     const {
         control,
@@ -97,7 +97,7 @@ const Login = ({ navigation }) => {
             />
             <View style={styles.login}>
                 <CSButton
-                    onPress={() => promptAsync()}
+                    onPress={handleSubmit(onSubmit)}
                     label='Iniciar sesión'
                 />
                 {/* <Button title="Iniciar sesión" onPress={handleSubmit(onSubmit)} /> */}
@@ -110,14 +110,14 @@ const Login = ({ navigation }) => {
             <View style={styles.loginGoogle}>
                 <CSButton
                     icon={
-                        <Icon
+                        <IconGoogle
                             name='google'
                             size={25}
                             color='white'
                             style={{ marginRight: 10 }}
                         />
                     }
-                    onPress={handleSubmit(onSubmit)}
+                    onPress={() => promptAsync()}
                     label='Iniciar sesión con Google'
                 />
             </View>
