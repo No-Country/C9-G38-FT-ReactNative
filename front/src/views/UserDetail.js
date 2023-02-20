@@ -92,7 +92,7 @@ const UserDetail = ({ route }) => {
       <View style={styles.biographyContainer}>
         <Text style={styles.biography}>{user.about}</Text>
         <View style={styles.interestsWrapper}>
-          {user.tags.slice(0, 3).map((item) => (
+          {user.sports.slice(0, 3).map((item) => (
             <Text style={styles.interestText}>{item}</Text>
           ))}
         </View>

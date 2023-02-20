@@ -15,11 +15,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import { data } from '../constants/data';
 import CardItem from '../features/search/components/CardItem';
 import CardList from '../features/search/components/CardList';
+import { useFilterStore } from '../store/filterStore';
 const Search = ({ navigation }) => {
   const { users, filteredUsers, getAllUsers } = useUserStore((state) => state);
 
+
+
   useEffect(() => {
     getAllUsers();
+    console.log(users)
   }, []);
 
   return (
@@ -39,6 +43,9 @@ const Search = ({ navigation }) => {
         </Pressable>
       </View>
       <Searchbar />
+
+
+      
       {/* {users === filteredUsers ? (
         <ScrollView>
           <Text style={styles.textFriends}>Personas sugeridas:</Text>
@@ -51,7 +58,7 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-      <CardList users={data} navigation={navigation} />
+      <CardList users={users} navigation={navigation} />
     </SafeAreaView>
   );
 };

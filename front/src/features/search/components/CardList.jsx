@@ -10,13 +10,14 @@ const CardList = ({ users, navigation }) => {
       renderItem={({ item: element }) => (
         <CardItem
           navigation={navigation}
-          avatar={element.picture}
+          avatar={element.avatar}
           username={element.username}
-          intereses={element.tags}
+          intereses={element.sports}
           user={element}
           id={element.id}
         />
       )}
+      keyExtractor={item => item.id}
     />
   );
 };
