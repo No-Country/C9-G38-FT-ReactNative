@@ -5,8 +5,8 @@ import Fonts from '../../styles/theme/Fonts'
 const CSButton = ({ onPress, label, style, labelBold, icon = null }) => {
     return (
         <>
-            {icon}
             <TouchableOpacity onPress={onPress} style={[styles.wrapper, style]}>
+                {icon}
                 <Text style={styles.text}>{label} </Text>
                 <Text style={styles.textBold}>{labelBold}</Text>
             </TouchableOpacity>
