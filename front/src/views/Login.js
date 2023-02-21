@@ -17,7 +17,7 @@ import IconGoogle from 'react-native-vector-icons/FontAwesome5'
 
 const Login = ({ navigation }) => {
     const [loginError, setLoginError] = useState(false)
-    const { user, accessToken, promptAsync } = useLoginGoogle()
+    const { googleAuth } = useLoginGoogle()
 
     const {
         control,
@@ -100,7 +100,6 @@ const Login = ({ navigation }) => {
                     onPress={handleSubmit(onSubmit)}
                     label='Iniciar sesión'
                 />
-                {/* <Button title="Iniciar sesión" onPress={handleSubmit(onSubmit)} /> */}
             </View>
             {loginError && (
                 <Text style={styles.loginError}>
@@ -117,7 +116,7 @@ const Login = ({ navigation }) => {
                             style={{ marginRight: 10 }}
                         />
                     }
-                    onPress={() => promptAsync()}
+                    onPress={() => googleAuth()}
                     label='Iniciar sesión con Google'
                 />
             </View>
