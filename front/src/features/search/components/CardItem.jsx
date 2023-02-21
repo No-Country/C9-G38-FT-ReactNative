@@ -13,7 +13,7 @@ const CardItem = (props) => {
   const interesesArray = intereses.join(' - ');
 
   const clickHandler = () => {
-    console.log(user);
+    // console.log(user);
     navigation.navigate('UserDetail', { id: id, user });
   };
 
