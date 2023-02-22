@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const { db } = require('../config/database.util');
+const { Sequelize, DataTypes, Model } = require("sequelize");
+const { db } = require("../config/database.util");
 
-const User = db.define('users', {
+const User = db.define("users", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -38,7 +38,7 @@ const User = db.define('users', {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   age: {
     type: DataTypes.INTEGER,
