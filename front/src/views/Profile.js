@@ -1,5 +1,5 @@
-import React from "react";
-import Fonts from "../styles/theme/Fonts";
+import React from 'react';
+import Fonts from '../styles/theme/Fonts';
 import {
   StyleSheet,
   Text,
@@ -7,31 +7,22 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthStore } from "../store/authStore";
-import { useEffect, useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import UpdateProfilePicture from "../features/profile/components/UpdateProfilePicture";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuthStore } from '../store/authStore';
+import { useEffect, useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import UpdateProfilePicture from '../features/profile/components/UpdateProfilePicture';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
 
 const Profile = ({ navigation, screenName, route }) => {
-  const authToken = useAuthStore((state) => state.authToken);
-
   const [myProfile, setMyProfile] = useState();
+  const connect = useFetch();
 
   const getMyProfile = async () => {
-    let req = await fetch(
-      "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me",
-      {
-        method: "GET",
-        headers: { Authorization: authToken },
-      }
-    );
-    let res = await req.json();
-    console.log(res.data);
-    res.data.avatar =
-      "https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg";
-    setMyProfile(res.data);
+    const resp = await connect({ url: URL.AUTH_ME });
+    setMyProfile(resp);
   };
 
   useEffect(() => {
@@ -46,7 +37,7 @@ const Profile = ({ navigation, screenName, route }) => {
         </Text>
         <Pressable
           onPress={() =>
-            navigation.navigate("Preferences", {
+            navigation.navigate('Preferences', {
               fromProfile: true,
             })
           }
@@ -54,13 +45,13 @@ const Profile = ({ navigation, screenName, route }) => {
             opacity: pressed ? 0.5 : 1,
           })}
         >
-          <FontAwesome name="gear" size={30} color={"black"} />
+          <FontAwesome name="gear" size={30} color={'black'} />
         </Pressable>
       </View>
       <View
         style={{
-          height: "16%",
-          flexDirection: "row",
+          height: '16%',
+          flexDirection: 'row',
           paddingHorizontal: 16,
           marginBottom: 20,
         }}
@@ -69,32 +60,32 @@ const Profile = ({ navigation, screenName, route }) => {
           {myProfile && <UpdateProfilePicture />}
           <View style={styles.editWrapper}>
             <Pressable
-              onPress={() => navigation.navigate("UpdateProfile")}
+              onPress={() => navigation.navigate('UpdateProfile')}
               style={styles.editButton}
             >
-              <FontAwesome name="pencil" size={18} color={"white"} />
+              <FontAwesome name="pencil" size={18} color={'white'} />
             </Pressable>
           </View>
         </View>
-        <View style={{ paddingHorizontal: 20, width: "65%" }}>
+        <View style={{ paddingHorizontal: 20, width: '65%' }}>
           <Text style={styles.userName}>
-            {myProfile ? myProfile.fullname : "..."}
+            {myProfile ? myProfile.fullname : '...'}
           </Text>
           <View style={styles.details}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("FollowList", { title: "Seguidores" })
+                navigation.navigate('FollowList', { title: 'Seguidores' })
               }
             >
-              <Text style={styles.number}>56</Text>
+              <Text style={styles.number}>{myProfile?.countFollowing}</Text>
               <Text style={styles.text}>Seguidores</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("FollowList", { title: "Siguiendo" })
+                navigation.navigate('FollowList', { title: 'Siguiendo' })
               }
             >
-              <Text style={styles.number}>215</Text>
+              <Text style={styles.number}>{myProfile?.countFollowers}</Text>
               <Text style={styles.text}>Siguiendo</Text>
             </TouchableOpacity>
           </View>
@@ -105,48 +96,50 @@ const Profile = ({ navigation, screenName, route }) => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud
       </Text>
-      {/*
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           paddingHorizontal: 16,
           marginVertical: 10,
         }}
       >
-        {["user1", "user2", "user3", "user4", "user5"].map((follower) => (
+        {myProfile?.followers?.map((item) => (
           <TouchableOpacity
-            key={follower}
-            style={{ width: "16%", alignItems: "center" }}
+            key={item.id}
+            style={{ width: '16%', alignItems: 'center' }}
+            onPress={() => navigation.navigate('UserDetail', { id: item.id })}
           >
             <Image
               style={{ width: 50, borderRadius: 100, aspectRatio: 1 }}
               source={{
-                uri: "https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg",
+                uri: item.avatar,
               }}
             />
-            <Text>{follower}</Text>
+            <Text>{item.username}</Text>
           </TouchableOpacity>
         ))}
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("FollowList", { title: "Seguidores" })
+            navigation.navigate('FollowList', {
+              title: 'Seguidores',
+              id: myProfile.id,
+            })
           }
-          style={{ justifyContent: "flex-end" }}
+          style={{ justifyContent: 'flex-end' }}
         >
           <Text>ver más...</Text>
         </TouchableOpacity>
-        </View>*/}
+      </View>
+      <Text style={{ paddingHorizontal: 24 }}>Intereses</Text>
+
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button1}>
-          <Text>Button 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("Map")}
+          onPress={() => navigation.navigate('Map')}
         >
           <Text>Map</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
@@ -156,27 +149,27 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: '100%',
   },
   headWrapper: {
     paddingVertical: 12,
     paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   header: {
-    height: "6%",
-    alignItems: "center",
-    justifyContent: "space-between",
+    height: '6%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   profile: {
-    width: "35%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '35%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   userName: {
     fontSize: Fonts.size.xxxLarge,
@@ -186,55 +179,55 @@ const styles = StyleSheet.create({
   },
   details: {
     marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   number: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 24,
     fontFamily: Fonts.type.semiBold,
     marginBottom: 0,
     paddingBottom: 0,
   },
   text: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 14,
     fontFamily: Fonts.type.semiBold,
   },
   buttons: {
-    height: "6%",
-    flexDirection: "row",
+    height: '6%',
+    flexDirection: 'row',
     paddingHorizontal: 16,
     marginTop: 24,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   logout: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingHorizontal: 32,
     marginTop: 24,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   button1: {
-    backgroundColor: "#dedede",
-    width: "49%",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#dedede',
+    width: '49%',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 12,
   },
   button2: {
-    width: "49%",
-    borderColor: "#ededed",
+    width: '49%',
+    borderColor: '#ededed',
     borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 12,
   },
   editWrapper: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -10,
   },
   editButton: {
-    backgroundColor: "#637aff",
+    backgroundColor: '#637aff',
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
@@ -244,7 +237,7 @@ const styles = StyleSheet.create({
 /*
 <View>
       <Text>{JSON.stringify(someText)}</Text>
-     
+
       <Map/>
 
       <TouchableOpacity onPress={
@@ -269,6 +262,6 @@ const styles = StyleSheet.create({
       <TouchableOpacity onPress={()=> navigation.navigate("Home")}>
         <Text>IR HOME</Text>
       </TouchableOpacity>
-    
+
     </View>
 */

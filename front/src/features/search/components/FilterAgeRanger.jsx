@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import { useFilterStore } from "../../../store/filterStore";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import { useFilterStore } from '../../../store/filterStore';
 
 const RangeSlider = () => {
   const [ageRange, setAgeRange] = useState([0, 100]);
@@ -42,11 +42,11 @@ const RangeSlider = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     margin: 20,
   },
   sliderContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   label: {
     fontSize: 16,
@@ -54,30 +54,30 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   labelContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: 300,
   },
   ageLabel: {
     fontSize: 14,
   },
   markerStyle: {
-    backgroundColor: "#007AFF",
+    backgroundColor: '#007AFF',
     height: 20,
     width: 20,
     borderWidth: 1,
-    borderColor: "#007AFF",
+    borderColor: '#007AFF',
     borderRadius: 10,
   },
   trackStyle: {
     height: 2,
-    backgroundColor: "#b7b7b7",
+    backgroundColor: '#b7b7b7',
   },
   selectedStyle: {
-    backgroundColor: "#007AFF",
+    backgroundColor: '#007AFF',
   },
   unselectedStyle: {
-    backgroundColor: "#b7b7b7",
+    backgroundColor: '#b7b7b7',
   },
 });
 

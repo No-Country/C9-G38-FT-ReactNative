@@ -1,43 +1,41 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
-import { useAuthStore } from '../store/authStore';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
 import CardList from '../features/search/components/CardList';
 
-const FollowList = ({ navigation }) => {
-    const authToken = useAuthStore((state) => state.authToken);
+const FollowList = ({ navigation, route }) => {
+  const [followers, setFollowers] = useState();
+  const id = route.params.id;
+  const connect = useFetch();
 
-    const [followed, setFollowed] = useState([]);
+  const getMyProfile = async () => {
+    const resp = await connect({
+      url: URL.GET_FOLLOWERS,
+      extra: id,
+    });
+    console.log(resp);
+    setFollowers(resp);
+  };
 
-    const getFollowed = async () => {
-        const req = await fetch('https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/follows', {
-            method: "GET",
-            headers: { Authorization: authToken },
-        });
-        const res = await req.json();
-        //console.log('followed', res.data.follows);
-        const list = res.data.follows.map((e => {
-            return {
-                ...e, sports: []
-            }
-        }));
-        setFollowed(list);
-    };
+  useEffect(() => {
+    getMyProfile();
+  }, []);
 
-    useEffect(() => {
-        getFollowed();
-    }, []);
-
-    return (
-        <View style={styles.container}>
-            <CardList users={followed} navigation={navigation} />
-        </View>
-    )
+  return (
+    <SafeAreaView>
+      <View style={styles.container}>
+        <CardList users={followers} navigation={navigation} />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 export default FollowList;
 
 const styles = StyleSheet.create({
-    container: {
-        height: '100%',
-    }
+  container: {
+    height: '100%',
+  },
 });

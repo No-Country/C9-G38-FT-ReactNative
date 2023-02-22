@@ -40,7 +40,11 @@ export function Navigation() {
             name="Profile"
             component={Profile}
           />
-          <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+          <Stack.Screen
+            name="UpdateProfile"
+            component={UpdateProfile}
+            options={{ title: 'Actualizar perfil' }}
+          />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="Preferences" component={Preferences} />
           <Stack.Screen name="Filters" component={Filters} />
@@ -50,16 +54,16 @@ export function Navigation() {
             component={UserPreferences}
             options={{ title: 'Preferencias' }}
           />
-          <Stack.Screen 
-            name="UserDetail" 
-            component={UserDetail} 
+          <Stack.Screen
+            name="UserDetail"
+            component={UserDetail}
             options={{ title: '' }}
-            />
-          <Stack.Screen 
-            name="FollowList" 
-            component={FollowList} 
+          />
+          <Stack.Screen
+            name="FollowList"
+            component={FollowList}
             options={({ route }) => ({ title: route.params?.title ?? '' })}
-            />
+          />
         </>
       ) : (
         <>

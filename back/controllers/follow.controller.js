@@ -21,7 +21,7 @@ class FollowController {
   static async getById(req, res) {
     try {
       const data = {
-        userId: req.userId,
+        userId: req.params.id,
       };
       const users = await FollowService.getById(data);
       res.status(200).json({

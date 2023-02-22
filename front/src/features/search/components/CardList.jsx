@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import CardItem from './CardItem';
 
 const CardList = ({ users, navigation }) => {
@@ -8,6 +8,7 @@ const CardList = ({ users, navigation }) => {
       style={{ marginTop: 6, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (
+        // <Text>asda</Text>
         <CardItem
           navigation={navigation}
           avatar={element.avatar}
@@ -17,7 +18,7 @@ const CardList = ({ users, navigation }) => {
           id={element.id}
         />
       )}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
     />
   );
 };

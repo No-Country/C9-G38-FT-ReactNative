@@ -17,7 +17,7 @@ const Preference = ({ navigation, route }) => {
     agesrange: state.agesrange,
   }));
 
-  const filtersHandler = ({navigation}) => {
+  const filtersHandler = ({ navigation }) => {
     setSelectInterest(!selectInterest);
   };
 

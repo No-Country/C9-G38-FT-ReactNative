@@ -1,146 +1,180 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import Fonts from "../styles/theme/Fonts";
-import CSButton from "../common/ui/Button";
-import { useAuthStore } from "../store/authStore";
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import Fonts from '../styles/theme/Fonts';
+import CSButton from '../common/ui/Button';
+import { useAuthStore } from '../store/authStore';
+import { FilterCategories } from '../features/search/components/FilterCategories';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
 
 const UpdateProfile = () => {
   const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
-
+  const [selected, setSelected] = React.useState([]);
+  const connect = useFetch();
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
-      interest: "",
-      password: "",
-      phone: "",
+      email: '',
+      phone: '',
+      gender: '',
+      fullname: '',
+      biography: '',
     },
   });
 
   const getMyProfile = async () => {
-    let req = await fetch(
-      "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me",
-      {
-        method: "GET",
-        headers: { Authorization: authToken },
-      }
-    );
-    let res = await req.json();
-    console.log(res.data);
-    setMyProfile(res.data);
+    const resp = await connect({ url: URL.AUTH_ME });
+    setSelected(resp.sports.map((item) => item.id));
+    setMyProfile(resp);
   };
 
   useEffect(() => {
     getMyProfile();
   }, []);
 
-  const onSubmit = () => {
-    console.log("hello world");
+  const onSubmit = async (values) => {
+    const sports = selected.map((item) => {
+      return {
+        id: item,
+      };
+    });
+    const data = {
+      ...values,
+      sports,
+    };
+    await connect({ url: URL.UPDATE_PROFILE, data });
   };
 
   return (
-    <View style={styles.container}>
-      {/* <Image
-        style={styles.profileImage}
-        source={{
-          uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-        }}
-      />
-      <Text style={styles.userName}>Usernccame</Text> */}
-      <Text style={styles.subtitle}>Email:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        name="email"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            disableFullscreenUI={true}
+    <View>
+      {myProfile && (
+        <View style={styles.container}>
+          <Text style={styles.subtitle}>Email:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="email"
+            defaultValue={myProfile.email}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                editable={false}
+                value={value}
+                disableFullscreenUI={true}
+              />
+            )}
           />
-        )}
-      />
-      <Text style={styles.subtitle}>Teléfono:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Teléfono"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
+          <Text style={styles.subtitle}>Nombre completo:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="fullname"
+            defaultValue={myProfile?.fullname}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Nombre completo"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                editable={false}
+                value={value}
+                disableFullscreenUI={true}
+              />
+            )}
           />
-        )}
-        name="phone"
-      />
-      <Text style={styles.subtitle}>Edad:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        name="edad"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Edad"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            disableFullscreenUI={true}
+          <Text style={styles.subtitle}>Teléfono:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="phone"
+            defaultValue={myProfile?.phone}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Teléfono"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
           />
-        )}
-      />
-      <Text style={styles.subtitle}>Sexo:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        name="Sexo"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Sexo"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            disableFullscreenUI={true}
+          <Text style={styles.subtitle}>Edad:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="age"
+            defaultValue={myProfile?.age}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Edad"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                disableFullscreenUI={true}
+              />
+            )}
           />
-        )}
-      />
-      <Text style={styles.subtitle}>Intereses:</Text>
-      <Controller
-        control={control}
-        rules={{ required: true }}
-        name="interest"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Intereses"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
+          <Text style={styles.subtitle}>Sexo:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="gender"
+            defaultValue={myProfile?.gender}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                disableFullscreenUI={true}
+              />
+            )}
           />
-        )}
-      />
-      <CSButton onPress={handleSubmit(onSubmit)} label="Guardar" />
+          <Text style={styles.subtitle}>Bio:</Text>
+          <Controller
+            control={control}
+            rules={{ required: false }}
+            name="biography"
+            defaultValue={myProfile.biography}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Escribi' algo sobre vos..."
+                onChangeText={onChange}
+                multiline={true}
+                numberOfLines={4}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
+          <Text style={styles.subtitle}>Intereses:</Text>
+          <FilterCategories selected={selected} setSelected={setSelected} />
+
+          <CSButton onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    width: "100%",
-    alignItems: "flex-start",
+    height: '100%',
+    width: '100%',
+    alignItems: 'flex-start',
     // justifyContent: 'space-between',
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     paddingHorizontal: 32,
     paddingTop: 20,
   },
@@ -150,9 +184,9 @@ const styles = StyleSheet.create({
     borderRadius: 140 / 2,
   },
   input: {
-    width: "100%",
-    height: 48,
-    backgroundColor: "#f8f8f8",
+    width: '100%',
+    minHeight: 48,
+    backgroundColor: '#f8f8f8',
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 14,
@@ -161,7 +195,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.regular,
   },
   userName: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: Fonts.size.xxxLarge,
     fontFamily: Fonts.type.bold,
     letterSpacing: 0.8,
@@ -169,7 +203,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
-    color: "gray",
+    color: 'gray',
   },
 });
 

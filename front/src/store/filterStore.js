@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { AsyncStorage } from 'react-native';
-
+import { BASE_URL } from '../constants/endpoints';
 export const useFilterStore = create((set) => ({
   gender: null,
   agesrange: null,
@@ -24,9 +24,7 @@ export const useFilterStore = create((set) => ({
     })),
 
   getCategories: async () => {
-    const res = await fetch(
-      'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/sports'
-    );
+    const res = await fetch(`${BASE_URL}sports`);
     const listcategories = await res.json();
     const newData = listcategories.data.map((item) => {
       return { key: item.id.toString(), value: item.name };
