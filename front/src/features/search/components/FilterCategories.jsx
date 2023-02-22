@@ -24,6 +24,7 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
         data={categoriesList}
         save="key"
         placeholder="Categorias"
+        defaultOption={{ key: '1', value: 'Jammu & Kashmir' }}
         searchPlaceholder="Contanos tus preferencias"
         dropdownStyles={{
           backgroundColor: 'white',
