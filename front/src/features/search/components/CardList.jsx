@@ -5,7 +5,7 @@ import CardItem from './CardItem';
 const CardList = ({ users, navigation }) => {
   return (
     <FlatList
-      style={{ marginTop: 20, marginHorizontal: 10 }}
+      style={{ marginTop: 6, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (
         <CardItem
