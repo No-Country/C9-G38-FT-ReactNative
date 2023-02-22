@@ -103,7 +103,7 @@ class UserService {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
-        // gender: data.gender,
+        age: data.age,
         coordinates: point,
       },
       {

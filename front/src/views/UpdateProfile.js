@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
@@ -18,19 +26,11 @@ const UpdateProfile = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm({
-    defaultValues: {
-      email: '',
-      phone: '',
-      gender: '',
-      fullname: '',
-      biography: '',
-    },
-  });
+  } = useForm({});
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
-    setSelected(resp.sports.map((item) => item.id));
+    // setSelected(resp.sports.map((item) => item.id));
     setMyProfile(resp);
   };
 
@@ -53,117 +53,126 @@ const UpdateProfile = () => {
 
   return (
     <View>
-      {myProfile && (
-        <View style={styles.container}>
-          <Text style={styles.subtitle}>Email:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="email"
-            defaultValue={myProfile.email}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Email"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                editable={false}
-                value={value}
-                disableFullscreenUI={true}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Nombre completo:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="fullname"
-            defaultValue={myProfile?.fullname}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Nombre completo"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                editable={false}
-                value={value}
-                disableFullscreenUI={true}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Teléfono:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="phone"
-            defaultValue={myProfile?.phone}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Teléfono"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Edad:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="age"
-            defaultValue={myProfile?.age}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Edad"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                disableFullscreenUI={true}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Sexo:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="gender"
-            defaultValue={myProfile?.gender}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                disableFullscreenUI={true}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Bio:</Text>
-          <Controller
-            control={control}
-            rules={{ required: false }}
-            name="biography"
-            defaultValue={myProfile.biography}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder="Escribi' algo sobre vos..."
-                onChangeText={onChange}
-                multiline={true}
-                numberOfLines={4}
-                onBlur={onBlur}
-                value={value}
-              />
-            )}
-          />
-          <Text style={styles.subtitle}>Intereses:</Text>
-          <FilterCategories selected={selected} setSelected={setSelected} />
-
-          <CSButton onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
-        </View>
-      )}
+      <ScrollView style={styles.scrollView}>
+        {myProfile && (
+          <View style={styles.container}>
+            <Text style={styles.subtitle}>Email:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="email"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder={myProfile.email}
+                  defaultValue={myProfile.email}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  editable={false}
+                  value={value}
+                  disableFullscreenUI={true}
+                />
+              )}
+            />
+            <Text style={styles.subtitle}>Nombre completo:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="fullname"
+              defaultValue={myProfile?.fullname}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder={myProfile.fullname}
+                  defaultValue={myProfile.fullname}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  editable={false}
+                  value={value}
+                  disableFullscreenUI={true}
+                />
+              )}
+            />
+            <Text style={styles.subtitle}>Teléfono:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="phone"
+              // defaultValue={myProfile?.phone}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder={myProfile.phone ? myProfile.phone : 'Teléfono'}
+                  defaultValue={myProfile.phone ? myProfile.phone : null}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
+            />
+            <Text style={styles.subtitle}>Edad:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="age"
+              // defaultValue={myProfile?.age}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder={myProfile.age ? myProfile.age : 'Edad'}
+                  defaultValue={myProfile.age ? myProfile.age : null}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  disableFullscreenUI={true}
+                />
+              )}
+            />
+            {/* <Text style={styles.subtitle}>Sexo:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="gender"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder=""
+                  defaultValue={myProfile.gender ? myProfile.gender : null}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  disableFullscreenUI={true}
+                />
+              )}
+            /> */}
+            <Text style={styles.subtitle}>Bio:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="biography"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder="Escribí algo sobre vos..."
+                  defaultValue={
+                    myProfile.biography ? myProfile.biography : null
+                  }
+                  onChangeText={onChange}
+                  multiline={true}
+                  numberOfLines={4}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
+            />
+            <Text style={styles.subtitle}>Intereses:</Text>
+            <FilterCategories selected={selected} setSelected={setSelected} />
+            <View style={styles.wrapperButton}>
+              <CSButton onPress={handleSubmit(onSubmit)} label="Actualizar" />
+            </View>
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 };
@@ -204,6 +213,16 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
     color: 'gray',
+  },
+  scrollView: {
+    backgroundColor: 'pink',
+  },
+  wrapperButton: {
+    marginTop: 40,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
 });
 

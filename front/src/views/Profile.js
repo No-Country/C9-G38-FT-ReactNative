@@ -92,9 +92,7 @@ const Profile = ({ navigation, screenName, route }) => {
         </View>
       </View>
       <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud
+        {myProfile?.biography}
       </Text>
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
       <View

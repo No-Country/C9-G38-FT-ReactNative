@@ -86,7 +86,7 @@ const UserDetail = ({ route }) => {
         </View>
       </View>
       <View style={styles.biographyContainer}>
-        <Text style={styles.biography}>{user?.about}</Text>
+        <Text style={styles.biography}>{user?.biography}</Text>
         <View style={styles.interestsWrapper}>
           {user?.sports.map((item) => (
             <Text key={item.id} style={styles.interestText}>
