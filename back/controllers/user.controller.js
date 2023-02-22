@@ -53,10 +53,12 @@ class UserController {
     }
   }
 
+  //   
   static async search(req, res) {
     try {
       const { filters } = req.body;
-      const users = await UserService.search(filters);
+      const users = await UserService.search(filters); 
+
       res.status(200).json({
         data: users,
       });
@@ -64,6 +66,7 @@ class UserController {
       console.log(error);
     }
   }
+
 
   static async searchById(req, res) {
     try {
