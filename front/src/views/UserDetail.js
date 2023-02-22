@@ -2,23 +2,21 @@ import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import { useState, useEffect } from 'react';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
-import { BASE_ENDPOINT } from '../constants/endpoints';
+import { BASE_URL } from '../constants/endpoints';
 import { useAuthStore } from '../store/authStore';
 
 const UserDetail = ({ route }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   //   const user = route.params.user;
-  const [user, setUser] = useState(route.params.user);
-
+  const [user, setUser] = useState();
   const getUser = async () => {
     try {
-      let req = await fetch(`${BASE_ENDPOINT}/users/${route.params.id}`, {
+      let req = await fetch(`${BASE_URL}users/${route.params.id}`, {
         method: 'GET',
         headers: { Authorization: authToken },
       });
       let res = await req.json();
-      console.log(res);
       setUser(res.data);
     } catch (error) {
       console.log(error);
@@ -27,7 +25,7 @@ const UserDetail = ({ route }) => {
 
   const follow = async () => {
     try {
-      let req = await fetch(`${BASE_ENDPOINT}/follows`, {
+      let req = await fetch(`${BASE_URL}follows`, {
         method: 'POST',
         headers: {
           Authorization: authToken,
@@ -36,7 +34,6 @@ const UserDetail = ({ route }) => {
         body: JSON.stringify({ follow: route.params.id }),
       });
       let res = await req.json();
-      console.log(res);
       setUser({ ...user, isFollower: true });
     } catch (error) {
       console.log(error);
@@ -45,7 +42,7 @@ const UserDetail = ({ route }) => {
 
   const unfollow = async () => {
     try {
-      let req = await fetch(`${BASE_ENDPOINT}/follows/${route.params.id}`, {
+      let req = await fetch(`${BASE_URL}follows/${route.params.id}`, {
         method: 'DELETE',
         headers: {
           Authorization: authToken,
@@ -53,7 +50,6 @@ const UserDetail = ({ route }) => {
         },
       });
       let res = await req.json();
-      console.log(res);
       setUser({ ...user, isFollower: false });
     } catch (error) {
       console.log(error);
@@ -71,7 +67,7 @@ const UserDetail = ({ route }) => {
           <Image
             style={styles.profileImage}
             source={{
-              uri: user.avatar, // 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
+              uri: user?.avatar, // 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
             }}
           />
         </View>
@@ -79,21 +75,23 @@ const UserDetail = ({ route }) => {
           <Text style={styles.userName}>{user?.username}</Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.follows}>
-              <Text style={styles.quantity}>20</Text>
+              <Text style={styles.quantity}>{user?.countFollowers || 0}</Text>
               <Text>Seguidores</Text>
             </View>
             <View style={styles.follows}>
-              <Text style={styles.quantity}>30</Text>
+              <Text style={styles.quantity}>{user?.countFollowing || 0}</Text>
               <Text>Siguiendo</Text>
             </View>
           </View>
         </View>
       </View>
       <View style={styles.biographyContainer}>
-        <Text style={styles.biography}>{user.about}</Text>
+        <Text style={styles.biography}>{user?.about}</Text>
         <View style={styles.interestsWrapper}>
-          {user.sports.slice(0, 3).map((item) => (
-            <Text style={styles.interestText}>{item}</Text>
+          {user?.sports.map((item) => (
+            <Text key={item.id} style={styles.interestText}>
+              {item.name}
+            </Text>
           ))}
         </View>
       </View>
@@ -107,7 +105,7 @@ const UserDetail = ({ route }) => {
             />
             <CSButton
               label={'Contactar'}
-              onPress={() => Linking.openURL('https://wa.me/')}
+              onPress={() => Linking.openURL(`https://wa.me/${user.phone}`)}
               style={styles.contactButton}
             />
           </>

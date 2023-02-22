@@ -6,11 +6,12 @@ const { where, Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 const { cloudinary } = require('../config/cloudinary');
 const FollowService = require('./follow.service');
+const avatarDefault =
+  'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg';
 
 class UserService {
   static async create(payload) {
     const passEncrypt = await encrypt(payload.password);
-    console.log(payload);
     const data = await User.create({
       fullname: payload.fullname,
       username: payload.username,
@@ -18,6 +19,7 @@ class UserService {
       password: passEncrypt,
       biography: payload.biography,
       phone: payload.phone,
+      avatar: avatarDefault,
       age: payload.age,
     });
     return data;
@@ -26,7 +28,8 @@ class UserService {
   static async getById(payload) {
     const { userId, followId } = payload;
     const isFollower = await FollowService.isFollow(payload);
-    const countFollowers = await FollowService.getCount(payload);
+    const countFollowers = await FollowService.getCountFollowers(followId);
+    const countFollowing = await FollowService.getCountFollowing(followId);
     const data = await User.findOne({
       where: { id: followId },
       include: { model: Sport },
@@ -45,6 +48,7 @@ class UserService {
       ...data.toJSON(),
       isFollower,
       countFollowers,
+      countFollowing,
     };
   }
 
@@ -57,11 +61,13 @@ class UserService {
   }
 
   static async search(payload) {
+    const { userId } = payload;
     const data = await User.findAll({
-      where: { id: payload, isActive: true },
+      where: { isActive: true },
       include: { model: Sport },
     });
-    return data;
+
+    return data.filter((x) => x.id !== userId);
   }
 
   static async searchById(payload) {
@@ -96,6 +102,7 @@ class UserService {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
+        // gender: data.gender,
         coordinates: point,
       },
       {

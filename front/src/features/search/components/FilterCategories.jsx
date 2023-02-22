@@ -18,12 +18,12 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 50 }}>
+    <View style={{ paddingHorizontal: 20 }}>
       <MultipleSelectList
         setSelected={(val) => categorieHandler(val)}
         data={categoriesList}
-        save="value"
-        placeholder="CATEGORIAS"
+        save="key"
+        placeholder="Categorias"
         searchPlaceholder="Contanos tus preferencias"
         dropdownStyles={{
           backgroundColor: 'white',

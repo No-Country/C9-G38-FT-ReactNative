@@ -1,18 +1,22 @@
-import React from "react";
-import { View, Button } from "react-native";
-import RangeSlider from "../features/search/components/FilterAgeRanger";
+import React from 'react';
+import { View, Button } from 'react-native';
+import RangeSlider from '../features/search/components/FilterAgeRanger';
 
-import { FilterCategories } from "../features/search/components/FilterCategories";
-import FilterGender from "../features/search/components/FilterGender";
-import { useFilterStore } from "../store/filterStore";
-import CSButton from "../common/ui/Button";
-
+import { FilterCategories } from '../features/search/components/FilterCategories';
+import FilterGender from '../features/search/components/FilterGender';
+import { useFilterStore } from '../store/filterStore';
+import CSButton from '../common/ui/Button';
+import { useUserStore } from '../store/userStore';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
   const [resultados, setResultados] = React.useState([]);
 
   const { setCategorie } = useFilterStore();
+  const { setUsers } = useUserStore();
+  const connect = useFetch();
 
   const { categories, gender, agesrange } = useFilterStore((state) => ({
     categories: state.categories,
@@ -20,35 +24,28 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
     agesrange: state.agesrange,
   }));
 
-  
   const saveFilters = async () => {
-    
-    const filters = {
-      agesrange,
-      categories,
-      gender,
+    const data = {
+      minAge: agesrange[0],
+      maxAge: agesrange[1],
+      ratio: 14,
+      sports: categories.map((item) => {
+        return {
+          id: item,
+        };
+      }),
     };
 
-    const queryString = new URLSearchParams(filters).toString();
-    const endpoint = "https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/search" + queryString;
-
-    fetch(endpoint)
-      .then((response) => response.json())
-      .then((data) => {
-        setResultados(data.resultados);
-      })
-      .catch((error) => {
-        console.error("Error al hacer la solicitud:", error);
-      });
+    const resp = await connect({ url: URL.SEARCH_USERS, data });
+    setUsers(resp);
   };
-
-
 
   const saveHandler = () => {
     setCategorie(selected);
     setSelectInterest(!selectInterest);
     saveFilters();
-    navigation.navigate("Search")
+    // navigation.navigate('Search');
+    navigation.goBack(null);
   };
   return (
     <View>

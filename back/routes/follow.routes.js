@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/', AuthMiddleware, FollowController.add);
 router.delete('/:id', AuthMiddleware, FollowController.remove);
-router.get('/', AuthMiddleware, FollowController.getById);
+router.get('/:id', AuthMiddleware, FollowController.getById);
 
 module.exports = router;
