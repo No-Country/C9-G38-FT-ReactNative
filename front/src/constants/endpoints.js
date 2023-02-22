@@ -1,6 +1,6 @@
-// export const BASE_URL =
-//   'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/';
-export const BASE_URL = 'http://192.168.1.2:3000/api/v1/';
+export const BASE_URL =
+  'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/';
+// export const BASE_URL = 'http://192.168.1.2:3000/api/v1/';
 
 export const GOOGLE_LOGIN_AUTH = 'https://www.googleapis.com/userinfo/v2/me';
 
