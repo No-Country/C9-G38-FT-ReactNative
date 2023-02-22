@@ -105,6 +105,7 @@ const Profile = ({ navigation, screenName, route }) => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud
       </Text>
+      {/*
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
       <View
         style={{
@@ -135,7 +136,7 @@ const Profile = ({ navigation, screenName, route }) => {
         >
           <Text>ver más...</Text>
         </TouchableOpacity>
-      </View>
+        </View>*/}
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button1}>
           <Text>Button 1</Text>
