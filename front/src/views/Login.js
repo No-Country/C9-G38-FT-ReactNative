@@ -14,9 +14,12 @@ import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import useLoginGoogle from '../hooks/useLoginGoogle';
+import IconGoogle from 'react-native-vector-icons/FontAwesome5';
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = useState(false);
+  const { googleAuth } = useLoginGoogle();
   const connect = useFetch();
 
   const {
@@ -43,7 +46,6 @@ const Login = ({ navigation }) => {
       setLoginError(true);
     }
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Bienvenido</Text>
@@ -88,7 +90,18 @@ const Login = ({ navigation }) => {
         </Text>
       )}
       <View style={styles.loginGoogle}>
-        {/* <Button title="Iniciar sesión con Google" /> */}
+        <CSButton
+          icon={
+            <IconGoogle
+              name="google"
+              size={25}
+              color="white"
+              style={{ marginRight: 10 }}
+            />
+          }
+          onPress={() => googleAuth()}
+          label="Iniciar sesión con Google"
+        />
       </View>
       <View style={styles.signUp}>
         <Text style={styles.questionText}>¿No tenés cuenta?</Text>

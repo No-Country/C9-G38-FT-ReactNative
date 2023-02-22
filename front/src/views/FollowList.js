@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import CardList from '../features/search/components/CardList';
 
 const FollowList = ({ navigation, route }) => {
   const [followers, setFollowers] = useState();
@@ -14,6 +15,7 @@ const FollowList = ({ navigation, route }) => {
       url: URL.GET_FOLLOWERS,
       extra: id,
     });
+    console.log(resp);
     setFollowers(resp);
   };
 
@@ -23,25 +25,17 @@ const FollowList = ({ navigation, route }) => {
 
   return (
     <SafeAreaView>
-      {followers?.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={{ width: '16%', alignItems: 'center' }}
-          onPress={() => navigation.navigate('UserDetail', { id: item.id })}
-        >
-          <Image
-            style={{ width: 50, borderRadius: 100, aspectRatio: 1 }}
-            source={{
-              uri: item.avatar,
-            }}
-          />
-          <Text>{item.username}</Text>
-        </TouchableOpacity>
-      ))}
+      <View style={styles.container}>
+        <CardList users={followers} navigation={navigation} />
+      </View>
     </SafeAreaView>
   );
 };
 
 export default FollowList;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },
+});

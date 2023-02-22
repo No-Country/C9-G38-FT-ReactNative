@@ -17,6 +17,7 @@ const UpdateProfile = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       email: '',

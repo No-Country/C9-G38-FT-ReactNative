@@ -21,7 +21,7 @@ const CardItem = (props) => {
         <View style={styles.info}>
           <Text style={styles.user}>{user.username}</Text>
           <View style={styles.interestsWrapper}>
-            {user.sports.map((item) => (
+            {user.sports?.map((item) => (
               <Text key={item.id} style={styles.interestText}>
                 {item.name}
               </Text>
