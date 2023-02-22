@@ -7,7 +7,7 @@ const Op = Sequelize.Op;
 const { cloudinary } = require('../config/cloudinary');
 const FollowService = require('./follow.service');
 const avatarDefault =
-  'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg';
+  'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg';
 
 class UserService {
   static async create(payload) {
