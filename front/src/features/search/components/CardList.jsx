@@ -1,22 +1,24 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import CardItem from './CardItem';
 
 const CardList = ({ users, navigation }) => {
   return (
     <FlatList
-      style={{ marginTop: 20, marginHorizontal: 10 }}
+      style={{ marginTop: 6, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (
+        // <Text>asda</Text>
         <CardItem
           navigation={navigation}
-          avatar={element.picture}
+          avatar={element.avatar}
           username={element.username}
-          intereses={element.tags}
+          intereses={element.sports}
           user={element}
           id={element.id}
         />
       )}
+      keyExtractor={(item) => item.id}
     />
   );
 };

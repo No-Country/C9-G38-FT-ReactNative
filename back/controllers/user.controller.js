@@ -55,8 +55,17 @@ class UserController {
 
   static async search(req, res) {
     try {
-      const { filters } = req.body;
-      const users = await UserService.search(filters);
+      const { minAge, maxAge, ratio, coordinates } = req.body;
+      const data = {
+        minAge,
+        maxAge,
+        ratio,
+        ratio,
+        sports: req.body.sports,
+        userId: req.userId,
+      };
+
+      const users = await UserService.search(data);
       res.status(200).json({
         data: users,
       });

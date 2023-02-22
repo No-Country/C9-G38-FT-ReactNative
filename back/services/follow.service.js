@@ -22,7 +22,7 @@ class FollowService {
       },
       attributes: ['id', 'fullname', 'username', 'avatar'],
     });
-    return data;
+    return data.follows;
   }
 
   static async isFollow(payload) {
@@ -37,17 +37,18 @@ class FollowService {
     return data.follows.map((item) => item.id === followId).length !== 0;
   }
 
-  static async getCount(payload) {
-    const { followId } = payload;
-
-    const countFollow = await User.findByPk(followId, {
-      include: {
-        model: User,
-        as: 'follows',
-      },
+  static async getCountFollowers(userId) {
+    const countFollow = await Follow.findAll({
+      where: { userId: userId },
     });
+    return countFollow.length;
+  }
 
-    return countFollow.follows.length;
+  static async getCountFollowing(userId) {
+    const countFollow = await Follow.findAll({
+      where: { followId: userId },
+    });
+    return countFollow.length;
   }
 
   static async remove(payload) {

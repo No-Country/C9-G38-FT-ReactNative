@@ -1,6 +1,6 @@
-const Sport = require('../models/sport.model');
-const User = require('../models/user.model');
-const Category = require('../models/sport.model');
+const Sport = require("../models/sport.model");
+const User = require("../models/user.model");
+const Category = require("../models/sport.model");
 
 class SportService {
   static async create(payload) {

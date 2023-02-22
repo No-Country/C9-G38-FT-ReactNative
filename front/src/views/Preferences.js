@@ -17,7 +17,7 @@ const Preference = ({ navigation, route }) => {
     agesrange: state.agesrange,
   }));
 
-  const filtersHandler = () => {
+  const filtersHandler = ({ navigation }) => {
     setSelectInterest(!selectInterest);
   };
 
@@ -32,6 +32,7 @@ const Preference = ({ navigation, route }) => {
       </View>
 
       <Filters
+        navigation={navigation}
         selectInterest={selectInterest}
         setSelectInterest={setSelectInterest}
       />

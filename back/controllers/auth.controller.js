@@ -1,15 +1,15 @@
 const User = require('../models/user.model');
+const Sport = require('../models/sport.model');
 const UserService = require('../services/user.service');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-
+const FollowService = require('../services/follow.service');
 dotenv.config();
 
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
-
     const user = await User.findOne({
       where: { email },
       attributes: [
@@ -42,14 +42,15 @@ class AuthController {
     delete user.password;
 
     user.password = undefined;
-    res.send({ data: user, token: token });
+    res.send({ data: { user, token: token } });
   }
 
   static async register(req, res) {
     try {
-      await UserService.create(req.body);
+      const user = await UserService.create(req.body);
       res.status(201).json({
         message: 'register successful',
+        data: user,
       });
     } catch (error) {
       console.log(error);
@@ -58,12 +59,21 @@ class AuthController {
 
   static async getCurrent(req, res) {
     try {
-      const user = await User.findOne({
+      const data = await User.findOne({
         where: { id: req.userId },
         attributes: { exclude: ['password'] },
+        include: { model: Sport },
       });
+      const followers = await FollowService.getById({ userId: req.userId });
+      const countFollowers = await FollowService.getCountFollowers(req.userId);
+      const countFollowing = await FollowService.getCountFollowing(req.userId);
       res.status(201).json({
-        data: user,
+        data: {
+          ...data.toJSON(),
+          countFollowers,
+          countFollowing,
+          followers: followers,
+        },
       });
     } catch (error) {
       console.log(error);

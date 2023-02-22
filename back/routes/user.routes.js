@@ -1,6 +1,7 @@
 const express = require('express');
 
 const UserController = require('../controllers/user.controller');
+const { userValidators } = require('../middlewares/validator.middleware');
 const AuthMiddleware = require('../middlewares/auth.middleware');
 const router = express.Router();
 const multer = require('multer');
@@ -10,7 +11,7 @@ const fs = require('fs');
 router.get('/', UserController.getAll);
 router.get('/:id', AuthMiddleware, UserController.getById);
 router.put('/', AuthMiddleware, UserController.update);
-router.post('/search', UserController.search);
+router.post('/search', AuthMiddleware, UserController.search);
 router.get('/search/:id', UserController.searchById);
 
 router.put(

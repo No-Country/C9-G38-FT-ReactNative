@@ -15,12 +15,41 @@ import { FontAwesome } from '@expo/vector-icons';
 import { data } from '../constants/data';
 import CardItem from '../features/search/components/CardItem';
 import CardList from '../features/search/components/CardList';
+import { useFilterStore } from '../store/filterStore';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
+
 const Search = ({ navigation }) => {
-  const { users, filteredUsers, getAllUsers } = useUserStore((state) => state);
+  const { users, filteredUsers, setUsers } = useUserStore((state) => state);
+  const connect = useFetch();
+
+  const { categories, gender, agesrange } = useFilterStore((state) => ({
+    categories: state.categories,
+    gender: state.gender,
+    agesrange: state.agesrange,
+  }));
+
+  const getUsers = async () => {
+    const data = {
+      minAge: 20,
+      maxAge: 40,
+      ratio: 14,
+      // sports: categories.map((item) => {
+      //   return {
+      //     id: item,
+      //   };
+      // }),
+    };
+
+    const resp = await connect({ url: URL.SEARCH_USERS, data });
+    setUsers(resp);
+  };
 
   useEffect(() => {
-    getAllUsers();
-  }, []);
+    if (users.length === 0) {
+      getUsers();
+    }
+  }, [users]);
 
   return (
     <SafeAreaView style={{ margin: 10 }}>
@@ -39,6 +68,7 @@ const Search = ({ navigation }) => {
         </Pressable>
       </View>
       <Searchbar />
+
       {/* {users === filteredUsers ? (
         <ScrollView>
           <Text style={styles.textFriends}>Personas sugeridas:</Text>
@@ -51,7 +81,7 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-      <CardList users={data} navigation={navigation} />
+      <CardList users={users} navigation={navigation} />
     </SafeAreaView>
   );
 };

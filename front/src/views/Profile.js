@@ -12,24 +12,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
 import { useEffect, useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import UpdateProfilePicture from '../features/profile/components/UpdateProfilePicture';
+import useFetch from '../hooks/useFetch';
+import URL from '../constants/endpoints';
 
 const Profile = ({ navigation, screenName, route }) => {
-  const authToken = useAuthStore((state) => state.authToken);
-
   const [myProfile, setMyProfile] = useState();
+  const connect = useFetch();
 
   const getMyProfile = async () => {
-    let req = await fetch(
-      'https://c9-g38-ft-reactnative-production.up.railway.app/api/v1/auth/me',
-      {
-        method: 'GET',
-        headers: { Authorization: authToken },
-      }
-    );
-    let res = await req.json();
-    console.log(res.data);
-    res.data.avatar = 'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg'
-    setMyProfile(res.data);
+    const resp = await connect({ url: URL.AUTH_ME });
+    setMyProfile(resp);
   };
 
   useEffect(() => {
@@ -39,7 +32,9 @@ const Profile = ({ navigation, screenName, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
-        <Text style={{ fontFamily: Fonts.type.bold }}>{myProfile?.username}</Text>
+        <Text style={{ fontFamily: Fonts.type.bold }}>
+          {myProfile?.username}
+        </Text>
         <Pressable
           onPress={() =>
             navigation.navigate('Preferences', {
@@ -53,25 +48,16 @@ const Profile = ({ navigation, screenName, route }) => {
           <FontAwesome name="gear" size={30} color={'black'} />
         </Pressable>
       </View>
-      <View style={{ height: '16%', flexDirection: 'row', paddingHorizontal: 16, marginBottom: 20 }}>
+      <View
+        style={{
+          height: '16%',
+          flexDirection: 'row',
+          paddingHorizontal: 16,
+          marginBottom: 20,
+        }}
+      >
         <View style={styles.profile}>
-          {myProfile ? (
-            <Image
-              style={styles.profileImage}
-              source={{
-                uri:
-                  myProfile.avatar ??
-                  'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-              }}
-            />
-          ) : (
-            <Image
-              style={styles.profileImage}
-              source={{
-                uri: 'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
-              }}
-            />
-          )}
+          {myProfile && <UpdateProfilePicture />}
           <View style={styles.editWrapper}>
             <Pressable
               onPress={() => navigation.navigate('UpdateProfile')}
@@ -86,43 +72,74 @@ const Profile = ({ navigation, screenName, route }) => {
             {myProfile ? myProfile.fullname : '...'}
           </Text>
           <View style={styles.details}>
-            <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}>
-              <Text style={styles.number}>56</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('FollowList', { title: 'Seguidores' })
+              }
+            >
+              <Text style={styles.number}>{myProfile?.countFollowing}</Text>
               <Text style={styles.text}>Seguidores</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Siguiendo' })}>
-              <Text style={styles.number}>215</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('FollowList', { title: 'Siguiendo' })
+              }
+            >
+              <Text style={styles.number}>{myProfile?.countFollowers}</Text>
               <Text style={styles.text}>Siguiendo</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-      <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</Text>
+      <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud
+      </Text>
       <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
-      <View style={{ flexDirection: 'row', paddingHorizontal: 16, marginVertical: 10 }}>
-        {['user1', 'user2', 'user3', 'user4', 'user5'].map((follower) =>
-          <TouchableOpacity key={follower} style={{ width: '16%', alignItems: 'center' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 16,
+          marginVertical: 10,
+        }}
+      >
+        {myProfile?.followers?.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={{ width: '16%', alignItems: 'center' }}
+            onPress={() => navigation.navigate('UserDetail', { id: item.id })}
+          >
             <Image
               style={{ width: 50, borderRadius: 100, aspectRatio: 1 }}
-              source={{ uri: 'https://theawesomedaily.com/wp-content/uploads/2022/07/pfp1.jpeg' }} />
-            <Text>{follower}</Text>
+              source={{
+                uri: item.avatar,
+              }}
+            />
+            <Text>{item.username}</Text>
           </TouchableOpacity>
-        )}
-        <TouchableOpacity onPress={() => navigation.navigate('FollowList', { title: 'Seguidores' })}
-          style={{ justifyContent: 'flex-end' }}>
+        ))}
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('FollowList', {
+              title: 'Seguidores',
+              id: myProfile.id,
+            })
+          }
+          style={{ justifyContent: 'flex-end' }}
+        >
           <Text>ver más...</Text>
         </TouchableOpacity>
       </View>
+      <Text style={{ paddingHorizontal: 24 }}>Intereses</Text>
+
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button1}>
-          <Text>Button 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate('Map')}
         >
           <Text>Map</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
@@ -139,7 +156,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   header: {
     height: '6%',
@@ -152,12 +169,7 @@ const styles = StyleSheet.create({
     width: '35%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  profileImage: {
-    height: 128,
-    aspectRatio: 1,
-    borderRadius: 140 / 2,
+    justifyContent: 'center',
   },
   userName: {
     fontSize: Fonts.size.xxxLarge,
@@ -168,7 +180,7 @@ const styles = StyleSheet.create({
   details: {
     marginTop: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   number: {
     textAlign: 'center',
@@ -225,7 +237,7 @@ const styles = StyleSheet.create({
 /*
 <View>
       <Text>{JSON.stringify(someText)}</Text>
-     
+
       <Map/>
 
       <TouchableOpacity onPress={
@@ -250,6 +262,6 @@ const styles = StyleSheet.create({
       <TouchableOpacity onPress={()=> navigation.navigate("Home")}>
         <Text>IR HOME</Text>
       </TouchableOpacity>
-    
+
     </View>
 */
