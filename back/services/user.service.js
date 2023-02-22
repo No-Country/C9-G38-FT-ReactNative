@@ -62,6 +62,7 @@ class UserService {
 
   static async search(payload) {
     const { userId } = payload;
+    //changes
     const data = await User.findAll({
       where: { isActive: true },
       include: { model: Sport },
