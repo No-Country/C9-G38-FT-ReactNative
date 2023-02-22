@@ -19,23 +19,20 @@ const UpdateProfile = () => {
     formState: { errors },
     setValue,
   } = useForm({
-    defaultValues: {
-      email: '',
-      phone: '',
-      gender: '',
-      fullname: '',
-      biography: '',
-    },
+
   });
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
     setSelected(resp.sports.map((item) => item.id));
     setMyProfile(resp);
+
   };
 
   useEffect(() => {
     getMyProfile();
+
+
   }, []);
 
   const onSubmit = async (values) => {
@@ -60,11 +57,12 @@ const UpdateProfile = () => {
             control={control}
             rules={{ required: false }}
             name="email"
-            defaultValue={myProfile.email}
+
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder={myProfile.email}
+                defaultValue={myProfile.email}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 editable={false}
@@ -82,7 +80,8 @@ const UpdateProfile = () => {
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
-                placeholder="Nombre completo"
+                placeholder={myProfile.fullname}
+                defaultValue={myProfile.fullname}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 editable={false}
@@ -96,11 +95,12 @@ const UpdateProfile = () => {
             control={control}
             rules={{ required: false }}
             name="phone"
-            defaultValue={myProfile?.phone}
+            // defaultValue={myProfile?.phone}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
-                placeholder="Teléfono"
+                placeholder={myProfile.phone ? myProfile.phone : "Teléfono"}
+                defaultValue={myProfile.phone ? myProfile.phone : null}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -112,11 +112,12 @@ const UpdateProfile = () => {
             control={control}
             rules={{ required: false }}
             name="age"
-            defaultValue={myProfile?.age}
+            // defaultValue={myProfile?.age}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
-                placeholder="Edad"
+                placeholder={myProfile.age ? myProfile.age : "Edad"}
+                defaultValue={myProfile.age ? myProfile.age : null}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -129,10 +130,12 @@ const UpdateProfile = () => {
             control={control}
             rules={{ required: false }}
             name="gender"
-            defaultValue={myProfile?.gender}
+
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
+                placeholder=""
+                defaultValue={myProfile.gender ? myProfile.gender : null}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -145,11 +148,12 @@ const UpdateProfile = () => {
             control={control}
             rules={{ required: false }}
             name="biography"
-            defaultValue={myProfile.biography}
+
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={styles.input}
-                placeholder="Escribi' algo sobre vos..."
+                placeholder="Escribí algo sobre vos..."
+                defaultValue={myProfile.biography ? myProfile.biography : null}
                 onChangeText={onChange}
                 multiline={true}
                 numberOfLines={4}
@@ -160,6 +164,8 @@ const UpdateProfile = () => {
           />
           <Text style={styles.subtitle}>Intereses:</Text>
           <FilterCategories selected={selected} setSelected={setSelected} />
+
+
 
           <CSButton onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
         </View>
