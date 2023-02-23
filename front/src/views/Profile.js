@@ -94,10 +94,15 @@ const Profile = ({ navigation, screenName, route }) => {
       <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
         {myProfile?.biography}
       </Text>
-      <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
+      <Text style={styles.categories}>Seguidores</Text>
+
+
+
       <View
         style={{
           flexDirection: 'row',
+
+
           paddingHorizontal: 16,
           marginVertical: 10,
         }}
@@ -117,6 +122,8 @@ const Profile = ({ navigation, screenName, route }) => {
             <Text>{item.username}</Text>
           </TouchableOpacity>
         ))}
+
+
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('FollowList', {
@@ -129,7 +136,7 @@ const Profile = ({ navigation, screenName, route }) => {
           <Text>ver más...</Text>
         </TouchableOpacity>
       </View>
-      <Text style={{ paddingHorizontal: 24 }}>Intereses</Text>
+      <Text style={styles.categories}>Intereses</Text>
 
       <View style={styles.buttons}>
         {/* <TouchableOpacity
@@ -229,6 +236,16 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
+  },
+  categories: {
+    fontFamily: Fonts.type.bold,
+    fontSize: 18,
+    marginRight: 2,
+    width: "100%",
+    paddingLeft: 24,
+    color: "#354259",
+
+    marginBottom: 2,
   },
 });
 
