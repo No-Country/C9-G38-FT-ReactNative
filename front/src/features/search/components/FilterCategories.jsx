@@ -28,6 +28,9 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
         searchPlaceholder="Contanos tus preferencias"
         dropdownStyles={{
           backgroundColor: 'white',
+          position: 'absolute',
+          width: "100%",
+          marginTop: 50,
           zIndex: 8,
         }}
         dropdownItemStyles={{ marginHorizontal: 12 }}
