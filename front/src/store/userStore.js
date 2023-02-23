@@ -32,7 +32,7 @@ export const useUserStore = create((set, get) => ({
   filterSearchUser: (text) => {
     set({ searchbarValue: text });
     if (text) {
-      const newData = get().filteredUsers.filter((item) => {
+      const newData = get().users.filter((item) => {
         const itemData = item.fullname
           ? item.fullname.toUpperCase()
           : ''.toUpperCase();
