@@ -47,5 +47,4 @@ export const styles = StyleSheet.create({
     marginBottom: 50,
     // marginVertical: 30,
   },
-  button: {},
 });
