@@ -1,13 +1,13 @@
-import { InputForm } from './InputForm';
-import { useForm } from 'react-hook-form';
-import { ScrollView, Text, View } from 'react-native';
-import { styles } from '../../../styles/register/register.style';
-import { inputs } from '../helpers/register-form';
-import { REGISTER_USER } from '../../../constants/endpoints';
-import { useNavigation } from '@react-navigation/native';
-import CSButton from '../../../common/ui/Button';
-import useFetch from '../../../hooks/useFetch';
-import URL from '../../../constants/endpoints';
+import { InputForm } from "./InputForm";
+import { useForm } from "react-hook-form";
+import { ScrollView, Text, View } from "react-native";
+import { styles } from "../../../styles/register/register.style";
+import { inputs } from "../helpers/register-form";
+import { REGISTER_USER } from "../../../constants/endpoints";
+import { useNavigation } from "@react-navigation/native";
+import CSButton from "../../../common/ui/Button";
+import useFetch from "../../../hooks/useFetch";
+import URL from "../../../constants/endpoints";
 
 const Form = () => {
   const {
@@ -23,14 +23,14 @@ const Form = () => {
     try {
       await connect({ url: URL.REGISTER, data: newUser });
 
-      navigation.navigate('Login');
+      navigation.navigate("Login");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.headerWrapper}>
         {/* <Text style={styles.logo}>Logo Aplicacion o Imagen ilustrativa</Text> */}
         <Text style={styles.title}>Registrate!</Text>
@@ -44,6 +44,9 @@ const Form = () => {
       <View style={styles.formWrapper}>
         {inputs.map((input) => (
           <View key={input.name}>
+            <Text style={styles.inputTitle} key={input.title}>
+              {input.title}
+            </Text>
             <InputForm
               name={input.name}
               placeholder={input.placeholder}
@@ -53,7 +56,7 @@ const Form = () => {
               secure={input.secure}
               pwdValidate={input.pwdValidate}
             />
-            <Text style={{ color: 'red', margin: 3 }}>
+            <Text style={{ color: "red", margin: 3 }}>
               {errors[input.name]?.message}
             </Text>
           </View>
