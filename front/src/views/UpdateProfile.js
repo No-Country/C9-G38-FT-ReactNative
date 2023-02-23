@@ -30,7 +30,11 @@ const UpdateProfile = () => {
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
-    // setSelected(resp.sports.map((item) => item.id));
+    setValue('email', resp.email);
+    setValue('fullname', resp.fullname);
+    setValue('phone', resp.phone);
+    setValue('age', resp.age.toString());
+    setValue('biography', resp.biography);
     setMyProfile(resp);
   };
 
@@ -64,8 +68,7 @@ const UpdateProfile = () => {
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   style={styles.input}
-                  placeholder={myProfile.email}
-                  defaultValue={myProfile.email}
+                  placeholder="Email"
                   onChangeText={onChange}
                   onBlur={onBlur}
                   editable={false}
@@ -79,12 +82,10 @@ const UpdateProfile = () => {
               control={control}
               rules={{ required: false }}
               name="fullname"
-              defaultValue={myProfile?.fullname}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   style={styles.input}
-                  placeholder={myProfile.fullname}
-                  defaultValue={myProfile.fullname}
+                  placeholder="Nombre completo"
                   onChangeText={onChange}
                   onBlur={onBlur}
                   editable={false}
@@ -102,8 +103,7 @@ const UpdateProfile = () => {
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   style={styles.input}
-                  placeholder={myProfile.phone ? myProfile.phone : 'Teléfono'}
-                  defaultValue={myProfile.phone ? myProfile.phone : null}
+                  placeholder="Telefono"
                   onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
@@ -115,12 +115,10 @@ const UpdateProfile = () => {
               control={control}
               rules={{ required: false }}
               name="age"
-              // defaultValue={myProfile?.age}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   style={styles.input}
-                  placeholder={myProfile.age ? myProfile.age : 'Edad'}
-                  defaultValue={myProfile.age ? myProfile.age : null}
+                  placeholder="Edad"
                   onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
@@ -128,23 +126,7 @@ const UpdateProfile = () => {
                 />
               )}
             />
-            {/* <Text style={styles.subtitle}>Sexo:</Text>
-            <Controller
-              control={control}
-              rules={{ required: false }}
-              name="gender"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  placeholder=""
-                  defaultValue={myProfile.gender ? myProfile.gender : null}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  disableFullscreenUI={true}
-                />
-              )}
-            /> */}
+
             <Text style={styles.subtitle}>Bio:</Text>
             <Controller
               control={control}
@@ -154,9 +136,6 @@ const UpdateProfile = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Escribí algo sobre vos..."
-                  defaultValue={
-                    myProfile.biography ? myProfile.biography : null
-                  }
                   onChangeText={onChange}
                   multiline={true}
                   numberOfLines={4}
@@ -227,3 +206,22 @@ const styles = StyleSheet.create({
 });
 
 export default UpdateProfile;
+{
+  /* <Text style={styles.subtitle}>Sexo:</Text>
+            <Controller
+              control={control}
+              rules={{ required: false }}
+              name="gender"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  placeholder=""
+                  defaultValue={myProfile.gender ? myProfile.gender : null}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  disableFullscreenUI={true}
+                />
+              )}
+            /> */
+}

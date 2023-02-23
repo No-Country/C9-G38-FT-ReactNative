@@ -18,7 +18,7 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 20, minWidth: "90%"}}>
+    <View style={{ paddingHorizontal: 20, minWidth: '90%' }}>
       <MultipleSelectList
         setSelected={(val) => categorieHandler(val)}
         data={categoriesList}
@@ -29,7 +29,7 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
         dropdownStyles={{
           backgroundColor: 'white',
           position: 'absolute',
-          width: "100%",
+          width: '100%',
           marginTop: 50,
           zIndex: 8,
         }}
