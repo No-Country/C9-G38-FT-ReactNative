@@ -16,7 +16,7 @@ import { FilterCategories } from '../features/search/components/FilterCategories
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 
-const UpdateProfile = () => {
+const UpdateProfile = ({ navigation }) => {
   const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
@@ -53,6 +53,7 @@ const UpdateProfile = () => {
       sports,
     };
     await connect({ url: URL.UPDATE_PROFILE, data });
+    navigation.goBack(null);
   };
 
   return (
