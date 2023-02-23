@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View, Pressable, StyleSheet, Text } from 'react-native';
 import RangeSlider from '../features/search/components/FilterAgeRanger';
 
 import { FilterCategories } from '../features/search/components/FilterCategories';
@@ -9,6 +9,7 @@ import CSButton from '../common/ui/Button';
 import { useUserStore } from '../store/userStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
@@ -56,9 +57,37 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
       <FilterCategories selected={selected} setSelected={setSelected} />
 
       {/* <CSButton onPress={saveHandler()} label="Guardar" /> */}
-      <Button onPress={saveHandler} title="Guardar" />
+     
+      <Pressable style={styles.button} onPress={saveHandler}>
+      <Text style={styles.text}>Guardar</Text>
+    </Pressable>
+
+
+
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#537FE7',
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+});
+
 
 export default Filters;

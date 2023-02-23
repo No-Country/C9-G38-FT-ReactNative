@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { useFilterStore } from "../../../store/filterStore";
+import Fonts from "../../../styles/theme/Fonts";
 
 const Checkbox = ({ label, selected, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -41,7 +42,7 @@ const FilterGender = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Seleccioná tu género</Text>
+        <Text style={styles.titleStyle}>Seleccioná tu género</Text>
       </View>
 
       <View style={styles.checkboxContainer}>
@@ -96,6 +97,15 @@ const styles = {
   },
   checkboxContainer: {
     flexDirection: "row",
+  },
+
+  titleStyle: {
+    fontFamily: Fonts.type.bold,
+    fontSize: 18,
+    marginRight: 2,
+    width: "100%",
+    color: "#354259",
+    marginBottom: 2,
   },
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import { useFilterStore } from '../../../store/filterStore';
+import Fonts from '../../../styles/theme/Fonts';
 
 const RangeSlider = () => {
   const [ageRange, setAgeRange] = useState([0, 100]);
@@ -15,7 +16,7 @@ const RangeSlider = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Selecciona un rango de edad:</Text>
+      <Text style={styles.titleStyle}>Seleccioná un rango de edad</Text>
       <View style={styles.sliderContainer}>
         <MultiSlider
           values={[ageRange[0], ageRange[1]]}
@@ -78,6 +79,14 @@ const styles = StyleSheet.create({
   },
   unselectedStyle: {
     backgroundColor: '#b7b7b7',
+  },
+  titleStyle: {
+    fontFamily: Fonts.type.bold,
+    fontSize: 18,
+    marginRight: 2,
+    width: "100%",
+    color: "#354259",
+    marginBottom: 2,
   },
 });
 

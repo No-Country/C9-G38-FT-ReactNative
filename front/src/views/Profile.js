@@ -33,7 +33,7 @@ const Profile = ({ navigation, screenName, route }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
         <Text style={{ fontFamily: Fonts.type.bold }}>
-          {myProfile?.username}
+          @{myProfile?.username}
         </Text>
         <Pressable
           onPress={() =>
@@ -57,7 +57,7 @@ const Profile = ({ navigation, screenName, route }) => {
         }}
       >
         <View style={styles.profile}>
-          {myProfile && <UpdateProfilePicture />}
+          {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
           <View style={styles.editWrapper}>
             <Pressable
               onPress={() => navigation.navigate('UpdateProfile')}
@@ -91,16 +91,14 @@ const Profile = ({ navigation, screenName, route }) => {
           </View>
         </View>
       </View>
-      <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud
-      </Text>
-      <Text style={{ paddingHorizontal: 24 }}>Seguidores</Text>
+      <Text style={styles.bio}>{myProfile?.biography}</Text>
+      <Text style={styles.categories}>Seguidores</Text>
+
       <View
         style={{
           flexDirection: 'row',
-          paddingHorizontal: 16,
+
+          paddingHorizontal: 24,
           marginVertical: 10,
         }}
       >
@@ -119,19 +117,23 @@ const Profile = ({ navigation, screenName, route }) => {
             <Text>{item.username}</Text>
           </TouchableOpacity>
         ))}
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('FollowList', {
-              title: 'Seguidores',
-              id: myProfile.id,
-            })
-          }
-          style={{ justifyContent: 'flex-end' }}
-        >
-          <Text>ver más...</Text>
-        </TouchableOpacity>
+        {myProfile?.followers.length !== 0 ? (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('FollowList', {
+                title: 'Seguidores',
+                id: myProfile.id,
+              })
+            }
+            style={{ justifyContent: 'flex-end' }}
+          >
+            <Text>ver más...</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text>Aun sin seguidores</Text>
+        )}
       </View>
-      <Text style={{ paddingHorizontal: 24 }}>Intereses</Text>
+      <Text style={styles.categories}>Intereses</Text>
 
       <View style={styles.buttons}>
         {/* <TouchableOpacity
@@ -231,6 +233,21 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
+  },
+  categories: {
+    fontFamily: Fonts.type.bold,
+    fontSize: 18,
+    marginRight: 2,
+    width: '100%',
+    paddingLeft: 24,
+    color: '#354259',
+
+    marginBottom: 2,
+  },
+  bio: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    fontFamily: Fonts.type.regular,
   },
 });
 
