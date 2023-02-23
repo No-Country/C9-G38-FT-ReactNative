@@ -57,7 +57,7 @@ const Profile = ({ navigation, screenName, route }) => {
         }}
       >
         <View style={styles.profile}>
-          {myProfile && <UpdateProfilePicture />}
+          {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
           <View style={styles.editWrapper}>
             <Pressable
               onPress={() => navigation.navigate('UpdateProfile')}
