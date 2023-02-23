@@ -56,25 +56,25 @@ class UserService {
     return data;
   }
 
+
   static async search(payload) {
 
-    const { page = 0, size = 4 } = req.query;
+    const { page, size } = req.query
+    const { userId } = payload;
 
-    let options = {
-      limit: number(size),
-      offset: (+page) * (+size)
-    }
-
-    const { count, rows } = await User.findAndCountAll({
-      where: { id: payload, isActive: true },
+    const data = await User.findAndCountAll({
+      where: { isActive: true },
       include: { model: Sport },
+      limit: (+size),
+      offset: (+page) * (+size),
     });
-    //return data;
     res.json({
-      total: count,
-      data: rows
+      content: search.rows,
+      totalPages: search.count
     })
+    return data.filter((x) => x.id !== userId);
   }
+
 
   static async searchById(payload) {
     const data = await User.findAll({

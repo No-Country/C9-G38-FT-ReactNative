@@ -56,8 +56,7 @@ class UserController {
   //   
   static async search(req, res) {
     try {
-      const { filters } = req.body;
-      const users = await UserService.search(filters); 
+      const users = await UserService.search(data); 
 
       res.status(200).json({
         data: users,
