@@ -44,4 +44,9 @@ const Preference = ({ navigation, route }) => {
   );
 };
 
+
+
+
+
+
 export default Preference;
