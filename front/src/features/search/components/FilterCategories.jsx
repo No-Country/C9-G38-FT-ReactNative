@@ -18,15 +18,19 @@ export const FilterCategories = ({ navigation, selected, setSelected }) => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <View style={{ paddingHorizontal: 20, minWidth: '90%' }}>
       <MultipleSelectList
         setSelected={(val) => categorieHandler(val)}
         data={categoriesList}
         save="key"
         placeholder="Categorias"
+        defaultOption={{ key: '1', value: 'Jammu & Kashmir' }}
         searchPlaceholder="Contanos tus preferencias"
         dropdownStyles={{
           backgroundColor: 'white',
+          position: 'absolute',
+          width: '100%',
+          marginTop: 50,
           zIndex: 8,
         }}
         dropdownItemStyles={{ marginHorizontal: 12 }}

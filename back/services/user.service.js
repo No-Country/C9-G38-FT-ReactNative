@@ -103,7 +103,7 @@ class UserService {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
-        // gender: data.gender,
+        age: data.age,
         coordinates: point,
       },
       {
@@ -117,12 +117,10 @@ class UserService {
 
   static async updateAvatar(payload) {
     const { userId, file } = payload;
-
     const fileObj = await cloudinary.uploader.upload(file.path);
 
     const secure_url = fileObj.secure_url;
-
-    const response = await User.update(
+    await User.update(
       {
         avatar: secure_url,
       },

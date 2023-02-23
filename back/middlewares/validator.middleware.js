@@ -34,29 +34,28 @@ const userValidators = [
     .withMessage('fullname must be less than 50 characters'),
   body('email').isEmail().withMessage('email would be a valid email'),
   body('password')
-    .isStrongPassword({ minSymbols: 0 })
-    .withMessage(
-      'Password must have at least: one symbol, one uppercase, one number, one lowercase'
-    )
+    // .isStrongPassword({ minSymbols: 0 })
+    // .withMessage(
+    //   'Password must have at least: one symbol, one uppercase, one number, one lowercase'
+    // )
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters')
     .notEmpty()
     .withMessage('Password can not be empty'),
-  body('biography')
-    .isEmpty()
-    // .isString()
-    // .withMessage('biography must be a string')
-    .isLength({ max: 300 })
-    .withMessage('fullname must be less than 300 characters'),
-  body('phone').isEmpty(),
-  // .isMobilePhone()
-  // .withMessage('phone must be a valid phone')
-  body('age')
-    .isEmpty()
-    // .isNumeric()
-    // .withMessage('age must be numeric')
-    .isLength({ max: 2 })
-    .withMessage('age must be less than 3 characters'),
+  body('phone').notEmpty().withMessage('phone can not be empty'),
+  // body('biography')
+  //   .isEmpty()
+  //   // .isString()
+  //   // .withMessage('biography must be a string')
+  //   .isLength({ max: 300 })
+  //   .withMessage('fullname must be less than 300 characters'),
+  // // .withMessage('phone must be a valid phone')
+  // body('age')
+  //   .isEmpty()
+  //   // .isNumeric()
+  //   // .withMessage('age must be numeric')
+  //   .isLength({ max: 2 })
+  //   .withMessage('age must be less than 3 characters'),
 
   checkValidations,
 ];
