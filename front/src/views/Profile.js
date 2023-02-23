@@ -33,7 +33,7 @@ const Profile = ({ navigation, screenName, route }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
         <Text style={{ fontFamily: Fonts.type.bold }}>
-          {myProfile?.username}
+          @{myProfile?.username}
         </Text>
         <Pressable
           onPress={() =>
@@ -91,19 +91,14 @@ const Profile = ({ navigation, screenName, route }) => {
           </View>
         </View>
       </View>
-      <Text style={{ paddingHorizontal: 16, paddingVertical: 8 }}>
-        {myProfile?.biography}
-      </Text>
+      <Text style={styles.bio}>{myProfile?.biography}</Text>
       <Text style={styles.categories}>Seguidores</Text>
-
-
 
       <View
         style={{
           flexDirection: 'row',
 
-
-          paddingHorizontal: 16,
+          paddingHorizontal: 24,
           marginVertical: 10,
         }}
       >
@@ -122,19 +117,21 @@ const Profile = ({ navigation, screenName, route }) => {
             <Text>{item.username}</Text>
           </TouchableOpacity>
         ))}
-
-
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('FollowList', {
-              title: 'Seguidores',
-              id: myProfile.id,
-            })
-          }
-          style={{ justifyContent: 'flex-end' }}
-        >
-          <Text>ver más...</Text>
-        </TouchableOpacity>
+        {myProfile?.followers.length !== 0 ? (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('FollowList', {
+                title: 'Seguidores',
+                id: myProfile.id,
+              })
+            }
+            style={{ justifyContent: 'flex-end' }}
+          >
+            <Text>ver más...</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text>Aun sin seguidores</Text>
+        )}
       </View>
       <Text style={styles.categories}>Intereses</Text>
 
@@ -241,11 +238,16 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.bold,
     fontSize: 18,
     marginRight: 2,
-    width: "100%",
+    width: '100%',
     paddingLeft: 24,
-    color: "#354259",
+    color: '#354259',
 
     marginBottom: 2,
+  },
+  bio: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    fontFamily: Fonts.type.regular,
   },
 });
 
