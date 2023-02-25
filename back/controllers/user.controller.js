@@ -1,4 +1,4 @@
-const UserService = require('../services/user.service');
+const UserService = require("../services/user.service");
 
 class UserController {
   static async create(req, res) {
@@ -55,12 +55,13 @@ class UserController {
 
   static async search(req, res) {
     try {
-      const { minAge, maxAge, ratio, coordinates } = req.body;
+      const { minAge, maxAge, ratio, coordinates, gender } = req.body;
       const data = {
         minAge,
         maxAge,
         ratio,
         ratio,
+        gender,
         sports: req.body.sports,
         userId: req.userId,
       };
@@ -106,7 +107,7 @@ class UserController {
   static async delete(req, res) {
     try {
       await UserService.delete(id);
-      res.status(200).send('User Deleted');
+      res.status(200).send("User Deleted");
     } catch (error) {
       console.log(error);
     }
