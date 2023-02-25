@@ -15,11 +15,16 @@ import { useAuthStore } from '../store/authStore';
 import { FilterCategories } from '../features/search/components/FilterCategories';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import FilterGender from '../features/search/components/Checkbox';
+
+
+
 
 const UpdateProfile = ({ navigation }) => {
   const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
+const [updatedGender, setUpdatedGender] = useState(null)
   const connect = useFetch();
   const {
     control,
@@ -35,14 +40,27 @@ const UpdateProfile = ({ navigation }) => {
     setValue('phone', resp.phone);
     setValue('age', resp.age.toString());
     setValue('biography', resp.biography);
+    setValue('gender', resp.gender);
+    setUpdatedGender(resp.gender)
     setMyProfile(resp);
   };
 
+
+
+
   useEffect(() => {
     getMyProfile();
+    
+
   }, []);
 
+
+
+
   const onSubmit = async (values) => {
+    const gender = updatedGender
+    console.log({gender})
+
     const sports = selected.map((item) => {
       return {
         id: item,
@@ -51,7 +69,9 @@ const UpdateProfile = ({ navigation }) => {
     const data = {
       ...values,
       sports,
+      gender
     };
+    console.log(data)
     await connect({ url: URL.UPDATE_PROFILE, data });
     navigation.goBack(null);
   };
@@ -111,6 +131,7 @@ const UpdateProfile = ({ navigation }) => {
                 />
               )}
             />
+
             <Text style={styles.subtitle}>Edad:</Text>
             <Controller
               control={control}
@@ -127,6 +148,22 @@ const UpdateProfile = ({ navigation }) => {
                 />
               )}
             />
+
+      
+                <Text style={styles.subtitle}>Género:</Text>
+                <FilterGender
+                setUpdatedGender= {setUpdatedGender}
+                updatedGender = {updatedGender}
+                />
+
+
+
+
+
+
+
+
+
 
             <Text style={styles.subtitle}>Bio:</Text>
             <Controller
@@ -203,6 +240,19 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignContent: 'center',
+  },
+  subtitle: {
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+    fontSize: 16,
   },
 });
 
