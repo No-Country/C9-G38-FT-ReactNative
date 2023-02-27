@@ -1,6 +1,6 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useAuthStore } from '../../../store/authStore';
-import Fonts from '../../../styles/theme/Fonts';
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { useAuthStore } from "../../../store/authStore";
+import Fonts from "../../../styles/theme/Fonts";
 const HomeHeader = () => {
   const logout = useAuthStore((state) => state.logout);
 
@@ -20,7 +20,7 @@ const HomeHeader = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 0,
-    marginTop: 60,
+    marginTop: 20,
   },
   title: {
     fontFamily: Fonts.type.bold,

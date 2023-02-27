@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
-import Fonts from '../../../styles/theme/Fonts';
+import { View, Text, StyleSheet, Image } from "react-native";
+import Fonts from "../../../styles/theme/Fonts";
 const UserFollowCard = ({ item }) => {
   return (
     <View style={styles.wrapper}>
@@ -11,15 +11,16 @@ const UserFollowCard = ({ item }) => {
 const styles = StyleSheet.create({
   wrapper: {
     marginRight: 10,
+    padding: 2,
   },
   subtitle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: Fonts.type.semiBold,
     fontSize: Fonts.size.small,
   },
   picture: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 14,
   },
 });

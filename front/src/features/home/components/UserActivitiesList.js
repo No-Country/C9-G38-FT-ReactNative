@@ -1,14 +1,14 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import Fonts from '../../../styles/theme/Fonts';
-import { data } from '../../../constants/data';
-import UserFollowCard from './UserFollowCard';
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import Fonts from "../../../styles/theme/Fonts";
+import { data } from "../../../constants/data";
+import UserFollowCard from "./UserFollowCard";
 
 const UserActivitiesList = () => {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.subtitle}>Seguidores</Text>
       <FlatList
-        horizontal={true}
+        numColumns={2}
         data={data}
         renderItem={({ item }) => <UserFollowCard key={item.id} item={item} />}
         keyExtractor={(item) => item.id}
