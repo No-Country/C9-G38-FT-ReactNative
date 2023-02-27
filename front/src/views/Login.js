@@ -16,9 +16,16 @@ import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import useLoginGoogle from '../hooks/useLoginGoogle';
 import IconGoogle from 'react-native-vector-icons/FontAwesome5';
+import { useTogglePasswordVisibility } from '../hooks/useToggleVisibility';
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = useState(false);
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+  const [password, setPassword] = useState('');
+
+
   const { googleAuth } = useLoginGoogle();
   const connect = useFetch();
 
@@ -69,14 +76,23 @@ const Login = ({ navigation }) => {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Contraseña"
-            secureTextEntry={true}
-            style={[styles.input, errors.password && styles.errorInput]}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-          />
+          
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Contraseña"
+              underlineColorAndroid='rgba(0,0,0,0)'
+              secureTextEntry={passwordVisibility}
+              style={[styles.inputField, errors.password && styles.errorInput]}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          <Pressable onPress={handlePasswordVisibility}>
+    <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+  </Pressable>
+
+          </View>
+
         )}
         name="password"
       />
@@ -172,5 +188,24 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontWeight: 'bold',
   },
+  inputField: {
+    padding: 12,
+   textDecorationStyle: "none",
+   fontSize: 15,
+   paddingLeft: 25,
+    width: '90%'
+  },
+  inputContainer: {
+    backgroundColor: 'white',
+    width: '100%',
+    borderRadius: 12,
+    
+    fontFamily: Fonts.type.regular,
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center'    
+   
+  },
+  
 });
 export default Login;
