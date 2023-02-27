@@ -25,6 +25,8 @@ const Profile = ({ navigation, screenName, route }) => {
     setMyProfile(resp);
   };
 
+  
+
   useEffect(() => {
     getMyProfile();
   }, []);
@@ -60,7 +62,7 @@ const Profile = ({ navigation, screenName, route }) => {
           {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
           <View style={styles.editWrapper}>
             <Pressable
-              onPress={() => navigation.navigate('UpdateProfile')}
+              onPress={() => navigation.navigate('UpdateProfile', { fromProfile: true})}
               style={styles.editButton}
             >
               <FontAwesome name="pencil" size={18} color={'white'} />

@@ -16,10 +16,13 @@ import { FilterCategories } from '../features/search/components/FilterCategories
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 
-const UpdateProfile = ({ navigation }) => {
+const UpdateProfile = ({ navigation, route }) => {
   const authToken = useAuthStore((state) => state.authToken);
+  const isComplete = useAuthStore((state) => state.isComplete);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
+  const fromProfile = route.params?.fromProfile
+
   const connect = useFetch();
   const {
     control,
@@ -53,7 +56,18 @@ const UpdateProfile = ({ navigation }) => {
       sports,
     };
     await connect({ url: URL.UPDATE_PROFILE, data });
-    navigation.goBack(null);
+
+
+
+    if (fromProfile) {
+      navigation.goBack(null)
+      console.log(fromProfile)
+    }
+
+    if (isComplete) {
+      navigation.navigate("Home")
+    }
+
   };
 
   return (
@@ -61,6 +75,12 @@ const UpdateProfile = ({ navigation }) => {
       <ScrollView style={styles.scrollView}>
         {myProfile && (
           <View style={styles.container}>
+
+            {!isComplete &&
+              (<Text style={styles.textComplete}>Para poder usar SportsApp debes tener completo tu perfil.</Text>)
+
+            }
+
             <Text style={styles.subtitle}>Email:</Text>
             <Controller
               control={control}
@@ -193,6 +213,13 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
     color: 'gray',
+  },
+  textComplete: {
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.semiBold,
+    color: 'red',
+    marginBottom: 10,
+    marginTop: 10
   },
   scrollView: {
     backgroundColor: 'pink',
