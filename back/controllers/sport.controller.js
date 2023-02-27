@@ -46,6 +46,21 @@ class SportController {
     }
   }
 
+  static async getUsersWithSameSports(req, res) {
+    try {
+      const data = {
+        userId: req.userId,
+      };
+      const users = await SportService.getUsersWithSameSports(data);
+
+      res.status(200).json({
+        data: users,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async delete(req, res) {
     try {
       const { id } = req.params;

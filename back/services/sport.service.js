@@ -1,6 +1,6 @@
-const Sport = require("../models/sport.model");
-const User = require("../models/user.model");
-const Category = require("../models/sport.model");
+const Sport = require('../models/sport.model');
+const User = require('../models/user.model');
+const Category = require('../models/sport.model');
 
 class SportService {
   static async create(payload) {
@@ -39,6 +39,47 @@ class SportService {
     });
     const data = sport.update({ name: payload[0].name });
     return data;
+  }
+
+  static async getUsersWithSameSports(payload) {
+    const { userId } = payload;
+
+    const currentUser = await User.findOne({
+      where: { id: userId },
+      include: { model: Sport },
+    });
+
+    const data = await User.findAll({
+      limit: 9,
+      attributes: [
+        'id',
+        'username',
+        'biography',
+        'avatar',
+        'phone',
+        'age',
+        'gender',
+      ],
+      include: { model: Sport },
+    });
+
+    const excludeUser = data.filter((x) => x.id !== currentUser.id);
+    const newData = [];
+
+    excludeUser.map((user) => {
+      user.sports.map((sport) => {
+        const sportsFiltered = currentUser.sports.some(
+          (element) => element.id === sport.id
+        );
+
+        if (sportsFiltered === true) {
+          if (!newData.includes(user)) {
+            newData.push(user);
+          }
+        }
+      });
+    });
+    return newData;
   }
 }
 
