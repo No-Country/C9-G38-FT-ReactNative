@@ -1,17 +1,25 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+
 import Fonts from "../../../styles/theme/Fonts";
-const UserFollowCard = ({ item }) => {
+const UserFollowCard = ({ item, navigation }) => {
   return (
     <View style={styles.wrapper}>
-      <Image source={{ uri: item.picture }} style={styles.picture} />
-      <Text style={styles.subtitle}>{item.username}</Text>
+      <TouchableOpacity
+        key={item.id}
+        onPress={() => navigation.navigate("UserDetail", { id: item.id })}
+      >
+        <Image source={{ uri: item.picture }} style={styles.picture} />
+        <Text style={styles.subtitle}>{item.username}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 const styles = StyleSheet.create({
   wrapper: {
-    marginRight: 10,
-    padding: 2,
+    backgroundColor: "#E8E8E8",
+    margin: 4,
+    padding: 10,
+    borderRadius: 12,
   },
   subtitle: {
     textAlign: "center",
@@ -21,7 +29,7 @@ const styles = StyleSheet.create({
   picture: {
     width: 150,
     height: 150,
-    borderRadius: 14,
+    borderRadius: 12,
   },
 });
 export default UserFollowCard;

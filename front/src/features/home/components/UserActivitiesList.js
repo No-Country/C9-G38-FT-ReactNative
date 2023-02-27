@@ -6,7 +6,7 @@ import UserFollowCard from "./UserFollowCard";
 const UserActivitiesList = () => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.subtitle}>Seguidores</Text>
+      <Text style={styles.subtitle}>Usuarios con tus mismos intereses:</Text>
       <FlatList
         numColumns={2}
         data={data}
@@ -19,10 +19,11 @@ const UserActivitiesList = () => {
 const styles = StyleSheet.create({
   wrapper: {
     marginTop: 30,
+    marginBottom: 76,
   },
   subtitle: {
     fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxLarge,
+    fontSize: Fonts.size.large,
   },
 });
 export default UserActivitiesList;

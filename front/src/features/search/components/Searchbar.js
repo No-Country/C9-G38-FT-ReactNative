@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { StyleSheet } from 'react-native';
-import { Searchbar } from 'react-native-paper';
-import { useUserStore } from '../../../store/userStore';
-import Fonts from '../../../styles/theme/Fonts';
-import { FontAwesome } from '@expo/vector-icons';
+import { StyleSheet } from "react-native";
+import { Searchbar } from "react-native-paper";
+import { useUserStore } from "../../../store/userStore";
+import Fonts from "../../../styles/theme/Fonts";
+import { FontAwesome } from "@expo/vector-icons";
 
 const SearchbarComponent = () => {
   const { searchbarValue, filterSearchUser } = useUserStore((store) => store);
@@ -16,20 +16,20 @@ const SearchbarComponent = () => {
       value={searchbarValue}
       inputStyle={styles.input}
       style={styles.search}
-      icon={() => <FontAwesome name="search" size={24} color={'black'} />}
+      icon={() => <FontAwesome name="search" size={24} color={"black"} />}
     />
   );
 };
 
 const styles = StyleSheet.create({
   search: {
-    backgroundColor: 'red',
-    border: 'none',
+    backgroundColor: "red",
+    border: "none",
     elevation: 0,
-    backgroundColor: 'white',
-    backgroundColor: '#FBFBFB',
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+    backgroundColor: "white",
+    backgroundColor: "#FBFBFB",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
     borderRadius: 20,
     borderTopWidth: 0, //works
     borderBottomWidth: 0, //works
