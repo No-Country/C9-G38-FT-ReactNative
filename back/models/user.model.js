@@ -50,13 +50,18 @@ const User = db.define('users', {
     type: DataTypes.BOOLEAN,
     allowNull: true,
   },
-  coordinates: {
+  location: {
     type: DataTypes.GEOMETRY,
     allowNull: true,
   },
   gender: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
+  },
+  isComplete: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
   },
   isActive: {
     type: DataTypes.BOOLEAN,

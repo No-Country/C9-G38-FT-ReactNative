@@ -97,14 +97,18 @@ class UserService {
 
   static async update(payload) {
     const { data, sports, userId } = payload;
-    const point = { type: 'Point', coordinates: [-76.984722, 39.807222] };
+    const { latitude, longitude } = data.location;
+    console.warn(data.location);
+    const point = { type: 'Point', coordinates: [longitude, latitude] };
+    const isComplete = await this.isCompleteForm(payload);
     const res = await User.update(
       {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
         age: data.age,
-        coordinates: point,
+        location: point,
+        isComplete,
       },
       {
         where: { id: userId },
@@ -130,6 +134,13 @@ class UserService {
     );
 
     return secure_url;
+  }
+
+  static async isCompleteForm(payload) {
+    const { data, sports, userId } = payload;
+    const { gender, age, username, fullname, phone } = data;
+
+    return gender && age && fullname, username && phone && sports.length !== 0;
   }
 
   static async delete(payload) {
