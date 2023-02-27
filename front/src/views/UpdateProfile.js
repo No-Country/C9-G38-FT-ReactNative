@@ -16,15 +16,13 @@ import { FilterCategories } from '../features/search/components/FilterCategories
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import FilterGender from '../features/search/components/Checkbox';
-
-
-
+import { getCurrentLocation } from '../utils/getLocation';
 
 const UpdateProfile = ({ navigation }) => {
   const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
-const [updatedGender, setUpdatedGender] = useState(null)
+  const [updatedGender, setUpdatedGender] = useState(null);
   const connect = useFetch();
   const {
     control,
@@ -35,44 +33,46 @@ const [updatedGender, setUpdatedGender] = useState(null)
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
-    resp.age = 25
+    resp.age = 25;
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
     setValue('phone', resp.phone);
     setValue('age', resp.age.toString());
     setValue('biography', resp.biography);
     setValue('gender', resp.gender);
-    setUpdatedGender(resp.gender)
+    setUpdatedGender(resp.gender);
     setMyProfile(resp);
   };
 
-
-
+  const [location, setLocation] = useState({});
 
   useEffect(() => {
     getMyProfile();
-    
-
+    getUserLocation();
   }, []);
 
-
-
+  const getUserLocation = async () => {
+    const location = await getCurrentLocation();
+    setLocation(location);
+  };
 
   const onSubmit = async (values) => {
-    const gender = updatedGender
-    console.log({gender})
+    const gender = updatedGender;
 
     const sports = selected.map((item) => {
       return {
         id: item,
       };
     });
+
     const data = {
       ...values,
       sports,
-      gender
+      gender,
+      location,
     };
-    console.log(data)
+    console.log(data);
+
     await connect({ url: URL.UPDATE_PROFILE, data });
     navigation.goBack(null);
   };
@@ -150,21 +150,11 @@ const [updatedGender, setUpdatedGender] = useState(null)
               )}
             />
 
-      
-                <Text style={styles.subtitle}>Género:</Text>
-                <FilterGender
-                setUpdatedGender= {setUpdatedGender}
-                updatedGender = {updatedGender}
-                />
-
-
-
-
-
-
-
-
-
+            <Text style={styles.subtitle}>Género:</Text>
+            <FilterGender
+              setUpdatedGender={setUpdatedGender}
+              updatedGender={updatedGender}
+            />
 
             <Text style={styles.subtitle}>Bio:</Text>
             <Controller
