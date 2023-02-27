@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   StyleSheet,
@@ -29,7 +29,10 @@ const Search = ({ navigation }) => {
     agesrange: state.agesrange,
   }));
 
+  const [loadingUsers, setLoadingUsers] = useState(false);
+
   const getUsers = async () => {
+    setLoadingUsers(true);
     const data = {
       minAge: 20,
       maxAge: 40,
@@ -43,6 +46,7 @@ const Search = ({ navigation }) => {
 
     const resp = await connect({ url: URL.SEARCH_USERS, data });
     setUsers(resp);
+    setLoadingUsers(false);
   };
 
   useEffect(() => {
@@ -81,7 +85,7 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-      <CardList users={users} navigation={navigation} />
+      <CardList users={users} navigation={navigation} reloadUsers={getUsers} loading={loadingUsers} />
     </SafeAreaView>
   );
 };
