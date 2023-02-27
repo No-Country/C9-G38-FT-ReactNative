@@ -15,24 +15,33 @@ const Checkbox = ({ label, selected, onPress }) => (
   const FilterGender = ({setUpdatedGender, updatedGender}) => {
     const [hombreSelected, setHombreSelected] = useState(false);
     const [mujerSelected, setMujerSelected] = useState(false);
+    const [otroSelected, setOtroSelected] = useState(false);
    
 
-    useEffect(() => {
-   console.log("holi")
-    }, [])
+
     
   
     const handleHombrePress = () => {
-      setHombreSelected(true);
+      setOtroSelected(false)
       setMujerSelected(false);
-      setUpdatedGender(true);
+      setHombreSelected(true);
+      setUpdatedGender("hombre");
     
     };
   
     const handleMujerPress = () => {
       setHombreSelected(false);
+      setOtroSelected(false);
       setMujerSelected(true);
-      setUpdatedGender(false);
+      setUpdatedGender("mujer");
+
+    };
+
+    const handleOtroPress = () => {
+      setHombreSelected(false);
+      setMujerSelected(false);
+      setOtroSelected(true)
+      setUpdatedGender("otro");
 
     };
   
@@ -52,6 +61,11 @@ const Checkbox = ({ label, selected, onPress }) => (
             label="Mujer"
             selected={mujerSelected}
             onPress={handleMujerPress}
+          />
+           <Checkbox
+            label="Otro"
+            selected={otroSelected}
+            onPress={handleOtroPress}
           />
         </View>
       </View>
@@ -75,10 +89,10 @@ const Checkbox = ({ label, selected, onPress }) => (
       marginRight: 10,
     },
     checked: {
-      width: 20,
-      height: 20,
+      width: 10,
+      height: 10,
       borderRadius: 5,
-      backgroundColor: "#296d8d",
+      backgroundColor: "#000000",
     },
     label: {
       fontSize: 16,
