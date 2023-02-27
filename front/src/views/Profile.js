@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
@@ -22,6 +23,7 @@ const Profile = ({ navigation, screenName, route }) => {
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
+    console.log(resp);
     setMyProfile(resp);
   };
 
@@ -105,16 +107,16 @@ const Profile = ({ navigation, screenName, route }) => {
         {myProfile?.followers?.map((item) => (
           <TouchableOpacity
             key={item.id}
-            style={{ width: '16%', alignItems: 'center' }}
+            style={{ width: '25%', alignItems: 'center' }}
             onPress={() => navigation.navigate('UserDetail', { id: item.id })}
           >
             <Image
-              style={{ width: 50, borderRadius: 100, aspectRatio: 1 }}
+              style={{ width: 80, borderRadius: 30, aspectRatio: 1 }}
               source={{
                 uri: item.avatar,
               }}
             />
-            <Text>{item.username}</Text>
+            <Text style={styles.followUsername}>{item.username}</Text>
           </TouchableOpacity>
         ))}
         {myProfile?.followers.length !== 0 ? (
@@ -134,7 +136,15 @@ const Profile = ({ navigation, screenName, route }) => {
         )}
       </View>
       <Text style={styles.categories}>Intereses</Text>
-
+      <View style={styles.sportsContainer}>
+        <ScrollView horizontal>
+          {myProfile?.sports.map((sport) => (
+            <View key={sport.id} style={styles.sport}>
+              <Text style={{ color: '#fff' }}>{sport.name}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
       <View style={styles.buttons}>
         {/* <TouchableOpacity
           style={styles.button2}
@@ -248,6 +258,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
     fontFamily: Fonts.type.regular,
+  },
+  sportsContainer: {
+    paddingLeft: 16,
+    height: 50,
+    marginVertical: 6,
+  },
+  sport: {
+    marginRight: 10,
+    backgroundColor: '#40EE96',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    borderRadius: 6,
+  },
+  followUsername: {
+    textAlign: 'left',
+    fontFamily: Fonts.type.semiBold,
   },
 });
 

@@ -35,6 +35,7 @@ const [updatedGender, setUpdatedGender] = useState(null)
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
+    resp.age = 25
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
     setValue('phone', resp.phone);
