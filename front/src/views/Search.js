@@ -105,11 +105,7 @@ const Search = ({ navigation }) => {
       )} */}
 
 
-      <TextInput
-        placeholder="Buscar"
-        value={searchText}
-        onChangeText={handleSearch}
-      />
+     
 
 
       <Searchbar
