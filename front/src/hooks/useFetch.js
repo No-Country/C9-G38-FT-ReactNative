@@ -21,8 +21,8 @@ const useFetch = () => {
     });
     //if (req.status === 400 || req.status === 401)
     const res = await req.json();
+    console.log(res);
     if (res.status === 'error') {
-      console.log(res);
     }
     return res.data;
   };

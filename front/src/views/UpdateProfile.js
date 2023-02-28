@@ -30,12 +30,12 @@ const UpdateProfile = ({ navigation, route }) => {
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
-    resp.age = 25;
+
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
     setValue('username', resp.username);
     setValue('phone', resp.phone);
-    setValue('age', resp.age.toString());
+    setValue('age', resp.age ? resp.age.toString() : '');
     setValue('biography', resp.biography);
     setValue('gender', resp.gender);
     setUpdatedGender(resp.gender);
@@ -71,12 +71,13 @@ const UpdateProfile = ({ navigation, route }) => {
     console.log(data);
 
     const response = await connect({ url: URL.UPDATE_PROFILE, data });
-    console.log('@@', response);
-    setIsComplete(true);
+    console.log('@!!!!!!!!!!!@', response);
 
     if (fromProfile) {
       navigation.goBack(null);
       console.log(fromProfile);
+    } else {
+      setIsComplete(response.isComplete);
     }
     if (isComplete) {
       navigation.navigate('Home');

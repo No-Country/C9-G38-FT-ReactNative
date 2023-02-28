@@ -24,7 +24,8 @@ export function Navigation() {
   const getAuth = useAuthStore((state) => state.getAuth);
 
   useEffect(() => {
-    getAuth();
+    if (!authToken) getAuth();
+
     console.log(authToken, isComplete);
   }, [isComplete]);
 
@@ -73,7 +74,7 @@ export function Navigation() {
         </>
       ) : authToken && !isComplete ? (
         <Stack.Screen
-          name="UpdateProfile"
+          name="UpdateProfileLogin"
           component={UpdateProfile}
           options={{ title: 'Actualizar perfil' }}
         />

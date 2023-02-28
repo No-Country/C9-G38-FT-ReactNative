@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 import { BASE_URL } from '../constants/endpoints';
 export const useFilterStore = create((set) => ({
   gender: null,
-  agesrange: null,
+  agesrange: [20, 99],
   categories: null,
   categoriesList: [],
 
