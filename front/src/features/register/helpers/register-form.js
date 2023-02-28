@@ -6,8 +6,9 @@ import {
 
 export const inputs = [
   {
+    title: "Nombre completo",
     name: "fullname",
-    placeholder: "Nombre completo",
+    placeholder: "Ej: John Doe",
     rules: {
       required: "El nombre completo es requerido",
       minLength: {
@@ -17,15 +18,17 @@ export const inputs = [
     },
   },
   {
-    name: "username",
-    placeholder: "Nombre de usuario",
+    title: "Nombre de usuario",
+    name: "Ej: username",
+    placeholder: "usuario1",
     rules: {
       required: "El nombre de usuario es requerido",
     },
   },
   {
+    title: "Número de teléfono",
     name: "phone",
-    placeholder: "Teléfono ej: +541122334455",
+    placeholder: "ej: +541122334455",
     rules: {
       required: "Un número de teléfono es requerido",
       validate: (input) => {
@@ -34,8 +37,9 @@ export const inputs = [
     },
   },
   {
+    title: "Correo electrónico",
     name: "email",
-    placeholder: "Correo electronico",
+    placeholder: "ejemplo@email.com",
     rules: {
       required: "El correo electronico es requerido",
       validate: (input) => {
@@ -44,8 +48,9 @@ export const inputs = [
     },
   },
   {
+    title: "Contraseña",
     name: "password",
-    placeholder: "Contraseña",
+    placeholder: "Ej: contraseña123",
     secure: true,
     rules: {
       required: "La contraseña requerido",
@@ -58,8 +63,9 @@ export const inputs = [
     },
   },
   {
+    title: "Repetir contraseña",
     name: "repeatPassword",
-    placeholder: "Repetir contraseña",
+    placeholder: "Ej: contraseña123",
     secure: true,
     pwdValidate: true,
     rules: {

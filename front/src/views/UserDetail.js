@@ -76,11 +76,11 @@ const UserDetail = ({ route }) => {
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.follows}>
               <Text style={styles.quantity}>{user?.countFollowers || 0}</Text>
-              <Text>Seguidores</Text>
+              <Text style={styles.subtitle}>Seguidores</Text>
             </View>
             <View style={styles.follows}>
               <Text style={styles.quantity}>{user?.countFollowing || 0}</Text>
-              <Text>Siguiendo</Text>
+              <Text style={styles.subtitle}>Siguiendo</Text>
             </View>
           </View>
         </View>
@@ -104,7 +104,7 @@ const UserDetail = ({ route }) => {
               onPress={unfollow}
             />
             <CSButton
-              label={'Contactar'}
+              label={'Contactar 📱'}
               onPress={() => Linking.openURL(`https://wa.me/${user.phone}`)}
               style={styles.contactButton}
             />
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: '90%',
+    width: 110,
     aspectRatio: 1,
     borderRadius: 100,
   },
@@ -177,10 +177,11 @@ const styles = StyleSheet.create({
   },
   followButton: {
     width: '49%',
+    backgroundColor: '#ff3d3d',
   },
   contactButton: {
     width: '49%',
-    backgroundColor: '#dedede',
+    backgroundColor: '#25D366',
   },
   biography: {
     fontFamily: Fonts.type.medium,
@@ -191,13 +192,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   interestText: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+    fontFamily: Fonts.type.medium,
+    fontSize: 16,
     marginRight: 12,
-    backgroundColor: 'gray',
+    backgroundColor: '#0f2557',
     color: 'white',
     paddingHorizontal: 10,
-    borderRadius: 14,
+    marginTop: 2,
     marginBottom: 2,
+  },
+  subtitle: {
+    fontFamily: Fonts.type.medium,
   },
 });

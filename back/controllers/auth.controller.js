@@ -4,7 +4,6 @@ const UserService = require('../services/user.service');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const FollowService = require('../services/follow.service');
 const FollowerService = require('../services/follower.service');
 dotenv.config();
 
