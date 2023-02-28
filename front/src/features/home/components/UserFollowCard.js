@@ -6,7 +6,7 @@ const UserFollowCard = ({ item, navigation }) => {
     <View style={styles.wrapper}>
       <TouchableOpacity
         key={item.id}
-        onPress={() => navigation.navigate("UserDetail", { id: item.id })}
+        onPress={() => navigation.navigate("UserDetail", { id: id, user })}
       >
         <Image source={{ uri: item.picture }} style={styles.picture} />
         <Text style={styles.subtitle}>{item.username}</Text>
