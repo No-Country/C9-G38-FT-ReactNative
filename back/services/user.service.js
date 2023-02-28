@@ -142,7 +142,7 @@ class UserService {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
-        age: data.age,
+        age: parseInt(data.age),
         gender: data.gender,
         location: point,
         isComplete,

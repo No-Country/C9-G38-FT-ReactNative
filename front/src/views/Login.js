@@ -46,8 +46,8 @@ const Login = ({ navigation }) => {
     setLoginError(false);
     try {
       const response = await connect({ url: URL.LOGIN, data: data });
-      console.log(response);
       const { token, user } = response;
+      console.log('@@@', response);
       setAuth(token);
       setIsComplete(user.isComplete);
     } catch (error) {

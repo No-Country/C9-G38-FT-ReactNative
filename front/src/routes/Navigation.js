@@ -1,5 +1,3 @@
-
-
 import { useEffect, Fragment } from 'react';
 import { useAuthStore } from '../store/authStore';
 
@@ -27,13 +25,12 @@ export function Navigation() {
 
   useEffect(() => {
     getAuth();
-    console.log(authToken, isComplete)
-  }, []);
+    console.log(authToken, isComplete);
+  }, [isComplete]);
 
   return (
     <Stack.Navigator initialRouteName="Onboarding">
-
-      { authToken && isComplete ? (
+      {authToken && isComplete ? (
         <>
           <Stack.Screen
             name="Home"
@@ -74,16 +71,13 @@ export function Navigation() {
             options={({ route }) => ({ title: route.params?.title ?? '' })}
           />
         </>
-      ) : authToken && !isComplete ?
-      (
+      ) : authToken && !isComplete ? (
         <Stack.Screen
-        name="UpdateProfile"
-        component={UpdateProfile}
-        options={{ title: 'Actualizar perfil' }}
-      />
-      ):
-       !authToken ?
-      (
+          name="UpdateProfile"
+          component={UpdateProfile}
+          options={{ title: 'Actualizar perfil' }}
+        />
+      ) : !authToken ? (
         <>
           <Stack.Screen
             options={{ headerShown: false }}
@@ -101,7 +95,7 @@ export function Navigation() {
             component={Register}
           />
         </>
-      ):null}
+      ) : null}
     </Stack.Navigator>
   );
 }
