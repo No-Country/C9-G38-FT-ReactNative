@@ -41,13 +41,17 @@ const Login = ({ navigation }) => {
   });
 
   const setAuth = useAuthStore((state) => state.setAuth);
+  const setIsComplete = useAuthStore((state) => state.setIsComplete);
 
   const onSubmit = async (data) => {
     setLoginError(false);
     try {
       const response = await connect({ url: URL.LOGIN, data: data });
+      console.log(response)
       const { token } = response;
       setAuth(token);
+      setIsComplete(true)
+      
     } catch (error) {
       console.log('1', error.message);
       setLoginError(true);
