@@ -18,11 +18,11 @@ class UserService {
       username: payload.username,
       email: payload.email,
       password: passEncrypt,
-      biography: payload.biography,
+      //biography: payload.biography,
       phone: payload.phone,
       avatar: avatarDefault,
-      age: payload.age,
-      gender: payload.gender.toLowerCase(),
+      //age: payload.age,
+      //gender: payload.gender.toLowerCase(),
     });
     return data;
   }
