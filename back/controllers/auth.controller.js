@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const FollowService = require('../services/follow.service');
+const FollowerService = require('../services/follower.service');
 dotenv.config();
 
 class AuthController {
@@ -64,9 +65,10 @@ class AuthController {
         attributes: { exclude: ['password'] },
         include: { model: Sport },
       });
-      const followers = await FollowService.getById({ userId: req.userId });
-      const countFollowers = await FollowService.getCountFollowers(req.userId);
-      const countFollowing = await FollowService.getCountFollowing(req.userId);
+
+      const { followers, countFollowers, countFollowing } =
+        await FollowerService.getById({ userId: req.userId });
+
       res.status(201).json({
         data: {
           ...data.toJSON(),
