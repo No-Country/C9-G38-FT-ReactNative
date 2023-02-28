@@ -9,6 +9,7 @@ import CategoryPicker from '../features/updateProfile/components/CategoryPicker'
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import FilterGender from '../features/search/components/Checkbox';
+import { getCurrentLocation } from '../utils/getLocation';
 
 const UpdateProfile = ({ navigation, route }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -38,24 +39,34 @@ const UpdateProfile = ({ navigation, route }) => {
     setMyProfile(resp);
   };
 
+  const [location, setLocation] = useState({});
+
   useEffect(() => {
     getMyProfile();
+    getUserLocation();
   }, []);
+
+  const getUserLocation = async () => {
+    const location = await getCurrentLocation();
+    setLocation(location);
+  };
 
   const onSubmit = async (values) => {
     const gender = updatedGender;
-    console.log({ gender });
     const sports = myProfile.sports.map((item) => {
       return {
         id: item.id,
       };
     });
+
     const data = {
       ...values,
       sports,
       gender,
+      location,
     };
     console.log(data);
+
     await connect({ url: URL.UPDATE_PROFILE, data });
 
     if (fromProfile) {

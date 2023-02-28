@@ -1,13 +1,13 @@
-const User = require("../models/user.model");
-const UserSport = require("../models/userSport.model");
-const Sport = require("../models/sport.model");
-const { encrypt } = require("../utils/encrypt");
-const { where, Sequelize } = require("sequelize");
+const User = require('../models/user.model');
+const UserSport = require('../models/userSport.model');
+const Sport = require('../models/sport.model');
+const { encrypt } = require('../utils/encrypt');
+const { where, Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
-const { cloudinary } = require("../config/cloudinary");
-const FollowService = require("./follow.service");
+const { cloudinary } = require('../config/cloudinary');
+const FollowService = require('./follow.service');
 const avatarDefault =
-  "https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg";
+  'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg';
 
 class UserService {
   static async create(payload) {
@@ -35,13 +35,13 @@ class UserService {
       where: { id: followId },
       include: { model: Sport },
       attributes: [
-        "id",
-        "username",
-        "biography",
-        "avatar",
-        "phone",
-        "age",
-        "gender",
+        'id',
+        'username',
+        'biography',
+        'avatar',
+        'phone',
+        'age',
+        'gender',
       ],
     });
 
@@ -70,7 +70,7 @@ class UserService {
       const data = await User.findAll({
         where: {
           isActive: true,
-          gender: gender || gender === "",
+          gender: gender || gender === '',
           age: { [Op.between]: [minAge, maxAge] },
         },
         include: { model: Sport },
@@ -95,7 +95,7 @@ class UserService {
       const data = await User.findAll({
         where: {
           isActive: true,
-          gender: gender || gender === "",
+          gender: gender || gender === '',
           age: { [Op.between]: [minAge, maxAge] },
         },
         include: { model: Sport },
@@ -130,14 +130,18 @@ class UserService {
 
   static async update(payload) {
     const { data, sports, userId } = payload;
-    const point = { type: "Point", coordinates: [-76.984722, 39.807222] };
+    const { latitude, longitude } = data.location;
+    console.warn(data.location);
+    const point = { type: 'Point', coordinates: [longitude, latitude] };
+    const isComplete = await this.isCompleteForm(payload);
     const res = await User.update(
       {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
         age: data.age,
-        coordinates: point,
+        location: point,
+        isComplete,
       },
       {
         where: { id: userId },
@@ -163,6 +167,13 @@ class UserService {
     );
 
     return secure_url;
+  }
+
+  static async isCompleteForm(payload) {
+    const { data, sports, userId } = payload;
+    const { gender, age, username, fullname, phone } = data;
+
+    return gender && age && fullname, username && phone && sports.length !== 0;
   }
 
   static async delete(payload) {
