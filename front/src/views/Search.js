@@ -51,6 +51,7 @@ const Search = ({ navigation }) => {
     };
 
     const resp = await connect({ url: URL.SEARCH_USERS, data });
+    console.log(resp);
     setUsers(resp);
     setLoadingUsers(false);
   };
