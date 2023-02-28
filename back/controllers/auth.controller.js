@@ -7,6 +7,13 @@ const dotenv = require('dotenv');
 const FollowService = require('../services/follow.service');
 dotenv.config();
 
+const tokens = require("../config/tokens");
+
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(
+  "900667905220-chl1s7dpt40sn74kgd6l7bgltbg17l4p.apps.googleusercontent.com"
+);
+
 class AuthController {
   static async login(req, res) {
     const { email, password } = req.body;
@@ -89,6 +96,63 @@ class AuthController {
     res.clearCookie('token');
     res.sendStatus(204);
   }
+
+
+  
+  static async googlelogin(req, res) {
+    const { credential } = req.body;
+
+    client
+      .verifyIdToken({
+        idToken: credential,
+        audience:
+          "900667905220-chl1s7dpt40sn74kgd6l7bgltbg17l4p.apps.googleusercontent.com",
+      })
+      .then((userInfo) => {
+        const { email, given_name, family_name } = userInfo.payload;
+  
+        let password = email + email;
+  
+        User.findOne({
+          where: { email: email }
+        }).then((user) => {
+          if (!user) {
+            return User.create({email: email, password: password, username: given_name, fullname: family_name})
+              .then((user) => {
+                user.validatePassword(password).then((isValid) => {
+                  if (!isValid) return res.send(401);
+  
+                  const payload = {
+                    id: user.id,
+                    email: user.email,
+                    username: user.username,
+                    fullname: user.fullname,
+                  };
+                  const token = tokens.generateToken(payload);
+                  res.cookie("token", token);
+                  res.sendStatus(201);
+                })
+              });
+          }
+  
+          user.validatePassword(password).then((isValid) => {
+            if (!isValid) return res.send(401);
+  
+            const payload = {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              lastname: user.lastname,
+            };
+            const token = tokens.generateToken(payload);
+            res.cookie("token", token);
+            res.sendStatus(201);
+          });
+        });
+      });
+  }
+
+
 }
 
 module.exports = AuthController;

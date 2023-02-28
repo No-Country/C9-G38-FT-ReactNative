@@ -11,4 +11,6 @@ router.post("/login", AuthController.login);
 router.post("/register", userValidators, AuthController.register);
 router.get("/me", AuthMiddleware, AuthController.getCurrent);
 
+router.put("/googlelogin", AuthController.googlelogin);
+
 module.exports = router;
