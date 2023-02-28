@@ -76,11 +76,11 @@ const UserDetail = ({ route }) => {
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.follows}>
               <Text style={styles.quantity}>{user?.countFollowers || 0}</Text>
-              <Text>Seguidores</Text>
+              <Text style={styles.subtitle}>Seguidores</Text>
             </View>
             <View style={styles.follows}>
               <Text style={styles.quantity}>{user?.countFollowing || 0}</Text>
-              <Text>Siguiendo</Text>
+              <Text style={styles.subtitle}>Siguiendo</Text>
             </View>
           </View>
         </View>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: '90%',
+    width: 110,
     aspectRatio: 1,
     borderRadius: 100,
   },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   followButton: {
     width: '49%',
-    backgroundColor: "#ff3d3d"
+    backgroundColor: '#ff3d3d',
   },
   contactButton: {
     width: '49%',
@@ -200,5 +200,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 2,
     marginBottom: 2,
+  },
+  subtitle: {
+    fontFamily: Fonts.type.medium,
   },
 });
