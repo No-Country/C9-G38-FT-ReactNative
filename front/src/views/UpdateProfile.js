@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import { useAuthStore } from '../store/authStore';
 import { FilterCategories } from '../features/search/components/FilterCategories';
+import CategoryPicker from '../features/updateProfile/components/CategoryPicker';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import FilterGender from '../features/search/components/Checkbox';
 
 const UpdateProfile = ({ navigation }) => {
-  const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
+  const [updatedGender, setUpdatedGender] = useState(null);
   const connect = useFetch();
   const {
     control,
@@ -30,11 +24,14 @@ const UpdateProfile = ({ navigation }) => {
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
+    resp.age = 25;
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
     setValue('phone', resp.phone);
     setValue('age', resp.age.toString());
     setValue('biography', resp.biography);
+    setValue('gender', resp.gender);
+    setUpdatedGender(resp.gender);
     setMyProfile(resp);
   };
 
@@ -43,15 +40,19 @@ const UpdateProfile = ({ navigation }) => {
   }, []);
 
   const onSubmit = async (values) => {
-    const sports = selected.map((item) => {
+    const gender = updatedGender;
+    console.log({ gender });
+    const sports = myProfile.sports.map((item) => {
       return {
-        id: item,
+        id: item.id,
       };
     });
     const data = {
       ...values,
       sports,
+      gender,
     };
+    console.log(data);
     await connect({ url: URL.UPDATE_PROFILE, data });
     navigation.goBack(null);
   };
@@ -127,7 +128,11 @@ const UpdateProfile = ({ navigation }) => {
                 />
               )}
             />
-
+            <Text style={styles.subtitle}>Género:</Text>
+            <FilterGender
+              setUpdatedGender={setUpdatedGender}
+              updatedGender={updatedGender}
+            />
             <Text style={styles.subtitle}>Bio:</Text>
             <Controller
               control={control}
@@ -146,7 +151,8 @@ const UpdateProfile = ({ navigation }) => {
               )}
             />
             <Text style={styles.subtitle}>Intereses:</Text>
-            <FilterCategories selected={selected} setSelected={setSelected} />
+            <CategoryPicker myProfile={myProfile} setMyProfile={setMyProfile} />
+            {/*<FilterCategories selected={selected} setSelected={setSelected} />*/}
             <View style={styles.wrapperButton}>
               <CSButton onPress={handleSubmit(onSubmit)} label="Actualizar" />
             </View>
@@ -203,6 +209,16 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignContent: 'center',
+  },
+
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+    fontSize: 16,
   },
 });
 

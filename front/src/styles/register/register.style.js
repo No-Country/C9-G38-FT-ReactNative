@@ -2,10 +2,7 @@ import { StyleSheet } from 'react-native';
 import Fonts from '../theme/Fonts';
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    margin: 10,
+    marginHorizontal: 30,
   },
   title: {
     color: '#202020',
@@ -26,6 +23,11 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 4,
   },
+  inputTitle: {
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.semiBold,
+    color: 'gray',
+  },
   input: {
     height: 48,
     backgroundColor: 'white',
@@ -43,5 +45,4 @@ export const styles = StyleSheet.create({
     marginBottom: 50,
     // marginVertical: 30,
   },
-  button: {},
 });
