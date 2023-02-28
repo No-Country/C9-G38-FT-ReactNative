@@ -24,7 +24,7 @@ const Preference = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{categories}</Text>
+        {/* <Text>{categories}</Text> */}
         <Text>{gender}</Text>
         <Text>
           {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
@@ -43,10 +43,5 @@ const Preference = ({ navigation, route }) => {
     </View>
   );
 };
-
-
-
-
-
 
 export default Preference;

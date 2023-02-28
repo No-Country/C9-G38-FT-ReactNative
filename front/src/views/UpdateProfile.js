@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import { useAuthStore } from '../store/authStore';
 import { FilterCategories } from '../features/search/components/FilterCategories';
+import CategoryPicker from '../features/updateProfile/components/CategoryPicker';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import FilterGender from '../features/search/components/Checkbox';
 import { getCurrentLocation } from '../utils/getLocation';
 
 const UpdateProfile = ({ navigation }) => {
-  const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
   const [updatedGender, setUpdatedGender] = useState(null);
@@ -58,10 +50,9 @@ const UpdateProfile = ({ navigation }) => {
 
   const onSubmit = async (values) => {
     const gender = updatedGender;
-
-    const sports = selected.map((item) => {
+    const sports = myProfile.sports.map((item) => {
       return {
-        id: item,
+        id: item.id,
       };
     });
 
@@ -132,7 +123,6 @@ const UpdateProfile = ({ navigation }) => {
                 />
               )}
             />
-
             <Text style={styles.subtitle}>Edad:</Text>
             <Controller
               control={control}
@@ -149,13 +139,11 @@ const UpdateProfile = ({ navigation }) => {
                 />
               )}
             />
-
             <Text style={styles.subtitle}>Género:</Text>
             <FilterGender
               setUpdatedGender={setUpdatedGender}
               updatedGender={updatedGender}
             />
-
             <Text style={styles.subtitle}>Bio:</Text>
             <Controller
               control={control}
@@ -174,7 +162,8 @@ const UpdateProfile = ({ navigation }) => {
               )}
             />
             <Text style={styles.subtitle}>Intereses:</Text>
-            <FilterCategories selected={selected} setSelected={setSelected} />
+            <CategoryPicker myProfile={myProfile} setMyProfile={setMyProfile} />
+            {/*<FilterCategories selected={selected} setSelected={setSelected} />*/}
             <View style={styles.wrapperButton}>
               <CSButton onPress={handleSubmit(onSubmit)} label="Actualizar" />
             </View>
@@ -232,10 +221,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
   },
-  subtitle: {
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
+
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
