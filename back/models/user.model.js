@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const { db } = require('../config/database.util');
+const { Sequelize, DataTypes, Model } = require("sequelize");
+const { db } = require("../config/database.util");
 
-const User = db.define('users', {
+const User = db.define("users", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -18,6 +18,7 @@ const User = db.define('users', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -36,28 +37,25 @@ const User = db.define('users', {
     type: DataTypes.STRING,
     allowNull: true,
     defaultValue:
-      'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg',
+      "https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg",
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   age: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
   gender: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   coordinates: {
     type: DataTypes.GEOMETRY,
     allowNull: true,
   },
-  gender: {
-    type: DataTypes.BOOLEAN,
-    allowNull: true,
-  },
+
   isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: true,

@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList, Text } from 'react-native';
 import CardItem from './CardItem';
 
-const CardList = ({ users, navigation }) => {
+const CardList = ({ users, navigation, reloadUsers, loading }) => {
   return (
-    <FlatList
+    <FlatList onRefresh={reloadUsers} refreshing={loading}
       style={{ marginTop: 6, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (

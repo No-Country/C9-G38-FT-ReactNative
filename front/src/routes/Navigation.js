@@ -51,7 +51,11 @@ export function Navigation() {
             options={{ title: 'Actualizar perfil' }}
           />
           <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="Preferences" component={Preferences} />
+          <Stack.Screen
+            name="Preferences"
+            options={{ title: 'Preferencias' }}
+            component={Preferences}
+          />
           <Stack.Screen name="Filters" component={Filters} />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen

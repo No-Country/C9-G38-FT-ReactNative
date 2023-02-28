@@ -9,7 +9,7 @@ import CSButton from '../common/ui/Button';
 import { useUserStore } from '../store/userStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
-
+import CategoryPicker from '../features/preferences/components/CategoryPicker';
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
@@ -30,9 +30,10 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
       minAge: agesrange[0],
       maxAge: agesrange[1],
       ratio: 14,
-      sports: categories.map((item) => {
+      gender: gender,
+      sports: selected.map((item) => {
         return {
-          id: item,
+          id: item.id,
         };
       }),
     };
@@ -42,7 +43,7 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   };
 
   const saveHandler = () => {
-    setCategorie(selected);
+    // setCategorie(selected);
     setSelectInterest(!selectInterest);
     saveFilters();
     // navigation.navigate('Search');
@@ -54,16 +55,15 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
       <RangeSlider />
 
-      <FilterCategories selected={selected} setSelected={setSelected} />
+      <CategoryPicker selected={selected} setSelected={setSelected} />
+
+      {/* <FilterCategories selected={selected} setSelected={setSelected} /> */}
 
       {/* <CSButton onPress={saveHandler()} label="Guardar" /> */}
-     
+
       <Pressable style={styles.button} onPress={saveHandler}>
-      <Text style={styles.text}>Guardar</Text>
-    </Pressable>
-
-
-
+        <Text style={styles.text}>Guardar</Text>
+      </Pressable>
     </View>
   );
 };
@@ -88,6 +88,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
 
 export default Filters;

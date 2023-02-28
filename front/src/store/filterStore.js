@@ -4,11 +4,12 @@ import { BASE_URL } from '../constants/endpoints';
 export const useFilterStore = create((set) => ({
   gender: null,
   agesrange: null,
-  categories: [],
+  categories: null,
   categoriesList: [],
 
   setCategorie: (value) =>
     set((state) => ({
+      ...state,
       categories: value,
     })),
 
