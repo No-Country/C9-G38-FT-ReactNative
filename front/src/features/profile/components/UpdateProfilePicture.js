@@ -50,7 +50,7 @@ export default function UpdateProfilePicture({ avatar }) {
 
 const styles = StyleSheet.create({
   profileImage: {
-    height: 128,
+    height: 120,
     aspectRatio: 1,
     borderRadius: 140 / 2,
   },
