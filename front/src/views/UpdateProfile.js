@@ -18,6 +18,8 @@ const UpdateProfile = ({ navigation, route }) => {
   const [selected, setSelected] = React.useState([]);
   const fromProfile = route.params?.fromProfile;
   const [updatedGender, setUpdatedGender] = useState(null);
+  const setIsComplete = useAuthStore((state) => state.setIsComplete);
+
   const connect = useFetch();
   const {
     control,
@@ -31,6 +33,7 @@ const UpdateProfile = ({ navigation, route }) => {
     resp.age = 25;
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
+    setValue('username', resp.username);
     setValue('phone', resp.phone);
     setValue('age', resp.age.toString());
     setValue('biography', resp.biography);
@@ -67,13 +70,14 @@ const UpdateProfile = ({ navigation, route }) => {
     };
     console.log(data);
 
-    await connect({ url: URL.UPDATE_PROFILE, data });
+    const response = await connect({ url: URL.UPDATE_PROFILE, data });
+    console.log('@@', response);
+    setIsComplete(true);
 
     if (fromProfile) {
       navigation.goBack(null);
       console.log(fromProfile);
     }
-
     if (isComplete) {
       navigation.navigate('Home');
     }

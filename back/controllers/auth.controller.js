@@ -22,6 +22,7 @@ class AuthController {
         'phone',
         'age',
         'gender',
+        'isComplete',
       ],
     });
 
