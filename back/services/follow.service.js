@@ -26,6 +26,7 @@ class FollowService {
   }
 
   static async isFollow(payload) {
+    console.log('>>>>>>>');
     const { userId, followId } = payload;
     const data = await User.findByPk(userId, {
       include: {

@@ -11,6 +11,11 @@ const db = new Sequelize({
   port: process.env.DB_PORT,
   database: process.env.DB,
   logging: false,
+  dialectOptions: {
+      ssl: {
+        rejectUnauthorized: true,
+      },
+   }
 
   // SECRET: process.env.TOKEN_SECRET,
 });

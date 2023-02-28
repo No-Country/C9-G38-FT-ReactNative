@@ -8,6 +8,7 @@ import {
   Image,
   Pressable,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
@@ -19,8 +20,14 @@ import URL from '../constants/endpoints';
 
 const Profile = ({ navigation, screenName, route }) => {
   const [myProfile, setMyProfile] = useState();
+  const [refresh, setRefresh] = useState(false);
   const connect = useFetch();
-
+  const pullRefresh = () => {
+    setRefresh(true);
+    setTimeout(() => {
+      setRefresh(false), getMyProfile();
+    }, 2000);
+  };
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
     console.log(resp);
@@ -33,126 +40,140 @@ const Profile = ({ navigation, screenName, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.headWrapper}>
-        <Text style={{ fontFamily: Fonts.type.bold }}>
-          @{myProfile?.username}
-        </Text>
-        <Pressable
-          onPress={() =>
-            navigation.navigate('Preferences', {
-              fromProfile: true,
-            })
-          }
-          style={({ pressed }) => ({
-            opacity: pressed ? 0.5 : 1,
-          })}
-        >
-          <FontAwesome name="gear" size={30} color={'black'} />
-        </Pressable>
-      </View>
-      <View
-        style={{
-          height: '16%',
-          flexDirection: 'row',
-          paddingHorizontal: 16,
-          marginBottom: 20,
-        }}
+      <ScrollView
+        style={{ flexGrow: 0 }}
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={() => pullRefresh()}
+          />
+        }
       >
-        <View style={styles.profile}>
-          {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
-          <View style={styles.editWrapper}>
+        <View>
+          <View style={styles.headWrapper}>
+            <Text style={{ fontFamily: Fonts.type.bold, margin: 8 }}>
+              @{myProfile?.username}
+            </Text>
             <Pressable
-              onPress={() => navigation.navigate('UpdateProfile')}
-              style={styles.editButton}
+              onPress={() =>
+                navigation.navigate('Preferences', {
+                  fromProfile: true,
+                })
+              }
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
             >
-              <FontAwesome name="pencil" size={18} color={'white'} />
+              <FontAwesome name="gear" size={30} color={'black'} />
             </Pressable>
           </View>
-        </View>
-        <View style={{ paddingHorizontal: 20, width: '65%' }}>
-          <Text style={styles.userName}>
-            {myProfile ? myProfile.fullname : '...'}
-          </Text>
-          <View style={styles.details}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('FollowList', { title: 'Seguidores' })
-              }
-            >
-              <Text style={styles.number}>{myProfile?.countFollowing}</Text>
-              <Text style={styles.text}>Seguidores</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('FollowList', { title: 'Siguiendo' })
-              }
-            >
-              <Text style={styles.number}>{myProfile?.countFollowers}</Text>
-              <Text style={styles.text}>Siguiendo</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <Text style={styles.bio}>{myProfile?.biography}</Text>
-      <Text style={styles.categories}>Seguidores</Text>
-
-      <View
-        style={{
-          flexDirection: 'row',
-
-          paddingHorizontal: 24,
-          marginVertical: 10,
-        }}
-      >
-        {myProfile?.followers?.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            style={{ width: '25%', alignItems: 'center' }}
-            onPress={() => navigation.navigate('UserDetail', { id: item.id })}
+          <View
+            style={{
+              height: '16%',
+              flexDirection: 'row',
+              paddingHorizontal: 16,
+              marginBottom: 50,
+            }}
           >
-            <Image
-              style={{ width: 80, borderRadius: 30, aspectRatio: 1 }}
-              source={{
-                uri: item.avatar,
-              }}
-            />
-            <Text style={styles.followUsername}>{item.username}</Text>
-          </TouchableOpacity>
-        ))}
-        {myProfile?.followers.length !== 0 ? (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('FollowList', {
-                title: 'Seguidores',
-                id: myProfile.id,
-              })
-            }
-            style={{ justifyContent: 'flex-end' }}
-          >
-            <Text>ver más...</Text>
-          </TouchableOpacity>
-        ) : (
-          <Text>Aun sin seguidores</Text>
-        )}
-      </View>
-      <Text style={styles.categories}>Intereses</Text>
-      <View style={styles.sportsContainer}>
-        <ScrollView horizontal>
-          {myProfile?.sports.map((sport) => (
-            <View key={sport.id} style={styles.sport}>
-              <Text style={{ color: '#fff' }}>{sport.name}</Text>
+            <View style={styles.profile}>
+              {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
+              <View style={styles.editWrapper}>
+                <Pressable
+                  onPress={() => navigation.navigate('UpdateProfile')}
+                  style={styles.editButton}
+                >
+                  <FontAwesome name="pencil" size={18} color={'white'} />
+                </Pressable>
+              </View>
             </View>
-          ))}
-        </ScrollView>
-      </View>
-      <View style={styles.buttons}>
-        {/* <TouchableOpacity
+            <View style={{ paddingHorizontal: 20, width: '65%' }}>
+              <Text style={styles.userName}>
+                {myProfile ? myProfile.fullname : '...'}
+              </Text>
+              <View style={styles.details}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('FollowList', { title: 'Seguidores' })
+                  }
+                >
+                  <Text style={styles.number}>{myProfile?.countFollowing}</Text>
+                  <Text style={styles.text}>Seguidores</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('FollowList', { title: 'Siguiendo' })
+                  }
+                >
+                  <Text style={styles.number}>{myProfile?.countFollowers}</Text>
+                  <Text style={styles.text}>Siguiendo</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+          <Text style={styles.bio}>{myProfile?.biography}</Text>
+          <Text style={styles.categories}>Seguidores</Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+
+              paddingHorizontal: 24,
+              marginVertical: 10,
+            }}
+          >
+            {myProfile?.followers?.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={{ width: '25%', alignItems: 'center' }}
+                onPress={() =>
+                  navigation.navigate('UserDetail', { id: item.id })
+                }
+              >
+                <Image
+                  style={{ width: 80, borderRadius: 30, aspectRatio: 1 }}
+                  source={{
+                    uri: item.avatar,
+                  }}
+                />
+                <Text style={styles.followUsername}>{item.username}</Text>
+              </TouchableOpacity>
+            ))}
+            {myProfile?.followers.length !== 0 ? (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('FollowList', {
+                    title: 'Seguidores',
+                    id: myProfile.id,
+                  })
+                }
+                style={{ justifyContent: 'flex-end' }}
+              >
+                <Text>ver más...</Text>
+              </TouchableOpacity>
+            ) : (
+              <Text>Aun sin seguidores</Text>
+            )}
+          </View>
+          <Text style={styles.categories}>Intereses</Text>
+          <View style={styles.sportsContainer}>
+            <ScrollView horizontal>
+              {myProfile?.sports.map((sport) => (
+                <View key={sport.id} style={styles.sport}>
+                  <Text style={styles.sportName}>{sport.name}</Text>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+          <View style={styles.buttons}>
+            {/* <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate('Map')}
         >
           <Text>Map</Text>
         </TouchableOpacity> */}
-      </View>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -197,14 +218,14 @@ const styles = StyleSheet.create({
   number: {
     textAlign: 'center',
     fontSize: 24,
-    fontFamily: Fonts.type.semiBold,
-    marginBottom: 0,
+    fontFamily: Fonts.type.bold,
+    marginBottom: -6,
     paddingBottom: 0,
   },
   text: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily: Fonts.type.semiBold,
+    fontFamily: Fonts.type.bold,
   },
   buttons: {
     height: '6%',
@@ -236,7 +257,7 @@ const styles = StyleSheet.create({
   },
   editWrapper: {
     position: 'absolute',
-    bottom: -10,
+    bottom: -20,
   },
   editButton: {
     backgroundColor: '#637aff',
@@ -268,12 +289,17 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: '#40EE96',
     justifyContent: 'center',
-    paddingHorizontal: 16,
-    borderRadius: 6,
+    paddingHorizontal: 22,
+    borderRadius: 15,
   },
   followUsername: {
     textAlign: 'left',
     fontFamily: Fonts.type.semiBold,
+  },
+  sportName: {
+    fontFamily: Fonts.type.semiBold,
+    color: 'white',
+    fontSize: 16,
   },
 });
 
