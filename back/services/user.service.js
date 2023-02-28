@@ -5,7 +5,8 @@ const { encrypt } = require('../utils/encrypt');
 const { where, Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 const { cloudinary } = require('../config/cloudinary');
-const FollowService = require('./follow.service');
+const FollowerService = require('./follower.service');
+
 const avatarDefault =
   'https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg';
 
@@ -28,9 +29,12 @@ class UserService {
 
   static async getById(payload) {
     const { userId, followId } = payload;
-    const isFollower = await FollowService.isFollow(payload);
-    const countFollowers = await FollowService.getCountFollowers(followId);
-    const countFollowing = await FollowService.getCountFollowing(followId);
+    console.log('@@');
+    const isFollower = await FollowerService.isFollow(payload);
+
+    const { followers, countFollowers, countFollowing } =
+      await FollowerService.getById({ userId: followId });
+
     const data = await User.findOne({
       where: { id: followId },
       include: { model: Sport },
