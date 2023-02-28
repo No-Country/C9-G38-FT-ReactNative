@@ -1,5 +1,6 @@
 import React from 'react';
-
+import colors from '../../../constants/colors';
+import borderRadius from '../../../constants/borderRadius';
 import { StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { useUserStore } from '../../../store/userStore';
@@ -12,31 +13,27 @@ const SearchbarComponent = () => {
   return (
     <Searchbar
       placeholder="Buscar"
+      placeholderTextColor={colors.font}
       onChangeText={filterSearchUser}
       value={searchbarValue}
       inputStyle={styles.input}
       style={styles.search}
-      icon={() => <FontAwesome name="search" size={24} color={'black'} />}
+      icon={() => <FontAwesome name="search" size={24} color={colors.font} />}
     />
   );
 };
 
 const styles = StyleSheet.create({
   search: {
-    backgroundColor: 'red',
-    border: 'none',
-    elevation: 0,
-    backgroundColor: 'white',
-    backgroundColor: '#FBFBFB',
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
-    borderRadius: 20,
-    borderTopWidth: 0, //works
-    borderBottomWidth: 0, //works
+    backgroundColor: colors.background2,
+    borderRadius: borderRadius,
+    width: '85%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: colors.primary
   },
   input: {
-    fontFamily: Fonts.type.bold,
-    letterSpacing: 0.5,
+    fontFamily: Fonts.type.regular,
   },
 });
 

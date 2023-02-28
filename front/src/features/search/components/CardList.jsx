@@ -5,7 +5,7 @@ import CardItem from './CardItem';
 const CardList = ({ users, navigation, reloadUsers, loading }) => {
   return (
     <FlatList onRefresh={reloadUsers} refreshing={loading}
-      style={{ marginTop: 6, marginHorizontal: 10 }}
+      style={{ marginTop: 6 }}
       data={users}
       renderItem={({ item: element }) => (
         // <Text>asda</Text>

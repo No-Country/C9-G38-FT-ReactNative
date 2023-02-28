@@ -16,7 +16,8 @@ import { FilterCategories } from '../features/search/components/FilterCategories
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import FilterGender from '../features/search/components/Checkbox';
-
+import colors from '../constants/colors';
+import borderRadius from '../constants/borderRadius';
 
 
 
@@ -24,7 +25,7 @@ const UpdateProfile = ({ navigation }) => {
   const authToken = useAuthStore((state) => state.authToken);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
-const [updatedGender, setUpdatedGender] = useState(null)
+  const [updatedGender, setUpdatedGender] = useState(null)
   const connect = useFetch();
   const {
     control,
@@ -51,7 +52,7 @@ const [updatedGender, setUpdatedGender] = useState(null)
 
   useEffect(() => {
     getMyProfile();
-    
+
 
   }, []);
 
@@ -60,7 +61,7 @@ const [updatedGender, setUpdatedGender] = useState(null)
 
   const onSubmit = async (values) => {
     const gender = updatedGender
-    console.log({gender})
+    console.log({ gender })
 
     const sports = selected.map((item) => {
       return {
@@ -78,7 +79,7 @@ const [updatedGender, setUpdatedGender] = useState(null)
   };
 
   return (
-    <View>
+    <View style={{ height: '100%', backgroundColor: colors.background}}>
       <ScrollView style={styles.scrollView}>
         {myProfile && (
           <View style={styles.container}>
@@ -150,12 +151,12 @@ const [updatedGender, setUpdatedGender] = useState(null)
               )}
             />
 
-      
-                <Text style={styles.subtitle}>Género:</Text>
-                <FilterGender
-                setUpdatedGender= {setUpdatedGender}
-                updatedGender = {updatedGender}
-                />
+
+            <Text style={styles.subtitle}>Género:</Text>
+            <FilterGender
+              setUpdatedGender={setUpdatedGender}
+              updatedGender={updatedGender}
+            />
 
 
 
@@ -186,7 +187,7 @@ const [updatedGender, setUpdatedGender] = useState(null)
             <Text style={styles.subtitle}>Intereses:</Text>
             <FilterCategories selected={selected} setSelected={setSelected} />
             <View style={styles.wrapperButton}>
-              <CSButton onPress={handleSubmit(onSubmit)} label="Actualizar" />
+              <CSButton style={{ borderRadius: borderRadius, backgroundColor: colors.primary }} onPress={handleSubmit(onSubmit)} label="Actualizar" />
             </View>
           </View>
         )}
@@ -213,13 +214,16 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     minHeight: 48,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.background2,
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 14,
-    borderRadius: 12,
+    borderRadius: borderRadius,
     fontSize: 15,
     fontFamily: Fonts.type.regular,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    color: colors.font
   },
   userName: {
     textAlign: 'center',
@@ -230,10 +234,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
-    color: 'gray',
-  },
-  scrollView: {
-    backgroundColor: 'pink',
+    color: colors.font,
   },
   wrapperButton: {
     marginTop: 40,
@@ -245,6 +246,9 @@ const styles = StyleSheet.create({
   subtitle: {
     fontWeight: 'bold',
     marginVertical: 10,
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.semiBold,
+    color: colors.font,
   },
   checkboxContainer: {
     flexDirection: 'row',

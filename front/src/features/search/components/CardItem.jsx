@@ -7,6 +7,9 @@ import {
   Image,
 } from 'react-native';
 import Fonts from '../../../styles/theme/Fonts';
+import colors from '../../../constants/colors';
+import borderRadius from '../../../constants/borderRadius';
+
 const CardItem = (props) => {
   const { id, navigation, user } = props;
 
@@ -37,14 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingVertical: 12,
-    paddingHorizontal: 10,
-    marginBottom: 6,
-    marginTop: 12,
-    alignItems: 'center',
-    // borderWidth: 2,
-    borderRadius: 18,
-    backgroundColor: 'white',
-    // borderColor: '#white',
+    alignItems: 'center'
   },
   info: {
     marginLeft: 10,
@@ -61,6 +57,7 @@ const styles = StyleSheet.create({
   },
   user: {
     fontFamily: Fonts.type.bold,
+    color: colors.font
   },
   interestsWrapper: {
     display: 'flex',
@@ -71,10 +68,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.medium,
     fontSize: 12,
     marginRight: 2,
-    backgroundColor: 'gray',
-    color: 'white',
+    backgroundColor: colors.primary,
+    color: '#fff',
     paddingHorizontal: 10,
-    borderRadius: 10,
+    paddingVertical: 4,
+    borderRadius: borderRadius,
     marginBottom: 2,
   },
 });

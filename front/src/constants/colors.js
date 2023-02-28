@@ -1,5 +1,13 @@
 export default {
-    primary: '#637aff',
+    primary: '#c6aef5',
+    background: '#fff',
+    background2: '#f3f3f3',
+    font: '#747474',
+
+
+
+
+
     primaryDark: '#2759ff',
     primaryLite: '#637aff99',
     black: '#000',

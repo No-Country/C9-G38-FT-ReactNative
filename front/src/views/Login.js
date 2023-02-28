@@ -16,6 +16,8 @@ import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import useLoginGoogle from '../hooks/useLoginGoogle';
 import IconGoogle from 'react-native-vector-icons/FontAwesome5';
+import colors from '../constants/colors';
+import borderRadius from '../constants/borderRadius';
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = useState(false);
@@ -81,7 +83,9 @@ const Login = ({ navigation }) => {
         name="password"
       />
       <View style={styles.login}>
-        <CSButton onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
+        <CSButton 
+          style={{ backgroundColor: colors.primary, borderRadius: borderRadius }} 
+          onPress={handleSubmit(onSubmit)} label="Iniciar sesión" />
         {/* <Button title="Iniciar sesión" onPress={handleSubmit(onSubmit)} /> */}
       </View>
       {loginError && (
@@ -101,6 +105,7 @@ const Login = ({ navigation }) => {
           }
           onPress={() => googleAuth()}
           label="Iniciar sesión con Google"
+          style={{ backgroundColor: colors.primary, borderRadius: borderRadius }} 
         />
       </View>
       <View style={styles.signUp}>
@@ -119,20 +124,25 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: '100%',
     alignItems: 'center',
     paddingHorizontal: 32,
     paddingVertical: 72,
+    backgroundColor: colors.background
   },
   input: {
     width: '100%',
-    height: 48,
-    backgroundColor: 'white',
+    height: 50,
+    backgroundColor: colors.background2,
+    borderWidth: 1,
+    borderColor: colors.primary,
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 32,
     borderRadius: 12,
     fontSize: 15,
     fontFamily: Fonts.type.regular,
+    color: colors.font
   },
   errorInput: {
     backgroundColor: '#f2dcdc',
@@ -152,6 +162,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Fonts.size.xxxxxLarge,
     fontFamily: Fonts.type.bold,
+    color: colors.font
   },
   redirectText: {
     fontSize: Fonts.size.normal,
@@ -162,6 +173,7 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.regular,
+    color: colors.font
   },
   signUpLink: {
     color: '#618ec3',

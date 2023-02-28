@@ -16,6 +16,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import UpdateProfilePicture from '../features/profile/components/UpdateProfilePicture';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import colors from '../constants/colors';
 
 const Profile = ({ navigation, screenName, route }) => {
   const [myProfile, setMyProfile] = useState();
@@ -34,7 +35,7 @@ const Profile = ({ navigation, screenName, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
-        <Text style={{ fontFamily: Fonts.type.bold }}>
+        <Text style={{ fontFamily: Fonts.type.bold, color: colors.font }}>
           @{myProfile?.username}
         </Text>
         <Pressable
@@ -47,7 +48,7 @@ const Profile = ({ navigation, screenName, route }) => {
             opacity: pressed ? 0.5 : 1,
           })}
         >
-          <FontAwesome name="gear" size={30} color={'black'} />
+          <FontAwesome name="gear" size={30} color={colors.font} />
         </Pressable>
       </View>
       <View
@@ -65,7 +66,7 @@ const Profile = ({ navigation, screenName, route }) => {
               onPress={() => navigation.navigate('UpdateProfile')}
               style={styles.editButton}
             >
-              <FontAwesome name="pencil" size={18} color={'white'} />
+              <FontAwesome name="pencil" size={18} color={'#fff'} />
             </Pressable>
           </View>
         </View>
@@ -162,6 +163,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: colors.background
   },
   headWrapper: {
     paddingVertical: 12,
@@ -188,6 +190,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.bold,
     letterSpacing: 0.8,
     marginTop: 10,
+    color: colors.font
   },
   details: {
     marginTop: 10,
@@ -200,11 +203,13 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.semiBold,
     marginBottom: 0,
     paddingBottom: 0,
+    color: colors.font
   },
   text: {
     textAlign: 'center',
     fontSize: 14,
     fontFamily: Fonts.type.semiBold,
+    color: colors.font
   },
   buttons: {
     height: '6%',
@@ -239,7 +244,7 @@ const styles = StyleSheet.create({
     bottom: -10,
   },
   editButton: {
-    backgroundColor: '#637aff',
+    backgroundColor: colors.primary,
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
@@ -249,8 +254,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 2,
     width: '100%',
-    paddingLeft: 24,
-    color: '#354259',
+    paddingLeft: 16,
+    color: colors.font,
 
     marginBottom: 2,
   },
@@ -266,7 +271,7 @@ const styles = StyleSheet.create({
   },
   sport: {
     marginRight: 10,
-    backgroundColor: '#40EE96',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     paddingHorizontal: 16,
     borderRadius: 6,
@@ -274,6 +279,7 @@ const styles = StyleSheet.create({
   followUsername: {
     textAlign: 'left',
     fontFamily: Fonts.type.semiBold,
+    color: colors.font
   },
 });
 

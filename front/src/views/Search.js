@@ -18,6 +18,8 @@ import CardList from '../features/search/components/CardList';
 import { useFilterStore } from '../store/filterStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import colors from '../constants/colors';
+import CSButton from '../common/ui/Button';
 
 const Search = ({ navigation }) => {
   const { users, filteredUsers, setUsers } = useUserStore((state) => state);
@@ -56,22 +58,19 @@ const Search = ({ navigation }) => {
   }, [users]);
 
   return (
-    <SafeAreaView style={{ margin: 10 }}>
+    <SafeAreaView style={{ paddingHorizontal: 16, paddingTop: 24, backgroundColor: colors.background, height: '100%' }}>
       <View style={styles.headWrapper}>
-        <Pressable
+        <Searchbar />
+        <CSButton
           onPress={() =>
             navigation.navigate('Preferences', {
               fromProfile: false,
             })
           }
-          style={({ pressed }) => ({
-            opacity: pressed ? 0.5 : 1,
-          })}
-        >
-          <FontAwesome name="sliders" size={28} color={'black'} />
-        </Pressable>
+          style={{ height: '100%', width: '15%', justifyContent: 'center', marginBottom: 0, backgroundColor: 'none'}}
+          icon={<FontAwesome name="sliders" size={28} color={colors.font} />}
+        />
       </View>
-      <Searchbar />
 
       {/* {users === filteredUsers ? (
         <ScrollView>
@@ -92,11 +91,8 @@ const Search = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   headWrapper: {
-    marginHorizontal: 16,
-    marginVertical: 20,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   textFriends: {
     fontSize: 20,

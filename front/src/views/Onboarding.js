@@ -2,6 +2,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import CSButton from '../common/ui/Button';
 import Fonts from '../styles/theme/Fonts';
+import colors from '../constants/colors';
+import borderRadius from '../constants/borderRadius';
 
 const Onboarding = ({ navigation }) => {
   return (
@@ -15,6 +17,7 @@ const Onboarding = ({ navigation }) => {
       </Text>
       <View style={styles.startButton}>
         <CSButton
+          style={{ borderRadius: borderRadius, backgroundColor: colors.primary}}
           onPress={() => navigation.navigate('Login')}
           label="Empezar"
         />
@@ -39,11 +42,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: Fonts.size.xxxxxLarge,
     fontFamily: Fonts.type.bold,
+    color: colors.font
   },
   description: {
     textAlign: 'center',
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.medium,
+    color: colors.font
   },
   startButton: {
     width: '90%',

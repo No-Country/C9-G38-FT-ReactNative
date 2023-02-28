@@ -11,15 +11,14 @@ function Home() {
       initialRouteName={tabsArr[0].label}
       activeColor={Colors.darkOverlayColor2}
       barStyle={{
-        backgroundColor: 'white',
+        backgroundColor: Colors.background,
         paddingTop: 0,
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        borderLeftWidth: 0.1,
-        borderRightWidth: 0.1,
         position: 'absolute',
         overflow: 'hidden',
-        height: 76,
+        height: 60,
+        justifyContent: 'center',
+        borderTopWidth: 1,
+        borderTopColor: Colors.background2
       }}
       labeled={false}
     >
@@ -35,7 +34,7 @@ function Home() {
                   name={screen.icon}
                   type={screen.type}
                   size={26}
-                  color={color}
+                  color={Colors.font}
                 />
               );
             },

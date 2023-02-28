@@ -5,14 +5,14 @@ export const tabsArr = [
   {
     route: 'Feed',
     label: 'Inicio',
-    type: Icons.FontAwesome5,
+    type: Icons.MaterialIcons,
     icon: 'home',
     component: Feed,
   },
   {
     route: 'Search',
     label: 'Busqueda',
-    type: Icons.FontAwesome5,
+    type: Icons.MaterialIcons,
     icon: 'search',
     component: Search,
   },
@@ -26,8 +26,8 @@ export const tabsArr = [
   {
     route: 'Profile',
     label: 'Perfil',
-    type: Icons.FontAwesome5,
-    icon: 'user',
+    type: Icons.MaterialIcons,
+    icon: 'person',
     component: Profile,
   },
 ];
