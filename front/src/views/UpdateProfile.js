@@ -67,8 +67,8 @@ const UpdateProfile = ({ navigation, route }) => {
     };
     console.log(data);
 
-    await connect({ url: URL.UPDATE_PROFILE, data });
-
+    const response = await connect({ url: URL.UPDATE_PROFILE, data });
+    console.log('@@', response);
     if (fromProfile) {
       navigation.goBack(null);
       console.log(fromProfile);

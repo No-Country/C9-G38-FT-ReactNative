@@ -135,15 +135,15 @@ class UserService {
   static async update(payload) {
     const { data, sports, userId } = payload;
     const { latitude, longitude } = data.location;
-    console.warn(data.location);
     const point = { type: 'Point', coordinates: [longitude, latitude] };
     const isComplete = await this.isCompleteForm(payload);
-    const res = await User.update(
+    await User.update(
       {
         fullname: data.fullname,
         biography: data.biography,
         phone: data.phone,
         age: data.age,
+        gender: data.gender,
         location: point,
         isComplete,
       },
@@ -153,7 +153,13 @@ class UserService {
     );
 
     await this.assignSportsInUser({ sports, userId });
-    return res;
+
+    const hasUpdate = await User.findOne({
+      where: { id: userId },
+      attributes: ['id', 'isComplete'],
+    });
+
+    return hasUpdate;
   }
 
   static async updateAvatar(payload) {
