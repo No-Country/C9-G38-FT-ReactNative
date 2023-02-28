@@ -22,6 +22,7 @@ import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import { Searchbar } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
+import Fonts from '../styles/theme/Fonts';
 
 const Search = ({ navigation }) => {
   const { users, setUsers } = useUserStore((state) => state);
@@ -54,7 +55,7 @@ const Search = ({ navigation }) => {
     setLoadingUsers(false);
   };
 
-  const filteredUsers = users.filter(user => {
+  const filteredUsers = users.filter((user) => {
     const name = user.fullname.toLowerCase();
     const email = user.email.toLowerCase();
     const searchTerm = searchText.toLowerCase();
@@ -62,8 +63,7 @@ const Search = ({ navigation }) => {
     return name.includes(searchTerm) || email.includes(searchTerm);
   });
 
-
-  const handleSearch = text => {
+  const handleSearch = (text) => {
     setSearchText(text);
   };
 
@@ -71,12 +71,19 @@ const Search = ({ navigation }) => {
     if (users.length === 0) {
       getUsers();
     }
-
   }, [users]);
 
   return (
     <SafeAreaView style={{ margin: 10 }}>
       <View style={styles.headWrapper}>
+        <Searchbar
+          placeholder="Buscar"
+          onChangeText={handleSearch}
+          value={searchText}
+          inputStyle={styles.input}
+          style={styles.search}
+          icon={() => <FontAwesome name="search" size={24} color={'black'} />}
+        />
         <Pressable
           onPress={() =>
             navigation.navigate('Preferences', {
@@ -85,6 +92,8 @@ const Search = ({ navigation }) => {
           }
           style={({ pressed }) => ({
             opacity: pressed ? 0.5 : 1,
+            marginTop: 10,
+            marginLeft: 10,
           })}
         >
           <FontAwesome name="sliders" size={28} color={'black'} />
@@ -104,24 +113,9 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
-
-     
-
-
-      <Searchbar
-        placeholder="Buscar"
-        onChangeText={handleSearch}
-        value={searchText}
-        inputStyle={styles.input}
-        style={styles.search}
-        icon={() => <FontAwesome name="search" size={24} color={'black'} />}
-      />
-
-
-
       <FlatList
         data={filteredUsers}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item: element }) => (
           // <Text>asda</Text>
           <CardItem
@@ -151,7 +145,6 @@ const Search = ({ navigation }) => {
   )}
 /> */}
 
-
       {/* <CardList users={users} navigation={navigation} reloadUsers={getUsers} loading={loadingUsers} /> */}
     </SafeAreaView>
   );
@@ -159,11 +152,12 @@ const Search = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   headWrapper: {
-    marginHorizontal: 16,
+    marginHorizontal: 10,
     marginVertical: 20,
     display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    // justifyContent: 'flex-end',
+    // alignItems: 'flex-end',
   },
   textFriends: {
     fontSize: 20,
@@ -173,6 +167,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   search: {
+    width: '90%',
     backgroundColor: 'red',
     border: 'none',
     elevation: 0,
@@ -183,6 +178,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderTopWidth: 0, //works
     borderBottomWidth: 0, //works
+  },
+  input: {
+    fontFamily: Fonts.type.semiBold,
+    marginTop: 5,
   },
 });
 
