@@ -112,6 +112,13 @@ const Profile = ({ navigation, screenName, route }) => {
           </View>
           <Text style={styles.bio}>{myProfile?.biography}</Text>
           <Text style={styles.categories}>Seguidores</Text>
+          <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('RequestFollowers')
+                  }
+                >
+                  <Text>Follow request</Text>
+                </TouchableOpacity>
 
           <View
             style={{
