@@ -9,11 +9,17 @@ import CategoryPicker from '../features/updateProfile/components/CategoryPicker'
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import FilterGender from '../features/search/components/Checkbox';
+import { getCurrentLocation } from '../utils/getLocation';
 
-const UpdateProfile = ({ navigation }) => {
+const UpdateProfile = ({ navigation, route }) => {
+  const authToken = useAuthStore((state) => state.authToken);
+  const isComplete = useAuthStore((state) => state.isComplete);
   const [myProfile, setMyProfile] = useState();
   const [selected, setSelected] = React.useState([]);
+  const fromProfile = route.params?.fromProfile;
   const [updatedGender, setUpdatedGender] = useState(null);
+  const setIsComplete = useAuthStore((state) => state.setIsComplete);
+
   const connect = useFetch();
   const {
     control,
@@ -24,37 +30,58 @@ const UpdateProfile = ({ navigation }) => {
 
   const getMyProfile = async () => {
     const resp = await connect({ url: URL.AUTH_ME });
-    resp.age = 25;
+
     setValue('email', resp.email);
     setValue('fullname', resp.fullname);
+    setValue('username', resp.username);
     setValue('phone', resp.phone);
-    setValue('age', resp.age.toString());
+    setValue('age', resp.age ? resp.age.toString() : '');
     setValue('biography', resp.biography);
     setValue('gender', resp.gender);
     setUpdatedGender(resp.gender);
     setMyProfile(resp);
   };
 
+  const [location, setLocation] = useState({});
+
   useEffect(() => {
     getMyProfile();
+    getUserLocation();
   }, []);
+
+  const getUserLocation = async () => {
+    const location = await getCurrentLocation();
+    setLocation(location);
+  };
 
   const onSubmit = async (values) => {
     const gender = updatedGender;
-    console.log({ gender });
     const sports = myProfile.sports.map((item) => {
       return {
         id: item.id,
       };
     });
+
     const data = {
       ...values,
       sports,
       gender,
+      location,
     };
     console.log(data);
-    await connect({ url: URL.UPDATE_PROFILE, data });
-    navigation.goBack(null);
+
+    const response = await connect({ url: URL.UPDATE_PROFILE, data });
+    console.log('@!!!!!!!!!!!@', response);
+
+    if (fromProfile) {
+      navigation.goBack(null);
+      console.log(fromProfile);
+    } else {
+      setIsComplete(response.isComplete);
+    }
+    if (isComplete) {
+      navigation.navigate('Home');
+    }
   };
 
   return (
@@ -62,6 +89,12 @@ const UpdateProfile = ({ navigation }) => {
       <ScrollView style={styles.scrollView}>
         {myProfile && (
           <View style={styles.container}>
+            {!isComplete && (
+              <Text style={styles.textComplete}>
+                Para poder usar SportsApp debes tener completo tu perfil.
+              </Text>
+            )}
+
             <Text style={styles.subtitle}>Email:</Text>
             <Controller
               control={control}
@@ -199,6 +232,13 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.normal,
     fontFamily: Fonts.type.semiBold,
     color: 'gray',
+  },
+  textComplete: {
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.semiBold,
+    color: 'red',
+    marginBottom: 10,
+    marginTop: 10,
   },
   scrollView: {
     backgroundColor: 'pink',

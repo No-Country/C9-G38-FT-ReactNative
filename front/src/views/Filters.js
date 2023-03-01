@@ -27,8 +27,8 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
   const saveFilters = async () => {
     const data = {
-      minAge: agesrange[0],
-      maxAge: agesrange[1],
+      minAge: agesrange[0] ? agesrange[0] : 20,
+      maxAge: agesrange[1] ? agesrange[1] : 99,
       ratio: 14,
       gender: gender,
       sports: selected.map((item) => {
@@ -37,6 +37,7 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
         };
       }),
     };
+    console.log('@!!', data, agesrange);
 
     const resp = await connect({ url: URL.SEARCH_USERS, data });
     setUsers(resp);

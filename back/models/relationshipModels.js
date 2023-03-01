@@ -1,5 +1,5 @@
 const User = require('./user.model');
-const Follow = require('./follow.model');
+// const Follow = require('./follow.model');
 const Sport = require('./sport.model');
 
 const relationshipModels = () => {
@@ -13,7 +13,8 @@ const relationshipModels = () => {
     foreignKey: 'sportId',
   });
 
-  User.belongsToMany(User, { as: 'follows', through: 'followers' });
+  User.belongsToMany(User, { as: 'following', through: 'followings' });
+  User.belongsToMany(User, { as: 'follower', through: 'followers' });
 };
 
 module.exports = relationshipModels;

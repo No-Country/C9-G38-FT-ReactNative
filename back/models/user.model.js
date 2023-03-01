@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
-const { db } = require("../config/database.util");
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const { db } = require('../config/database.util');
 
-const User = db.define("users", {
+const User = db.define('users', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -18,6 +18,7 @@ const User = db.define("users", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -47,16 +48,17 @@ const User = db.define("users", {
     allowNull: true,
   },
   gender: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
-  coordinates: {
+  location: {
     type: DataTypes.GEOMETRY,
     allowNull: true,
   },
-  gender: {
+  isComplete: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
+    defaultValue: false,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
