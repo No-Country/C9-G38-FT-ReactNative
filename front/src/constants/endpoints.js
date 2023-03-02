@@ -31,7 +31,7 @@ const URL = {
     method: "POST",
   },
   GET_FOLLOWERS: {
-    path: "follows/:id",
+    path: "follows/requests",
     method: "GET",
   },
   UPDATE_PROFILE: {
