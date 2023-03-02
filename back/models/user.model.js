@@ -18,6 +18,7 @@ const User = db.define('users', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -40,23 +41,24 @@ const User = db.define('users', {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   age: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
   gender: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: true,
   },
-  coordinates: {
+  location: {
     type: DataTypes.GEOMETRY,
     allowNull: true,
   },
-  gender: {
+  isComplete: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
+    defaultValue: false,
   },
   isActive: {
     type: DataTypes.BOOLEAN,

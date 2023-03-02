@@ -9,9 +9,13 @@ import CSButton from '../common/ui/Button';
 import { useUserStore } from '../store/userStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+<<<<<<< HEAD
 import Fonts from '../constants/fonts'
 import colors from '../constants/colors'
 
+=======
+import CategoryPicker from '../features/preferences/components/CategoryPicker';
+>>>>>>> 83e5180d69e9f6dcb619dfa272a0a8256c9e3ff7
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
@@ -29,22 +33,24 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
   const saveFilters = async () => {
     const data = {
-      minAge: agesrange[0],
-      maxAge: agesrange[1],
+      minAge: agesrange[0] ? agesrange[0] : 20,
+      maxAge: agesrange[1] ? agesrange[1] : 99,
       ratio: 14,
-      sports: categories.map((item) => {
+      gender: gender,
+      sports: selected.map((item) => {
         return {
-          id: item,
+          id: item.id,
         };
       }),
     };
+    console.log('@!!', data, agesrange);
 
     const resp = await connect({ url: URL.SEARCH_USERS, data });
     setUsers(resp);
   };
 
   const saveHandler = () => {
-    setCategorie(selected);
+    // setCategorie(selected);
     setSelectInterest(!selectInterest);
     saveFilters();
     // navigation.navigate('Search');
@@ -56,16 +62,15 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
       <RangeSlider />
 
-      <FilterCategories selected={selected} setSelected={setSelected} />
+      <CategoryPicker selected={selected} setSelected={setSelected} />
+
+      {/* <FilterCategories selected={selected} setSelected={setSelected} /> */}
 
       {/* <CSButton onPress={saveHandler()} label="Guardar" /> */}
-     
+
       <Pressable style={styles.button} onPress={saveHandler}>
-      <Text style={styles.text}>Guardar</Text>
-    </Pressable>
-
-
-
+        <Text style={styles.text}>Guardar</Text>
+      </Pressable>
     </View>
   );
 };
@@ -87,6 +92,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
 
 export default Filters;

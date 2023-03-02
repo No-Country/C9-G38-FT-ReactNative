@@ -27,6 +27,11 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 4,
   },
+  inputTitle: {
+    fontSize: Fonts.size.normal,
+    fontFamily: Fonts.type.semiBold,
+    color: 'gray',
+  },
   input: {
     height: 48,
     backgroundColor: colors.white,

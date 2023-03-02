@@ -4,11 +4,20 @@ import * as SecureStore from 'expo-secure-store';
 
 export const useAuthStore = create((set) => ({
     authToken: '',
+    isComplete: true,
+
+    setIsComplete: async (value) => {
+        set(() => ({
+            isComplete: value,
+        }))
+    },
+
     getAuth: async () => {
         let value = await SecureStore.getItemAsync('token');
         //console.log(value);
         set(() => ({
-            authToken: value
+            authToken: value,
+
         }))
     },
     setAuth: async (token) => {

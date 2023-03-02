@@ -15,20 +15,24 @@ import Search from '../views/Search';
 import Preferences from '../views/Preferences';
 import UserDetail from '../views/UserDetail';
 import FollowList from '../views/FollowList';
+import RequestFollowers from '../views/RequestFollowers';
 
 const Stack = createStackNavigator();
 
 export function Navigation() {
   const authToken = useAuthStore((state) => state.authToken);
+  const isComplete = useAuthStore((state) => state.isComplete);
   const getAuth = useAuthStore((state) => state.getAuth);
 
   useEffect(() => {
-    getAuth();
-  }, []);
+    if (!authToken) getAuth();
+
+    console.log(authToken, isComplete);
+  }, [isComplete]);
 
   return (
     <Stack.Navigator initialRouteName="Onboarding">
-      {authToken ? (
+      {authToken && isComplete ? (
         <>
           <Stack.Screen
             name="Home"
@@ -46,7 +50,16 @@ export function Navigation() {
             options={{ title: 'Actualizar perfil' }}
           />
           <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen name="Preferences" component={Preferences} />
+          <Stack.Screen
+            name="RequestFollowers"
+            options={{ title: 'Request Followers' }}
+            component={RequestFollowers}
+          />
+          <Stack.Screen
+            name="Preferences"
+            options={{ title: 'Preferencias' }}
+            component={Preferences}
+          />
           <Stack.Screen name="Filters" component={Filters} />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen
@@ -65,7 +78,13 @@ export function Navigation() {
             options={({ route }) => ({ title: route.params?.title ?? '' })}
           />
         </>
-      ) : (
+      ) : authToken && !isComplete ? (
+        <Stack.Screen
+          name="UpdateProfileLogin"
+          component={UpdateProfile}
+          options={{ title: 'Actualizar perfil' }}
+        />
+      ) : !authToken ? (
         <>
           <Stack.Screen
             options={{ headerShown: false }}
@@ -83,7 +102,7 @@ export function Navigation() {
             component={Register}
           />
         </>
-      )}
+      ) : null}
     </Stack.Navigator>
   );
 }

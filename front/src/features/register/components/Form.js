@@ -21,6 +21,7 @@ const Form = () => {
 
   const onSubmit = async (newUser) => {
     try {
+      console.log(newUser);
       await connect({ url: URL.REGISTER, data: newUser });
 
       navigation.navigate('Login');
@@ -30,40 +31,46 @@ const Form = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headerWrapper}>
-        {/* <Text style={styles.logo}>Logo Aplicacion o Imagen ilustrativa</Text> */}
-        <Text style={styles.title}>Registrate!</Text>
-      </View>
-      {/* <View style={styles.logos}>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.headerWrapper}>
+          {/* <Text style={styles.logo}>Logo Aplicacion o Imagen ilustrativa</Text> */}
+          <Text style={styles.title}>Registrate!</Text>
+        </View>
+        {/* <View style={styles.logos}>
                 <Text>LOGO Google</Text>
                 <Text>LOGO Facebook</Text>
                 <Text>LOGO Twitter</Text>
             </View> */}
-      {/* <Text style={styles.h2}>O, puede registrarse con email...</Text> */}
-      <View style={styles.formWrapper}>
-        {inputs.map((input) => (
-          <View key={input.name}>
-            <InputForm
-              name={input.name}
-              placeholder={input.placeholder}
-              control={control}
-              styles={styles.input}
-              rules={input.rules}
-              secure={input.secure}
-              pwdValidate={input.pwdValidate}
-            />
-            <Text style={{ color: 'red', margin: 3 }}>
-              {errors[input.name]?.message}
-            </Text>
+        {/* <Text style={styles.h2}>O, puede registrarse con email...</Text> */}
+
+        <View style={styles.formWrapper}>
+          {inputs.map((input) => (
+            <View key={input.name}>
+              <Text style={styles.inputTitle} key={input.title}>
+                {input.title}
+              </Text>
+              <InputForm
+                name={input.name}
+                placeholder={input.placeholder}
+                control={control}
+                styles={styles.input}
+                rules={input.rules}
+                secure={input.secure}
+                pwdValidate={input.pwdValidate}
+              />
+              <Text style={{ color: 'red', margin: 3 }}>
+                {errors[input.name]?.message}
+              </Text>
+            </View>
+          ))}
+          <View
+            style={{
+              marginTop: 40,
+            }}
+          >
+            <CSButton onPress={handleSubmit(onSubmit)} label="Registrarse" />
           </View>
-        ))}
-        <View
-          style={{
-            marginTop: 40,
-          }}
-        >
-          <CSButton onPress={handleSubmit(onSubmit)} label="Registrarse" />
         </View>
       </View>
     </ScrollView>
