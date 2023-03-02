@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Fonts from '../../../styles/theme/Fonts';
 import { data } from '../../../constants/data';
+import colors from '../../../constants/colors'
 import UserFollowCard from './UserFollowCard';
 
 const UserActivitiesList = () => {
@@ -21,8 +22,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   subtitle: {
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
     fontSize: Fonts.size.xxLarge,
+    color: colors.darkBlue,
+    marginBottom: 24,
   },
 });
 export default UserActivitiesList;

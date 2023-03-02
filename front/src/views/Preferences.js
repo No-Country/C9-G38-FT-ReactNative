@@ -23,13 +23,13 @@ const Preference = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <View>
+      {/* <View>
         <Text>{categories}</Text>
         <Text>{gender}</Text>
         <Text>
           {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
         </Text>
-      </View>
+      </View> */}
 
       <Filters
         navigation={navigation}
@@ -37,8 +37,8 @@ const Preference = ({ navigation, route }) => {
         setSelectInterest={setSelectInterest}
       />
 
-      <View style={{ marginTop: 20 }}>
-        {fromProfile && <Button onPress={logout()} title="Cerrar sesion" />}
+      <View >
+        {fromProfile && <Button style={styles.button} onPress={logout()} title="Cerrar sesion" />}
       </View>
     </View>
   );

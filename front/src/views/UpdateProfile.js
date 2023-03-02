@@ -15,6 +15,7 @@ import { useAuthStore } from '../store/authStore';
 import { FilterCategories } from '../features/search/components/FilterCategories';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import colors from '../constants/colors';
 
 const UpdateProfile = ({ navigation }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     alignItems: 'flex-start',
-    // justifyContent: 'space-between',
     backgroundColor: '#fff',
     paddingHorizontal: 32,
     paddingTop: 20,
@@ -175,27 +175,32 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     minHeight: 48,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.white,
     paddingLeft: 20,
     paddingVertical: 10,
     marginBottom: 14,
     borderRadius: 12,
-    fontSize: 15,
-    fontFamily: Fonts.type.regular,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
+    color: colors.darkBlue
   },
   userName: {
     textAlign: 'center',
-    fontSize: Fonts.size.xxxLarge,
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
+    color: colors.darkBlue,
     letterSpacing: 0.8,
   },
   subtitle: {
-    fontSize: Fonts.size.normal,
-    fontFamily: Fonts.type.semiBold,
-    color: 'gray',
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.small,
+    fontWeight: 'bold',
+    color: colors.darkBlues,
   },
   scrollView: {
-    backgroundColor: 'pink',
+    backgroundColor: colors.lightBlue,
   },
   wrapperButton: {
     marginTop: 40,

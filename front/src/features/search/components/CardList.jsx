@@ -8,7 +8,6 @@ const CardList = ({ users, navigation }) => {
       style={{ marginTop: 6, marginHorizontal: 10 }}
       data={users}
       renderItem={({ item: element }) => (
-        // <Text>asda</Text>
         <CardItem
           navigation={navigation}
           avatar={element.avatar}

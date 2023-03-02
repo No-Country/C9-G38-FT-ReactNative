@@ -9,10 +9,11 @@ function Home() {
   return (
     <Tab.Navigator
       initialRouteName={tabsArr[0].label}
-      activeColor={Colors.darkOverlayColor2}
+      //TODO arreglar propiedad activeColors
+      activeColor={colors.green}
       barStyle={{
-        backgroundColor: 'white',
-        paddingTop: 0,
+        backgroundColor: colors.white,
+        // paddingTop: 0,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         borderLeftWidth: 0.1,

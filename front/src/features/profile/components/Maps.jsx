@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Button, Text } from 'react-native';
+import colors from "../../../constants/colors"
 import * as Location from 'expo-location';
 
 const Map = ({ navigation, route }) => {
@@ -59,7 +60,7 @@ const Map = ({ navigation, route }) => {
 
         <Marker coordinate={markerOne} title="Cancha tenis">
           <View
-            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
+            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10, color: colors.darkBlue}}
           >
             <Text style={{ color: 'white' }}>🎾</Text>
           </View>
@@ -69,12 +70,12 @@ const Map = ({ navigation, route }) => {
           <View
             style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
           >
-            <Text style={{ color: 'white' }}>⚽</Text>
+            <Text style={{ color: colors.darkBlue }}>⚽</Text>
           </View>
         </Marker>
       </MapView>
 
-      <Button title="REFRESH GEO" color="#f194ff" onPress={userLocation} />
+      <Button title="REFRESH GEO" color={colors.green} onPress={userLocation} />
 
       <Button
         title="VOLVER A PERFIL"

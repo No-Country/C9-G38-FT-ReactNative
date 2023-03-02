@@ -18,6 +18,7 @@ import CardList from '../features/search/components/CardList';
 import { useFilterStore } from '../store/filterStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import colors from '../constants/colors'
 
 const Search = ({ navigation }) => {
   const { users, filteredUsers, setUsers } = useUserStore((state) => state);
@@ -64,7 +65,7 @@ const Search = ({ navigation }) => {
             opacity: pressed ? 0.5 : 1,
           })}
         >
-          <FontAwesome name="sliders" size={28} color={'black'} />
+          <FontAwesome name="sliders" size={28} color={colors.darkBlue} />
         </Pressable>
       </View>
       <Searchbar />

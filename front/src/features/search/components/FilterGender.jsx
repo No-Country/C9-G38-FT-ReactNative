@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { useFilterStore } from "../../../store/filterStore";
+import colors from "../../../constants/colors";
 import Fonts from "../../../styles/theme/Fonts";
 
 const Checkbox = ({ label, selected, onPress }) => (
@@ -42,7 +43,7 @@ const FilterGender = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.titleStyle}>Seleccioná tu género</Text>
+        <Text style={styles.title}>Seleccioná tu género</Text>
       </View>
 
       <View style={styles.checkboxContainer}>
@@ -73,11 +74,11 @@ const styles = {
     margin: 10,
   },
   checkbox: {
-    width: 20,
-    height: 20,
+    width: 32,
+    height: 32,
     borderWidth: 2,
-    borderRadius: 5,
-    borderColor: "#000",
+    borderRadius: 12,
+    borderColor: colors.green,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 10,
@@ -86,25 +87,25 @@ const styles = {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#000",
+    backgroundColor: colors.darkBlue
   },
   label: {
-    fontSize: 16,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 20,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.small,
+    fontWeight: 'bold',
+    color: colors.darkBlue
   },
   checkboxContainer: {
     flexDirection: "row",
   },
 
-  titleStyle: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+  title: {
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 2,
     width: "100%",
-    color: "#354259",
+    color: colors.darkBlue,
     marginBottom: 2,
   },
 };

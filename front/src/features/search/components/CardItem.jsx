@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import colors from '../../../constants/colors'
 import Fonts from '../../../styles/theme/Fonts';
 const CardItem = (props) => {
   const { id, navigation, user } = props;
@@ -57,22 +58,27 @@ const styles = StyleSheet.create({
     borderRadius: 52 / 2,
     overflow: 'hidden',
     borderWidth: 3,
-    // borderColor: "
+    borderColor: colors.green
   },
   user: {
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    fontSize: Fonts.size.small
   },
   interestsWrapper: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    borderColor: colors.green,
+    borderWidth: 2
   },
   interestText: {
-    fontFamily: Fonts.type.medium,
-    fontSize: 12,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    fontSize: Fonts.size.small,
     marginRight: 2,
-    backgroundColor: 'gray',
-    color: 'white',
+    backgroundColor: colors.white,
+    color: colors.darkBlue,
     paddingHorizontal: 10,
     borderRadius: 10,
     marginBottom: 2,

@@ -9,6 +9,8 @@ import CSButton from '../common/ui/Button';
 import { useUserStore } from '../store/userStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import Fonts from '../constants/fonts'
+import colors from '../constants/colors'
 
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
@@ -70,22 +72,19 @@ const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
+    alignContent: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#537FE7',
-    borderRadius: 10,
-    marginTop: 10,
+    flexDirection: 'row',
+    marginBottom: 20,
+    backgroundColor: colors.white,
+    padding: 10,
+    borderRadius: 40,
   },
   text: {
-    fontSize: 16,
-    lineHeight: 21,
+    fontFamily: Fonts.type.Raleway,
     fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
+    color: colors.darkBlue,
+    fontSize: 16,
   },
 });
 

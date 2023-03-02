@@ -1,17 +1,16 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import CSButton from '../common/ui/Button';
+import colors from '../constants/colors'
 import Fonts from '../styles/theme/Fonts';
 
 const Onboarding = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>App Info</Text>
+      <Text style={styles.subtitle}>Bienvenido a</Text>
+      <Text style={styles.title}>Sporteam App</Text>
       <Text style={styles.description}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book
+        Conocé personas para hacer deportes juntos!
       </Text>
       <View style={styles.startButton}>
         <CSButton
@@ -26,7 +25,7 @@ const Onboarding = ({ navigation }) => {
 export default Onboarding;
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#dedede',
+    backgroundColor: '000',
     width: '100%',
     height: '100%',
     alignItems: 'center',
@@ -35,18 +34,28 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   title: {
-    fontSize: 50,
     marginBottom: 15,
-    fontSize: Fonts.size.xxxxxLarge,
-    fontFamily: Fonts.type.bold,
+    fontSize: Fonts.size. xxxLarge,
+    fontFamily: Fonts.type.sixCaps,
+    color: colors.green
+  },
+  subtitle: {
+    fontSize: Fonts.size.xxLarge,
+    fontFamily: Fonts.type.sixCaps,
+    textAlign: 'center',
+    color: colors.green
+
   },
   description: {
     textAlign: 'center',
     fontSize: Fonts.size.normal,
-    fontFamily: Fonts.type.medium,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    color: colors.darkBlue,
   },
   startButton: {
     width: '90%',
     marginTop: '40%',
+    
   },
 });

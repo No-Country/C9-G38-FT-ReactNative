@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
+import colors from "../../../constants/colors";
 
 const FilteredSearch = ({ users }) => {
     return (

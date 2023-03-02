@@ -15,6 +15,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import UpdateProfilePicture from '../features/profile/components/UpdateProfilePicture';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import colors from '../constants/colors'
 
 const Profile = ({ navigation, screenName, route }) => {
   const [myProfile, setMyProfile] = useState();
@@ -32,7 +33,7 @@ const Profile = ({ navigation, screenName, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headWrapper}>
-        <Text style={{ fontFamily: Fonts.type.bold }}>
+        <Text style={{ fontFamily: Fonts.type.raleway, color: colors.darkBlue }}>
           @{myProfile?.username}
         </Text>
         <Pressable
@@ -45,7 +46,7 @@ const Profile = ({ navigation, screenName, route }) => {
             opacity: pressed ? 0.5 : 1,
           })}
         >
-          <FontAwesome name="gear" size={30} color={'black'} />
+          <FontAwesome name="gear" size={30} />
         </Pressable>
       </View>
       <View
@@ -63,7 +64,7 @@ const Profile = ({ navigation, screenName, route }) => {
               onPress={() => navigation.navigate('UpdateProfile')}
               style={styles.editButton}
             >
-              <FontAwesome name="pencil" size={18} color={'white'} />
+              <FontAwesome name="pencil" size={18} color={colors.darkBlue} />
             </Pressable>
           </View>
         </View>
@@ -130,7 +131,7 @@ const Profile = ({ navigation, screenName, route }) => {
             <Text>ver más...</Text>
           </TouchableOpacity>
         ) : (
-          <Text>Aun sin seguidores</Text>
+          <Text style={{color: colors.darkBlue}}>Aun sin seguidores</Text>
         )}
       </View>
       <Text style={styles.categories}>Intereses</Text>
@@ -166,18 +167,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     flexDirection: 'row',
+    // color: colors.darkBlue
   },
   profile: {
     width: '35%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   userName: {
-    fontSize: Fonts.size.xxxLarge,
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     letterSpacing: 0.8,
     marginTop: 10,
+    color: colors.darkBlue
   },
   details: {
     marginTop: 10,
@@ -186,15 +189,20 @@ const styles = StyleSheet.create({
   },
   number: {
     textAlign: 'center',
-    fontSize: 24,
-    fontFamily: Fonts.type.semiBold,
+    color: colors.darkBlue,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginBottom: 0,
     paddingBottom: 0,
   },
   text: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily: Fonts.type.semiBold,
+    color: colors.darkBlue,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   buttons: {
     height: '6%',
@@ -210,44 +218,58 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button1: {
-    backgroundColor: '#dedede',
     width: '49%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+    color: colors.white,
+    borderColor: colors.green,
+    borderWidth: 2,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   button2: {
     width: '49%',
-    borderColor: '#ededed',
+    borderColor: colors.green,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+    color: colors.white,
+    borderWidth: 2,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   editWrapper: {
     position: 'absolute',
-    bottom: -10,
+    bottom: -15,
   },
   editButton: {
-    backgroundColor: '#637aff',
+    backgroundColor: colors.white,
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
+    borderColor: colors.green,
+    borderWidth: 2
   },
   categories: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 2,
     width: '100%',
     paddingLeft: 24,
-    color: '#354259',
-
+    color: colors.darkBlue,
     marginBottom: 2,
   },
   bio: {
     marginHorizontal: 20,
     marginVertical: 10,
-    fontFamily: Fonts.type.regular,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    color: colors.darkBlue
   },
 });
 

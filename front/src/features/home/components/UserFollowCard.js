@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Fonts from '../../../styles/theme/Fonts';
+import colors from '../../../constants/colors'
 const UserFollowCard = ({ item }) => {
   return (
     <View style={styles.wrapper}>
@@ -10,17 +11,21 @@ const UserFollowCard = ({ item }) => {
 };
 const styles = StyleSheet.create({
   wrapper: {
-    marginRight: 10,
+    marginRight: 20,
   },
   subtitle: {
     textAlign: 'center',
-    fontFamily: Fonts.type.semiBold,
+    fontFamily: Fonts.type.raleway,
+    fontWeight:'bold',
     fontSize: Fonts.size.small,
+    color: colors.darkBlue
   },
   picture: {
     width: 100,
     height: 100,
     borderRadius: 14,
+    borderColor: colors.green,
+    borderWidth: 2,
   },
 });
 export default UserFollowCard;

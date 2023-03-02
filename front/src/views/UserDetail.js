@@ -4,6 +4,7 @@ import Fonts from '../styles/theme/Fonts';
 import CSButton from '../common/ui/Button';
 import { BASE_URL } from '../constants/endpoints';
 import { useAuthStore } from '../store/authStore';
+import colors from '../constants/colors';
 
 const UserDetail = ({ route }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -151,8 +152,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   userName: {
-    fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.small,
+    fontWeight: 'bold',
     marginLeft: 10,
   },
   follows: {
@@ -161,8 +163,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantity: {
-    fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   biographyContainer: {
     marginTop: 30,
@@ -180,22 +183,29 @@ const styles = StyleSheet.create({
   },
   contactButton: {
     width: '49%',
-    backgroundColor: '#dedede',
+    backgroundColor: colors.white,
+    borderColor: colors.green,
+    borderWidth: 2
   },
   biography: {
-    fontFamily: Fonts.type.medium,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   interestsWrapper: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    borderColor: colors.green,
+    borderWidth: 2
   },
   interestText: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 12,
-    backgroundColor: 'gray',
-    color: 'white',
+    backgroundColor: colors.white,
+    color: colors.darkBlue,
     paddingHorizontal: 10,
     borderRadius: 14,
     marginBottom: 2,

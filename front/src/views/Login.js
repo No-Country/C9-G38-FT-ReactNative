@@ -16,6 +16,7 @@ import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import useLoginGoogle from '../hooks/useLoginGoogle';
 import IconGoogle from 'react-native-vector-icons/FontAwesome5';
+import colors from '../constants/colors'
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = useState(false);
@@ -48,8 +49,7 @@ const Login = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Bienvenido</Text>
-      <Text style={{ fontSize: 30, marginBottom: 66 }}>Logo</Text>
+      <Text style={styles.title}>Sporteam App</Text>
       <Controller
         control={control}
         rules={{ required: true }}
@@ -95,7 +95,7 @@ const Login = ({ navigation }) => {
             <IconGoogle
               name="google"
               size={25}
-              color="white"
+              color= {colors.darkBlue}
               style={{ marginRight: 10 }}
             />
           }
@@ -104,7 +104,7 @@ const Login = ({ navigation }) => {
         />
       </View>
       <View style={styles.signUp}>
-        <Text style={styles.questionText}>¿No tenés cuenta?</Text>
+        <Text style={styles.bottomText}>¿No tenés cuenta?</Text>
         <Text
           style={styles.redirectText}
           onPress={() => navigation.navigate('Register')}
@@ -112,7 +112,7 @@ const Login = ({ navigation }) => {
           ¡Registrate!
         </Text>
       </View>
-      {/* <Text>Olvidé mi contraseña.</Text> */}
+      <Text style={styles.bottomText}>Olvidé mi contraseña.</Text>
     </SafeAreaView>
   );
 };
@@ -131,11 +131,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 32,
     borderRadius: 12,
+    borderColor: colors.green,
+    borderWidth: 2,
     fontSize: 15,
     fontFamily: Fonts.type.regular,
   },
   errorInput: {
-    backgroundColor: '#f2dcdc',
+    // backgroundColor: colors.red,
   },
   login: {
     width: '100%',
@@ -150,25 +152,26 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   title: {
-    fontSize: Fonts.size.xxxxxLarge,
-    fontFamily: Fonts.type.bold,
+    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.sixCaps,
+    color: colors.green,
+    marginBottom: 20
   },
   redirectText: {
+    fontFamily: Fonts.type.raleway,
     fontSize: Fonts.size.normal,
-    fontFamily: Fonts.type.bold,
-    color: '#2192FF',
+    fontWeight: 'bold',
+    color: colors.green,
     marginLeft: 5,
   },
-  questionText: {
+  bottomText: {
     fontSize: Fonts.size.normal,
-    fontFamily: Fonts.type.regular,
-  },
-  signUpLink: {
-    color: '#618ec3',
-    marginLeft: 10,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    color: colors.darkBlue
   },
   loginError: {
-    color: '#b48484',
+    color: colors.darkBlue,
     marginTop: 20,
     fontWeight: 'bold',
   },
