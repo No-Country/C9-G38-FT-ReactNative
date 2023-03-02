@@ -7,6 +7,7 @@ import Fonts from '../../../styles/theme/Fonts';
 const CategoryPicker = ({ myProfile, setMyProfile }) => {
   const [categories, setCategories] = useState();
   const connect = useFetch();
+  const [limited, setLimited] = useState(false);
 
   const getCategories = async () => {
     const res = await connect({ url: URL.GET_SPORTS });
@@ -15,7 +16,9 @@ const CategoryPicker = ({ myProfile, setMyProfile }) => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+    if (myProfile.sports.length <= 3) setLimited(false);
+    if (myProfile.sports.length >= 3) setLimited(true);
+  }, [myProfile]);
 
   const deleteCategory = (id) => {
     let pos = myProfile?.sports.map((e) => e.id).indexOf(id);
@@ -32,7 +35,6 @@ const CategoryPicker = ({ myProfile, setMyProfile }) => {
       {categories &&
         categories.map((cat) => {
           let found = myProfile.sports.find((e) => e.id === cat.id);
-          //console.log('found', found?.id, i)
           if (found) {
             return (
               <TouchableOpacity
@@ -49,6 +51,7 @@ const CategoryPicker = ({ myProfile, setMyProfile }) => {
                 key={cat.id}
                 onPress={() => addCategory(cat)}
                 style={styles.unselected}
+                disabled={limited ? true : false}
               >
                 <Text style={styles.sportNameInactive}>{cat.name}</Text>
               </TouchableOpacity>
