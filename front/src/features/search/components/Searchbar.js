@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { StyleSheet } from 'react-native';
-import { Searchbar } from 'react-native-paper';
 import { useUserStore } from '../../../store/userStore';
 import Fonts from '../../../styles/theme/Fonts';
+import { Searchbar } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 
 const SearchbarComponent = () => {

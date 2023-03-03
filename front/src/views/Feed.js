@@ -3,14 +3,19 @@ import HomeHeader from '../features/home/components/HomeHeader';
 import ActivitiesList from '../features/home/components/ActivitiesList';
 import UserActivitiesList from '../features/home/components/UserActivitiesList';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Map from '../features/profile/components/Maps';
 
 const Feed = () => {
   return (
     <SafeAreaView>
       <View style={styles.wrapper}>
         <HomeHeader />
+
+
+
         {/* <ActivitiesList /> */}
         <UserActivitiesList />
+      <Map/>
       </View>
     </SafeAreaView>
   );

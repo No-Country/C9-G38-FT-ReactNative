@@ -71,15 +71,19 @@ const UpdateProfile = ({ navigation, route }) => {
     console.log(data);
 
     const response = await connect({ url: URL.UPDATE_PROFILE, data });
-    console.log('@!!!!!!!!!!!@', response);
+    // console.log('@!!!!!!!!!!!@', response);
 
     if (fromProfile) {
       navigation.goBack(null);
       console.log(fromProfile);
+      console.log("A")
     } else {
       setIsComplete(response.isComplete);
+      navigation.goBack(null);
+      
     }
     if (isComplete) {
+      console.log("C")
       navigation.navigate('Home');
     }
   };

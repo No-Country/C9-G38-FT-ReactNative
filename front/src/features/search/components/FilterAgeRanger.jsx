@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import { useFilterStore } from '../../../store/filterStore';
+import colors from '../../../constants/colors'
 import Fonts from '../../../styles/theme/Fonts';
 
 const RangeSlider = () => {
@@ -60,32 +61,36 @@ const styles = StyleSheet.create({
     width: 300,
   },
   ageLabel: {
-    fontSize: 14,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.smaill,
+    fontWeight: 'bold',
+    color: colors.darkBlue,
   },
   markerStyle: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.darkBlue,
     height: 20,
     width: 20,
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor:  colors.darkBlue,
     borderRadius: 10,
   },
   trackStyle: {
     height: 2,
-    backgroundColor: '#b7b7b7',
+    backgroundColor: colors.darkBlue,
   },
   selectedStyle: {
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.darkBlue,
   },
   unselectedStyle: {
-    backgroundColor: '#b7b7b7',
+    backgroundColor: colors.darkBlue,
   },
   titleStyle: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 2,
     width: "100%",
-    color: "#354259",
+    color: colors.darkBlue,
     marginBottom: 2,
   },
 });

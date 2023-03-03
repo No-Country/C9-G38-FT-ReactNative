@@ -20,7 +20,7 @@ const Map = ({ navigation, route }) => {
 
   const markerTwo = {
     latitude: -34.60859550343435,
-    longitude: -58.46831239595712,
+    longitude: -58.47531239595712,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
@@ -54,20 +54,14 @@ const Map = ({ navigation, route }) => {
       <MapView style={styles.map} region={mapRegion}>
         <Marker
           coordinate={mapRegion}
-          title="(¿nombre de usuario?) 🙋‍♂️"
+          title="Me 🙋‍♂️"
         ></Marker>
 
-        <Marker coordinate={markerOne} title="Cancha tenis">
-          <View
-            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
-          >
-            <Text style={{ color: 'white' }}>🎾</Text>
-          </View>
-        </Marker>
+       
 
         <Marker coordinate={markerTwo} title="Cancha fútbol 5">
           <View
-            style={{ backgroundColor: 'white', padding: 5, borderRadius: 10 }}
+            style={{ backgroundColor: 'blue', padding: 5, borderRadius: 10 }}
           >
             <Text style={{ color: 'white' }}>⚽</Text>
           </View>
@@ -90,6 +84,7 @@ const styles = StyleSheet.create({
   },
   map: {
     minHeight: '90%',
+    
 
     width: '100%',
     height: '90%',

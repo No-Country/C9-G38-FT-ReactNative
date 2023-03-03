@@ -10,6 +10,9 @@ import { useUserStore } from '../store/userStore';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
 import CategoryPicker from '../features/preferences/components/CategoryPicker';
+import colors from "../constants/colors"
+import Fonts from '../constants/fonts'
+
 
 const Filters = ({ navigation, route, selectInterest, setSelectInterest }) => {
   const [selected, setSelected] = React.useState([]);
@@ -75,9 +78,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
+    borderWidth: 2,
+    borderColor: colors.green,
     borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#537FE7',
+  
+    backgroundColor: colors.white,
     borderRadius: 10,
     marginTop: 10,
   },
@@ -86,7 +91,8 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: colors.darkBlue,
+    
   },
 });
 

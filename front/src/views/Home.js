@@ -1,15 +1,25 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { tabsArr } from '../utils/tabsHomeNavigator';
 import Icon from '../utils/icons';
-import Colors from '../constants/colors';
+import colors from "../constants/colors"
 
 const Tab = createMaterialBottomTabNavigator();
 
 function Home() {
   return (
     <Tab.Navigator
+
       initialRouteName={tabsArr[0].label}
-      activeColor={Colors.darkOverlayColor2}
+      shifting={true}
+      sceneAnimationEnabled={false}
+      activeColor={colors.darkBlue}
+      inactiveColor={colors.darkGray}
+      activeTintColor='red'
+
+      screenOptions={{
+        tabBarIndicatorStyle: { height: 5, backgroundColor: '#3C60AA', borderRadius: 20 },
+      }}
+
       barStyle={{
         backgroundColor: 'white',
         paddingTop: 0,
@@ -28,6 +38,7 @@ function Home() {
           key={index}
           name={screen.label}
           component={screen.component}
+
           options={{
             tabBarIcon: ({ color, size }) => {
               return (
