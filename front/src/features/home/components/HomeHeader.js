@@ -1,13 +1,13 @@
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { useAuthStore } from "../../../store/authStore";
-import Fonts from "../../../styles/theme/Fonts";
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useAuthStore } from '../../../store/authStore';
+import Fonts from '../../../styles/theme/Fonts';
 const HomeHeader = () => {
   const logout = useAuthStore((state) => state.logout);
 
   return (
     <View style={styles.wrapper}>
       <View>
-        <Text style={styles.title}>Bienvenido</Text>
+        <Text style={styles.title}>Bienvenido {}</Text>
         {/* <Text style={styles.titleUsername}>Carl</Text> */}
       </View>
       {/* <View>

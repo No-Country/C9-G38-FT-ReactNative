@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
-import HomeHeader from "../features/home/components/HomeHeader";
-import ActivitiesList from "../features/home/components/ActivitiesList";
-import UserActivitiesList from "../features/home/components/UserActivitiesList";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, StyleSheet } from 'react-native';
+import HomeHeader from '../features/home/components/HomeHeader';
+import ActivitiesList from '../features/home/components/ActivitiesList';
+import UserActivitiesList from '../features/home/components/UserActivitiesList';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Feed = () => {
   return (
@@ -11,7 +11,7 @@ const Feed = () => {
       <ScrollView>
         <View style={styles.wrapper}>
           <HomeHeader />
-          {/* <ActivitiesList /> */}
+          <ActivitiesList />
           <UserActivitiesList />
         </View>
       </ScrollView>
@@ -21,7 +21,7 @@ const Feed = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: 14,
+    padding: 20,
   },
 });
 

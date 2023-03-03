@@ -1,33 +1,32 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import Fonts from "../../../styles/theme/Fonts";
-import { data } from "../../../constants/data";
-import UserFollowCard from "./UserFollowCard";
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import Fonts from '../../../styles/theme/Fonts';
+import { data } from '../../../constants/data';
+import UserFollowCard from './UserFollowCard';
 //
-import useFetch from "../../../hooks/useFetch";
-import URL from "../../../constants/endpoints";
-import { useState, useEffect } from "react";
+import useFetch from '../../../hooks/useFetch';
+import URL from '../../../constants/endpoints';
+import { useState, useEffect } from 'react';
 
-const UserActivitiesList = () => {
+const UserActivitiesList = ({ navigation }) => {
   //
   const [suggested, setSuggested] = useState();
   const connect = useFetch();
-  const MySuggested = async () => {
+  const getSuggested = async () => {
     const resp = await connect({
       url: URL.GET_FIRST_USERS,
-      extra: id,
     });
-    console.log(resp);
+    console.log('@@@', resp);
     setSuggested(resp);
   };
 
   useEffect(() => {
-    MySuggested();
+    getSuggested();
     console.log(suggested);
   }, []);
   //
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.subtitle}>Usuarios con tus mismos intereses:</Text>
+      <Text style={styles.subtitle}>Te pueden interesar</Text>
       <FlatList
         numColumns={2}
         data={suggested}
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.large,
+    fontSize: Fonts.size.xxxLarge,
   },
 });
 export default UserActivitiesList;
