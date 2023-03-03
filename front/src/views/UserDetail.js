@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import { useState, useEffect } from 'react';
 import Fonts from '../styles/theme/Fonts';
+import colors from '../constants/colors';
 import CSButton from '../common/ui/Button';
 import { BASE_URL } from '../constants/endpoints';
 import { useAuthStore } from '../store/authStore';
@@ -10,6 +11,7 @@ const UserDetail = ({ route }) => {
 
   //   const user = route.params.user;
   const [user, setUser] = useState();
+  const [following, setFollowing] = useState(false);
   const getUser = async () => {
     try {
       let req = await fetch(`${BASE_URL}users/${route.params.id}`, {
@@ -24,6 +26,7 @@ const UserDetail = ({ route }) => {
   };
 
   const follow = async () => {
+    setFollowing(true)
     try {
       let req = await fetch(`${BASE_URL}follows`, {
         method: 'POST',
@@ -41,7 +44,9 @@ const UserDetail = ({ route }) => {
   };
 
   const unfollow = async () => {
+    setFollowing(false)
     try {
+      
       let req = await fetch(`${BASE_URL}follows/${route.params.id}`, {
         method: 'DELETE',
         headers: {
@@ -96,7 +101,7 @@ const UserDetail = ({ route }) => {
         </View>
       </View>
       <View style={styles.actionButtons}>
-        {user?.isFollower ? (
+        {following ? (
           <>
             <CSButton
               label={'Dejar de seguir'}
@@ -139,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: 110,
+    width: '90%',
     aspectRatio: 1,
     borderRadius: 100,
   },
@@ -151,8 +156,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   userName: {
-    fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginLeft: 10,
   },
   follows: {
@@ -161,8 +167,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantity: {
-    fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxxLarge,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   biographyContainer: {
     marginTop: 30,
@@ -181,24 +188,32 @@ const styles = StyleSheet.create({
   },
   contactButton: {
     width: '49%',
-    backgroundColor: '#25D366',
+    backgroundColor: colors.green,
+    borderColor: colors.green,
+    borderWidth: 2,
+   
+ 
   },
   biography: {
-    fontFamily: Fonts.type.medium,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   interestsWrapper: {
+    marginTop: 10,
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   interestText: {
-    fontFamily: Fonts.type.medium,
-    fontSize: 16,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 12,
-    backgroundColor: '#0f2557',
-    color: 'white',
+    backgroundColor: colors.white,
+    color: colors.darkBlue,
     paddingHorizontal: 10,
-    marginTop: 2,
+    borderRadius: 14,
     marginBottom: 2,
   },
   subtitle: {

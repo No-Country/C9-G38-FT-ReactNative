@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
   FlatList,
+  RefreshControl
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useUserStore } from '../store/userStore';
@@ -23,9 +24,13 @@ import URL from '../constants/endpoints';
 import { Searchbar } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import Fonts from '../styles/theme/Fonts';
+import colors from '../constants/colors'
+
 
 const Search = ({ navigation }) => {
   const { users, setUsers } = useUserStore((state) => state);
+  const [refresh, setRefresh] = useState(false);
+  const {getAllUsers} = useUserStore()
   const connect = useFetch();
 
   const [searchText, setSearchText] = useState('');
@@ -37,23 +42,38 @@ const Search = ({ navigation }) => {
 
   const [loadingUsers, setLoadingUsers] = useState(false);
 
+
+
+  const pullRefresh = () => {
+    setRefresh(true);
+    setTimeout(() => {
+      setRefresh(false), getUsers();
+    }, 2000);
+  };
+
+
   const getUsers = async () => {
     setLoadingUsers(true);
-    const data = {
-      minAge: 20,
-      maxAge: 40,
-      ratio: 14,
-      // sports: categories.map((item) => {
-      //   return {
-      //     id: item,
-      //   };
-      // }),
-    };
 
-    const resp = await connect({ url: URL.SEARCH_USERS, data });
-    console.log(resp);
-    setUsers(resp);
-    setLoadingUsers(false);
+    getAllUsers()
+
+
+    // const data = {
+    //   minAge: 20,
+    //   maxAge: 40,
+    //   ratio: 14,
+    //   // sports: categories.map((item) => {
+    //   //   return {
+    //   //     id: item,
+    //   //   };
+    //   // }),
+    // };
+
+    // const resp = await connect({ url: URL.SEARCH_USERS, data });
+    // console.log({resp});
+    // setUsers(resp);
+    // setLoadingUsers(false);
+    
   };
 
   const filteredUsers = users.filter((user) => {
@@ -69,21 +89,37 @@ const Search = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (users.length === 0) {
+    getAllUsers()
       getUsers();
-    }
-  }, [users]);
+    
+    
+  }, []);
 
   return (
-    <SafeAreaView style={{ margin: 10 }}>
+    <SafeAreaView style={styles.container}>
+      
+      <ScrollView
+        style={{ flexGrow: 0 }}
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={() => pullRefresh()}
+          />
+        }
+      >
+
+
+
+        <View>
       <View style={styles.headWrapper}>
         <Searchbar
           placeholder="Buscar"
+          placeholderTextColor= {colors.darkBlue}
           onChangeText={handleSearch}
           value={searchText}
           inputStyle={styles.input}
           style={styles.search}
-          icon={() => <FontAwesome name="search" size={24} color={'black'} />}
+          icon={() => <FontAwesome name="search" size={24} color={colors.darkBlue} />}
         />
         <Pressable
           onPress={() =>
@@ -97,7 +133,7 @@ const Search = ({ navigation }) => {
             marginLeft: 10,
           })}
         >
-          <FontAwesome name="sliders" size={28} color={'black'} />
+          <FontAwesome name="sliders" size={28} color={colors.darkBlue} />
         </Pressable>
       </View>
       {/* <Searchbar /> */}
@@ -114,6 +150,9 @@ const Search = ({ navigation }) => {
         </ScrollView>
       )} */}
 
+
+<View style={styles.cardsContainer}>
+
       <FlatList
         data={filteredUsers}
         keyExtractor={(item) => item.id}
@@ -129,6 +168,8 @@ const Search = ({ navigation }) => {
           />
         )}
       />
+
+</View>
 
       {/* <FlatList
   data={users}
@@ -147,6 +188,9 @@ const Search = ({ navigation }) => {
 /> */}
 
       {/* <CardList users={users} navigation={navigation} reloadUsers={getUsers} loading={loadingUsers} /> */}
+
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -160,6 +204,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'flex-end',
     // alignItems: 'flex-end',
   },
+  cardsContainer:{
+  
+    marginBottom: 100,
+  },
   textFriends: {
     fontSize: 20,
     textAlign: 'left',
@@ -169,16 +217,18 @@ const styles = StyleSheet.create({
   },
   search: {
     width: '90%',
-    backgroundColor: 'red',
     border: 'none',
     elevation: 0,
-    backgroundColor: 'white',
-    backgroundColor: '#FBFBFB',
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+    backgroundColor: "white",
+    borderColor: colors.green,
+    borderWidth: 2,
     borderRadius: 20,
-    borderTopWidth: 0, //works
-    borderBottomWidth: 0, //works
+    
+    // borderTopWidth: 0, //works
+    // borderBottomWidth: 0, //works
+  },
+  container: {
+    height: '100%',
   },
   input: {
     fontFamily: Fonts.type.semiBold,

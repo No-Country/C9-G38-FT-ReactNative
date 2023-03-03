@@ -1,17 +1,22 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import CSButton from '../common/ui/Button';
 import Fonts from '../styles/theme/Fonts';
 
 const Onboarding = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>App Info</Text>
+      <Image 
+      style={styles.tinyLogo}
+          source={{
+            uri: 'https://rretta.online/app_logo.png',
+          }}
+      
+      />
+      <Text style={styles.title}>SportsApp</Text>
       <Text style={styles.description}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book
+        AppSports es una aplicación que busca conectar deportistas mediante gustos o deportes en común.
+
       </Text>
       <View style={styles.startButton}>
         <CSButton
@@ -33,6 +38,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 32,
     paddingVertical: 40,
+  },
+  tinyLogo: {
+    width: 180,
+    height: 180,
   },
   title: {
     fontSize: 50,

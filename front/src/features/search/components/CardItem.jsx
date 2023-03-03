@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import Fonts from "../../../styles/theme/Fonts";
+import colors from '../../../constants/colors'
+import Fonts from '../../../styles/theme/Fonts';
 const CardItem = (props) => {
   const { id, navigation, user, buttons, acceptFollow, declineFollow, index } =
     props;
@@ -52,11 +53,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 6,
     marginTop: 12,
+    marginLeft: 12,
+    marginRight: 12,
     alignItems: "center",
     justifyContent: "space-between",
     // borderWidth: 2,
     borderRadius: 18,
     backgroundColor: "white",
+    borderColor: colors.green,
+    borderWidth: 2
     
     // borderColor: '#white',
   },
@@ -92,23 +97,30 @@ const styles = StyleSheet.create({
     height: 52,
     borderRadius: 52 / 2,
     overflow: "hidden",
-    borderWidth: 3,
+    borderWidth: 2,
+    borderColor: colors.green
     // borderColor: "
   },
   user: {
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    marginLeft: 9,
+    fontSize: Fonts.size.small,
+    color: colors.darkBlue
   },
   interestsWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+ 
   },
   interestText: {
-    fontFamily: Fonts.type.medium,
-    fontSize: 12,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    fontSize: Fonts.size.small,
     marginRight: 2,
-    backgroundColor: "gray",
-    color: "white",
+    backgroundColor: colors.white,
+    color: colors.darkBlue,
     paddingHorizontal: 10,
     borderRadius: 10,
     marginBottom: 2,

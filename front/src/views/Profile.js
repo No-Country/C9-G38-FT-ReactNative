@@ -1,5 +1,6 @@
 import React from 'react';
 import Fonts from '../styles/theme/Fonts';
+import colors from '../constants/colors'
 import {
   StyleSheet,
   Text,
@@ -43,6 +44,7 @@ const Profile = ({ navigation, screenName, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+     
       <ScrollView
         style={{ flexGrow: 0 }}
         refreshControl={
@@ -53,7 +55,7 @@ const Profile = ({ navigation, screenName, route }) => {
         }
       >
 
-
+</ScrollView>
 
 
 
@@ -110,7 +112,7 @@ const Profile = ({ navigation, screenName, route }) => {
                   onPress={() => navigation.navigate('UpdateProfile')}
                   style={styles.editButton}
                 >
-                  <FontAwesome name="pencil" size={18} color={'white'} />
+                  <FontAwesome name="pencil" size={18} color={colors.darkBlue} />
                 </Pressable>
               </View>
             </View>
@@ -202,7 +204,7 @@ const Profile = ({ navigation, screenName, route }) => {
         </TouchableOpacity> */}
           </View>
         </View>
-      </ScrollView>
+      
     </SafeAreaView>
   );
 };
@@ -234,10 +236,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   userName: {
-    fontSize: Fonts.size.xxxLarge,
-    fontFamily: Fonts.type.bold,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     letterSpacing: 0.8,
     marginTop: 10,
+    color: colors.darkBlue
   },
   details: {
     marginTop: 10,
@@ -246,15 +250,20 @@ const styles = StyleSheet.create({
   },
   number: {
     textAlign: 'center',
-    fontSize: 24,
-    fontFamily: Fonts.type.bold,
-    marginBottom: -6,
+    color: colors.darkBlue,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
+    marginBottom: 0,
     paddingBottom: 0,
   },
   text: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily: Fonts.type.bold,
+    color: colors.darkBlue,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   buttons: {
     height: '6%',
@@ -270,53 +279,68 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button1: {
-    backgroundColor: '#dedede',
     width: '49%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+    color: colors.white,
+    borderColor: colors.green,
+    borderWidth: 2,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   button2: {
     width: '49%',
-    borderColor: '#ededed',
+    borderColor: colors.green,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+    color: colors.white,
+    borderWidth: 2,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
   },
   editWrapper: {
     position: 'absolute',
     bottom: -20,
   },
   editButton: {
-    backgroundColor: '#637aff',
+    backgroundColor: colors.white,
     borderRadius: 100,
     padding: 8,
     paddingHorizontal: 10,
+    borderColor: colors.green,
+    borderWidth: 2
   },
   categories: {
-    fontFamily: Fonts.type.bold,
-    fontSize: 18,
+    fontFamily: Fonts.type.raleway,
+    fontSize: Fonts.size.normal,
+    fontWeight: 'bold',
     marginRight: 2,
     width: '100%',
     paddingLeft: 24,
-    color: '#354259',
-
+    color: colors.darkBlue,
     marginBottom: 2,
   },
   bio: {
     marginHorizontal: 20,
     marginVertical: 10,
-    fontFamily: Fonts.type.regular,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    color: colors.darkBlue
   },
   sportsContainer: {
     paddingLeft: 16,
     height: 50,
     marginVertical: 6,
+ 
   },
   sport: {
     marginRight: 10,
-    backgroundColor: '#40EE96',
+    backgroundColor: colors.green,
     justifyContent: 'center',
     paddingHorizontal: 22,
     borderRadius: 15,

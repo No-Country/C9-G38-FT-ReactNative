@@ -17,6 +17,8 @@ const fonts = {
   'Poppins-SemiBoldItalic': require('../assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf'),
   'Poppins-Thin': require('../assets/fonts/Poppins/Poppins-Thin.ttf'),
   'Poppins-ThinItalic': require('../assets/fonts/Poppins/Poppins-ThinItalic.ttf'),
+  'SixsCaps-Regular': require('../assets/fonts/SixCaps/SixCaps-Regular.ttf'),
+  'Raleway': require('../assets/fonts/Raleway/Raleway-VariableFont_wght.ttf')
 };
 
 export default fonts;

@@ -1,6 +1,8 @@
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useAuthStore } from '../../../store/authStore';
 import Fonts from '../../../styles/theme/Fonts';
+
+import colors from '../../../constants/colors'
 const HomeHeader = () => {
   const logout = useAuthStore((state) => state.logout);
 
@@ -23,8 +25,10 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   title: {
-    fontFamily: Fonts.type.bold,
-    fontSize: Fonts.size.xxxxxxLarge,
+    fontFamily: Fonts.type.raleway,
+    fontWeight: 'bold',
+    fontSize: Fonts.size.xxLarge,
+    color: colors.green,
   },
   titleUsername: {
     margin: 0,

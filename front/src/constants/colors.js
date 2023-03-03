@@ -5,7 +5,7 @@ export default {
     black: '#000',
     white: 'white',
     accent: '#112233',
-    green: '#60c5a8',
+    lightGreen: '#60c5a8',
     green2: '#039a83',
     light: '#EEEEEE',
     dark: '#333',
@@ -21,6 +21,11 @@ export default {
     line: '#282C35',
     gray: '#CCCCCC',
     darkGray: '#999999',
+    
+    darkBlue: "#0D0648",
+    // darkBlue: "blue",
+    green: "#40EE96",
+    lightBlue: "#3FF9D1",
 
     darkOverlayColor: 'rgba(0, 0, 0, 0.4)',
     darkOverlayColor2: 'rgba(0, 0, 0, 0.8)',

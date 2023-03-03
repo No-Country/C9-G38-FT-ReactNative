@@ -4,6 +4,7 @@ import {
   TextInput,
   StyleSheet,
   Button,
+  Image,
   Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -58,7 +59,13 @@ const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Bienvenido</Text>
-      <Text style={{ fontSize: 30, marginBottom: 66 }}>Logo</Text>
+      <Image 
+      style={styles.tinyLogo}
+          source={{
+            uri: 'https://rretta.online/app_logo.png',
+          }}
+      
+      />
       <Controller
         control={control}
         rules={{ required: true }}
@@ -152,6 +159,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     fontSize: 15,
     fontFamily: Fonts.type.regular,
+  },
+   tinyLogo: {
+    width: 100,
+    height: 100,
+    marginBottom: 30
   },
   errorInput: {
     backgroundColor: '#f2dcdc',

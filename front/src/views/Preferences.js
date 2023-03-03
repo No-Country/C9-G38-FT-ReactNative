@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Button, Pressable } from 'react-native';
 import { useFilterStore } from '../store/filterStore';
 import { styles } from '../styles/register/register.style';
 import Filters from './Filters';
@@ -25,10 +25,7 @@ const Preference = ({ navigation, route }) => {
     <View style={styles.container}>
       <View>
         {/* <Text>{categories}</Text> */}
-        <Text>{gender}</Text>
-        <Text>
-          {agesrange ? ` entre ${agesrange[0]} y ${agesrange[1]}` : null}
-        </Text>
+
       </View>
 
       <Filters
@@ -37,11 +34,46 @@ const Preference = ({ navigation, route }) => {
         setSelectInterest={setSelectInterest}
       />
 
-      <View style={{ marginTop: 20 }}>
-        {fromProfile && <Button onPress={logout()} title="Cerrar sesion" />}
-      </View>
+    
+        {fromProfile && (
+
+          <Pressable style={styles.button} onPress={logout()}>
+            <Text style={styles.text}>Cerrar Sesión</Text>
+          </Pressable>
+        )}
+
+
+
+
     </View>
   );
 };
+
+
+// const styles = StyleSheet.create({
+//   button: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     paddingVertical: 12,
+//     paddingHorizontal: 32,
+//     borderWidth: 2,
+//     borderColor: colors.green,
+//     borderRadius: 4,
+
+//     backgroundColor: colors.white,
+//     borderRadius: 10,
+//     marginTop: 10,
+//   },
+//   text: {
+//     fontSize: 16,
+//     lineHeight: 21,
+//     fontWeight: 'bold',
+//     letterSpacing: 0.25,
+//     color: colors.darkBlue,
+
+//   },
+// });
+
+
 
 export default Preference;
