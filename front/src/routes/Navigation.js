@@ -15,6 +15,7 @@ import Search from '../views/Search';
 import Preferences from '../views/Preferences';
 import UserDetail from '../views/UserDetail';
 import FollowList from '../views/FollowList';
+import RequestFollowers from '../views/RequestFollowers';
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,11 @@ export function Navigation() {
             options={{ title: 'Actualizar perfil' }}
           />
           <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen
+            name="RequestFollowers"
+            options={{ title: 'Request Followers' }}
+            component={RequestFollowers}
+          />
           <Stack.Screen
             name="Preferences"
             options={{ title: 'Preferencias' }}

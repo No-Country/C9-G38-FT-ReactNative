@@ -17,10 +17,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import UpdateProfilePicture from '../features/profile/components/UpdateProfilePicture';
 import useFetch from '../hooks/useFetch';
 import URL from '../constants/endpoints';
+import { useUserStore } from '../store/userStore';
+import {data} from "../constants/data"
 
 const Profile = ({ navigation, screenName, route }) => {
   const [myProfile, setMyProfile] = useState();
   const [refresh, setRefresh] = useState(false);
+  const {followerUsers} = useUserStore((state) => state);
   const connect = useFetch();
   const pullRefresh = () => {
     setRefresh(true);
@@ -49,11 +52,30 @@ const Profile = ({ navigation, screenName, route }) => {
           />
         }
       >
+
+
+
+
+
         <View>
           <View style={styles.headWrapper}>
             <Text style={{ fontFamily: Fonts.type.bold, margin: 8 }}>
               @{myProfile?.username}
             </Text>
+            
+            
+
+            { data.length !== 0 ?
+            // reemplazar data. length por followerUsers.length === 0 ?
+
+            (<TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('RequestFollowers')
+                  }
+                >
+                  <Text style={{color: "white", fontWeight: "bold", backgroundColor: "red", padding: 2, borderRadius: 4}}>{data.length} solicitudes pendientes</Text>
+                </TouchableOpacity>): null}
+            
             <Pressable
               onPress={() =>
                 navigation.navigate('Preferences', {
@@ -66,7 +88,12 @@ const Profile = ({ navigation, screenName, route }) => {
             >
               <FontAwesome name="gear" size={30} color={'black'} />
             </Pressable>
+
+
+
+            
           </View>
+          
           <View
             style={{
               height: '16%',
@@ -75,6 +102,7 @@ const Profile = ({ navigation, screenName, route }) => {
               marginBottom: 50,
             }}
           >
+            
             <View style={styles.profile}>
               {myProfile && <UpdateProfilePicture avatar={myProfile?.avatar} />}
               <View style={styles.editWrapper}>
@@ -112,6 +140,7 @@ const Profile = ({ navigation, screenName, route }) => {
           </View>
           <Text style={styles.bio}>{myProfile?.biography}</Text>
           <Text style={styles.categories}>Seguidores</Text>
+          
 
           <View
             style={{
