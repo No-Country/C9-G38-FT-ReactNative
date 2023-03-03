@@ -7,7 +7,6 @@ import { useAuthStore } from '../store/authStore';
 
 const UserDetail = ({ route }) => {
   const authToken = useAuthStore((state) => state.authToken);
-
   //   const user = route.params.user;
   const [user, setUser] = useState();
   const getUser = async () => {

@@ -7,7 +7,7 @@ const HomeHeader = () => {
   return (
     <View style={styles.wrapper}>
       <View>
-        <Text style={styles.title}>Bienvenido</Text>
+        <Text style={styles.title}>Bienvenido {}</Text>
         {/* <Text style={styles.titleUsername}>Carl</Text> */}
       </View>
       {/* <View>
@@ -20,7 +20,7 @@ const HomeHeader = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 0,
-    marginTop: 60,
+    marginTop: 20,
   },
   title: {
     fontFamily: Fonts.type.bold,

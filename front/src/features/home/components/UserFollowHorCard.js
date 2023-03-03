@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import Fonts from '../../../styles/theme/Fonts';
-const UserFollowCard = ({ item }) => {
+const UserFollowHorCard = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
@@ -20,19 +20,19 @@ const UserFollowCard = ({ item }) => {
 };
 const styles = StyleSheet.create({
   wrapper: {
-    margin: 4,
+    margin: 0,
     padding: 10,
   },
   subtitle: {
     textAlign: 'center',
     fontFamily: Fonts.type.semiBold,
-    fontSize: Fonts.size.normal,
+    fontSize: Fonts.size.small,
     marginTop: 4,
   },
   picture: {
-    width: 130,
-    height: 120,
+    width: 100,
+    height: 90,
     borderRadius: 28,
   },
 });
-export default UserFollowCard;
+export default UserFollowHorCard;
