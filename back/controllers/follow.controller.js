@@ -78,6 +78,7 @@ class FollowController {
         userId: req.userId,
         followId: req.params.id,
       };
+      console.log('!', data);
       await FollowerService.aprove(data);
       res.status(200).json({});
     } catch (error) {

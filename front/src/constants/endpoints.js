@@ -46,6 +46,18 @@ const URL = {
     path: 'sports/match-users',
     method: 'GET',
   },
+  GET_FOLLOWS_REQUEST: {
+    path: 'follows/requests',
+    method: 'GET',
+  },
+  APROVE_FOLLOW: {
+    path: 'follows/aprove/:id',
+    method: 'PUT',
+  },
+  DECLINE_FOLLOW: {
+    path: 'follows/decline/:id',
+    method: 'PUT',
+  },
 };
 
 export default URL;

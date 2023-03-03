@@ -29,7 +29,6 @@ class UserService {
 
   static async getById(payload) {
     const { userId, followId } = payload;
-    console.log('@@');
     const isFollower = await FollowerService.isFollow(payload);
 
     const { followers, countFollowers, countFollowing } =
@@ -62,7 +61,6 @@ class UserService {
       where: { isActive: true },
       include: { model: Sport },
     });
-    console.log(data.length);
     return data;
   }
 

@@ -16,6 +16,7 @@ import Preferences from '../views/Preferences';
 import UserDetail from '../views/UserDetail';
 import FollowList from '../views/FollowList';
 import RequestFollowers from '../views/RequestFollowers';
+import { title } from 'process';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +53,7 @@ export function Navigation() {
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen
             name="RequestFollowers"
-            options={{ title: 'Request Followers' }}
+            options={{ title: 'Solicitudes' }}
             component={RequestFollowers}
           />
           <Stack.Screen
