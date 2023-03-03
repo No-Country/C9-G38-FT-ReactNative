@@ -12,9 +12,8 @@ const ActivitiesList = () => {
 
   const getFollowers = async () => {
     const resp = await connect({
-      url: URL.GET_FIRST_USERS,
+      url: URL.AUTH_ME,
     });
-    console.log('@@@', resp);
     setData(resp);
   };
 
@@ -26,7 +25,7 @@ const ActivitiesList = () => {
       <Text style={styles.subtitle}>Mis seguidores</Text>
       <FlatList
         horizontal={true}
-        data={data}
+        data={data?.followers}
         renderItem={({ item }) => (
           <UserFollowHorCard key={item.id} item={item} />
         )}

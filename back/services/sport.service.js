@@ -19,7 +19,6 @@ class SportService {
 
   static async matchUsers(payload) {
     const { userId } = payload;
-    console.log(payload);
 
     const currentUserData = await User.findOne({
       where: { id: userId },

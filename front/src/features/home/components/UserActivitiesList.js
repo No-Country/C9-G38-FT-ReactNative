@@ -15,7 +15,6 @@ const UserActivitiesList = ({ navigation }) => {
     const resp = await connect({
       url: URL.GET_FIRST_USERS,
     });
-    console.log('@@@', resp);
     setSuggested(resp);
   };
 

@@ -57,14 +57,14 @@ class FollowerService {
     const data = await User.findByPk(userId, {
       include: {
         model: User,
-        as: 'follower',
+        as: 'following',
         attributes: ['id', 'fullname', 'username', 'avatar'],
       },
       attributes: ['id', 'fullname', 'username', 'avatar'],
     });
 
-    const requests = data.follower.filter((item) => {
-      if (item.followers.isActive && item.followers.isComplete) {
+    const requests = data.following.filter((item) => {
+      if (item.followings.isActive && item.followings.isComplete) {
         return item;
       }
     });
@@ -83,15 +83,15 @@ class FollowerService {
     const data = await User.findByPk(userId, {
       include: {
         model: User,
-        as: 'following',
+        as: 'follower',
         attributes: ['id', 'fullname', 'username', 'avatar'],
       },
       attributes: ['id', 'fullname', 'username', 'avatar'],
     });
 
-    const requests = data.following.filter((item) => {
-      const { isActive, isComplete, userId } = item.followings;
-      if (isActive && isComplete && userId === userId) {
+    const requests = data.follower.filter((item) => {
+      const { isActive, isComplete, userId } = item.followers;
+      if (isActive && isComplete) {
         return item;
       }
     });
@@ -103,13 +103,14 @@ class FollowerService {
     const data = await User.findByPk(userId, {
       include: {
         model: User,
-        as: 'follower',
+        as: 'following',
         attributes: ['id', 'fullname', 'username', 'avatar'],
       },
       attributes: ['id', 'fullname', 'username', 'avatar'],
     });
-    const requests = data.follower.filter((item) => {
-      if (!item.followers.isActive && !item.followers.isComplete) {
+
+    const requests = data.following.filter((item) => {
+      if (!item.followings.isActive && !item.followings.isComplete) {
         return item;
       }
     });
@@ -137,6 +138,7 @@ class FollowerService {
 
   static async aprove(payload) {
     const { userId, followId } = payload;
+    console.log(payload);
     const res = await Follower.update(
       {
         isActive: true,
@@ -144,8 +146,8 @@ class FollowerService {
       },
       {
         where: {
-          userId: userId,
-          followerId: followId,
+          userId: followId,
+          followerId: userId,
         },
       }
     );
@@ -156,8 +158,8 @@ class FollowerService {
       },
       {
         where: {
-          userId: followId,
-          followingId: userId,
+          userId: userId,
+          followingId: followId,
         },
       }
     );
@@ -173,8 +175,8 @@ class FollowerService {
       },
       {
         where: {
-          userId: userId,
-          followerId: followId,
+          userId: followId,
+          followerId: userId,
         },
       }
     );
@@ -186,8 +188,8 @@ class FollowerService {
       },
       {
         where: {
-          userId: userId,
-          followingId: followId,
+          userId: followId,
+          followingId: userId,
         },
       }
     );
