@@ -95,7 +95,9 @@ const UserDetail = ({ route }) => {
         </View>
       </View>
       <View style={styles.actionButtons}>
-        {user?.isFollower ? (
+        {!user?.isFollowActive ? (
+          <CSButton label={'Solicitando...'} style={styles.followButton} />
+        ) : user?.isFollower ? (
           <>
             <CSButton
               label={'Dejar de seguir'}

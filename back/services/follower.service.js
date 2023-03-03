@@ -51,6 +51,27 @@ class FollowerService {
     return isFollower.length === 1 && isFollowing.length === 1;
   }
 
+  static async isFollowActive(payload) {
+    const { userId, followId } = payload;
+
+    const data = await User.findByPk(userId, {
+      include: {
+        model: User,
+        as: 'follower',
+        attributes: ['id', 'fullname', 'username', 'avatar'],
+      },
+      attributes: ['id', 'fullname', 'username', 'avatar'],
+    });
+    const isActive = data.follower.filter((item) => {
+      const { isActive, isComplete, userId: id, followerId } = item.followers;
+      if (isComplete && id === userId && followerId === followId) {
+        return item;
+      }
+    });
+    console.log(isActive.length);
+    return isActive.length !== 0;
+  }
+
   static async getById(payload) {
     const { userId } = payload;
 

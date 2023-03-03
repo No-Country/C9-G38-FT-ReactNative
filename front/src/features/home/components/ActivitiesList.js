@@ -23,14 +23,16 @@ const ActivitiesList = () => {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.subtitle}>Mis seguidores</Text>
-      <FlatList
-        horizontal={true}
-        data={data?.followers}
-        renderItem={({ item }) => (
-          <UserFollowHorCard key={item.id} item={item} />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+      {data?.followers && (
+        <FlatList
+          horizontal={true}
+          data={data?.followers}
+          renderItem={({ item }) => (
+            <UserFollowHorCard key={item.id} item={item} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 };

@@ -34,6 +34,8 @@ class UserService {
     const { followers, countFollowers, countFollowing } =
       await FollowerService.getById({ userId: followId });
 
+    const isFollowActive = await FollowerService.isFollowActive(payload);
+
     const data = await User.findOne({
       where: { id: followId },
       include: { model: Sport },
@@ -51,6 +53,7 @@ class UserService {
     return {
       ...data.toJSON(),
       isFollower,
+      isFollowActive,
       countFollowers,
       countFollowing,
     };

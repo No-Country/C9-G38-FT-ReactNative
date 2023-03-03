@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Button,
   Pressable,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
@@ -57,8 +58,13 @@ const Login = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Bienvenido</Text>
-      <Text style={{ fontSize: 30, marginBottom: 66 }}>Logo</Text>
+      <Text style={styles.title}>Bienvenido a SportsApp</Text>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: 'https://rretta.online/app_logo.png',
+        }}
+      />
       <Controller
         control={control}
         rules={{ required: true }}
@@ -171,6 +177,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Fonts.size.xxxxxLarge,
     fontFamily: Fonts.type.bold,
+    textAlign: 'center',
   },
   redirectText: {
     fontSize: Fonts.size.normal,
@@ -207,6 +214,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     textAlign: 'center',
+  },
+  tinyLogo: {
+    width: 100,
+    height: 100,
+    marginBottom: 30,
   },
 });
 export default Login;

@@ -26,6 +26,8 @@ import Fonts from '../styles/theme/Fonts';
 
 const Search = ({ navigation }) => {
   const { users, setUsers } = useUserStore((state) => state);
+  const [refresh, setRefresh] = useState(false);
+  const { getAllUsers } = useUserStore();
   const connect = useFetch();
 
   const [searchText, setSearchText] = useState('');
@@ -37,23 +39,33 @@ const Search = ({ navigation }) => {
 
   const [loadingUsers, setLoadingUsers] = useState(false);
 
+  const pullRefresh = () => {
+    setRefresh(true);
+    setTimeout(() => {
+      setRefresh(false), getUsers();
+    }, 2000);
+  };
+
   const getUsers = async () => {
     setLoadingUsers(true);
-    const data = {
-      minAge: 20,
-      maxAge: 40,
-      ratio: 14,
-      // sports: categories.map((item) => {
-      //   return {
-      //     id: item,
-      //   };
-      // }),
-    };
 
-    const resp = await connect({ url: URL.SEARCH_USERS, data });
-    console.log(resp);
-    setUsers(resp);
-    setLoadingUsers(false);
+    getAllUsers();
+
+    // const data = {
+    //   minAge: 20,
+    //   maxAge: 40,
+    //   ratio: 14,
+    //   // sports: categories.map((item) => {
+    //   //   return {
+    //   //     id: item,
+    //   //   };
+    //   // }),
+    // };
+
+    // const resp = await connect({ url: URL.SEARCH_USERS, data });
+    // console.log({resp});
+    // setUsers(resp);
+    // setLoadingUsers(false);
   };
 
   const filteredUsers = users.filter((user) => {
@@ -69,10 +81,9 @@ const Search = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (users.length === 0) {
-      getUsers();
-    }
-  }, [users]);
+    getAllUsers();
+    getUsers();
+  }, []);
 
   return (
     <SafeAreaView style={{ margin: 10 }}>
