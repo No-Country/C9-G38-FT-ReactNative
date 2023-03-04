@@ -41,7 +41,7 @@ git clone https://github.com/No-Country/C9-G38-FT-ReactNative.git
 
 3. Instala las dependencias:
 
-En el proyecyo y dentro del directorio `/front` escribir:
+En el proyecto y dentro del directorio `/front`:
 
 ```bash
 npm install
@@ -59,8 +59,6 @@ yarn install
 # en consola:
 npm start
 
-# (Optional) Run Prisma Studio to see your DB data:
-npx prisma studio
 ```
 
 😊 Involucrados en el proyecto:
