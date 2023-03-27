@@ -19,7 +19,7 @@ Se utilizó [**React Native**](https://reactnative.dev/) + [**Expo**](https://ex
 DEPENDENCIAS / APPS:   
 
 - ✅ **Gestión de estados**: [*Zustand*](https://github.com/pmndrs/zustand).
-- ✅ **Diseño**: [*Figma*](https://figma.com).
+- ✅ **Diseño**: [*Figma*](https://www.figma.com/file/HR1pTyjfQiFjdvEU3LXQud/Cohete-9?node-id=0-1).
 - ✅ **Organización de proyecto**: [*Github Projects*](https://docs.github.com/en/issues/planning-and-tracking-with-projects/creating-projects/creating-a-project).
 - ✅ **Cloud Backend**: [*Render*](https://render.com/).
 
